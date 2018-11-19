@@ -1,0 +1,49 @@
+<!--
+  Generated template for the ReportEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>reportEdit</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h2>Département, jour, heure</h2>
+  
+  <img src="assets/imgs/logoapiscampus.png">
+
+  <ion-item>
+    <ion-label>Situation de l'essaim</ion-label>
+    <ion-select [(ngModel)]="situation">
+      <ion-option value="situation1">situation1</ion-option>
+      <ion-option value="situation1">situation1</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Hauteur approximative</ion-label>
+    <ion-select [(ngModel)]="height">
+      <ion-option value="-1">Moins d'1m</ion-option>
+      <ion-option value="1-2">Entre 1 et 2m</ion-option>
+      <ion-option value="2-3">Entre 2 et 3m</ion-option>
+      <ion-option value="+3">Plus de 3m</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Commentaire</ion-label>
+    <ion-input placeholder="Récuperer commentaire"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <button ion-button (click)="editChanges()">Connexion</button>
+  </ion-item>
+
+
+
+</ion-content>
