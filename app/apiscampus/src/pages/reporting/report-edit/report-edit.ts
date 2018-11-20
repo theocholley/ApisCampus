@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Server} from "../../../server/server";
 
 /**
  * Generated class for the ReportEditPage page.
@@ -13,9 +14,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-report-edit',
   templateUrl: 'report-edit.html',
 })
+
+
 export class ReportEditPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public server:Server) {
   }
 
   ionViewDidLoad() {

@@ -2,31 +2,47 @@
 
 module.exports = class Swarm {
 
-    constructor(id, group, building, flat,content) {
-        this.id = id;
-        this.group = group;
-        this.building = building;
-        this.flat = flat;
-        this.content = content;
+    constructor(id, longitude, latitude, date, hour, feature, height, description) {
+        this._id = id;
+        this._longitude = longitude;
+        this._latitude = latitude;
+        this._date = date;
+        this._hour = hour;
+        this._feature = feature;
+        this._height = height;
+        this._description = description;
     }
 
-    getGroup(){
-        return this.group;
+
+    getId() {
+        return this._id;
     }
 
-    getBuilding(){
-        return this.building;
+    getLongitude() {
+        return this._longitude;
     }
 
-    getFlat(){
-        return this.flat;
+    getLatitude() {
+        return this._latitude;
     }
 
-    getContent(){
-        return this.content;
+    getDate() {
+        return this._date;
     }
 
-    getId(){
-        return this.id;
+    getHour() {
+        return this._hour;
+    }
+
+    getFeature() {
+        return this._feature;
+    }
+
+    getHeight() {
+        return this._height;
+    }
+
+    getDescription() {
+        return this._description;
     }
 }
