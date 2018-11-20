@@ -20,22 +20,21 @@ app.use(methodOverride());
 app.use(cors());
 app.use(express.static('media'));
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     console.log("Database created!");
     db.close();
 });
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("ApisCampus");
-    dbo.createCollection("swarms", function(err, res) {
+    dbo.createCollection("swarms", function (err, res) {
         if (err) throw err;
         console.log("Collection created!");
         db.close();
     });
 });
-
 
 
 console.log("ApisCampus - Server");
@@ -50,10 +49,9 @@ var swarmList = new SwarmList();
  * Partie API
  */
 
-//(id, longitude, latitude, date, hour, feature, height, description)
+//(id, longitude, latitude, date, hour, feature, height, description, isTreated)
 app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description', function (req, res) {
-    //swarmList.getSize();
-    const id = 10;
+    const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
     const date = req.params.date;
@@ -66,11 +64,21 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
     swarmList.push(swarm);
 
 
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var newSwarm = { id: id, longitude: longitude, latitude: latitude, date: date, hour: hour, feature:feature, height:height, description:description  };
-        dbo.collection("swarms").insertOne(newSwarm, function(err, res) {
+        var newSwarm = {
+            id: id,
+            longitude: longitude,
+            latitude: latitude,
+            date: date,
+            hour: hour,
+            feature: feature,
+            height: height,
+            description: description,
+            isTreated: false
+        };
+        dbo.collection("swarms").insertOne(newSwarm, function (err, res) {
             if (err) throw err;
             console.log("Essaim ajouté");
             db.close();
@@ -84,10 +92,10 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
 
 app.get('/getSwarms', function (req, res) {
 
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        dbo.collection("swarms").find({}).toArray(function(err, result) {
+        dbo.collection("swarms").find({}).toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
             res.send({
@@ -98,5 +106,132 @@ app.get('/getSwarms', function (req, res) {
         });
     });
 
+});
+
+app.get('/updateLongitude/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {longitude: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/updateLatitude/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {latitude: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/updateDate/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {date: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/updateHour/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {hour: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/updateFeature/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {feature: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/updateHeight/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {height: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/updateDescription/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {description: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/treat/:id', function (req, res) {
+    const id = req.params.id;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {isTreated: true}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
 });
 

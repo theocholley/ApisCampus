@@ -4,19 +4,20 @@
 
 export class Server {
 
-  path : string;
-  port: string;
+    path: string;
+    port: string;
 
-  constructor() {
-    this.path ="http://localhost:";
-    this.port = "8080";
-  }
+    constructor() {
+        this.path = "http://localhost:";
+        this.port = "8080";
+    }
 
-  getAllPath(){
-    return this.path.concat(this.port);
-  }
+    getAllPath() {
+        return this.path.concat(this.port);
+    }
+
     ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description
-    addSwarm(longitude,latitude,date,hour,feature,height,description) {
+    addSwarm(longitude, latitude, date, hour, feature, height, description) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description)), false);
         req.send(null);
@@ -30,30 +31,61 @@ export class Server {
         return req;
     }
 
-  /*
-
-  getNbReclam(bat){
-    ///getNbReclam/:bat
-    var req = new XMLHttpRequest();
-    req.open("GET", this.getAllPath().concat("/getNbReclam/".concat(bat)), false);
-    req.send(null);
-    return req;
-  }
-
-  ///createReclam/:group/:building/:flat/:content
-  createReclam(group,building,flat,content) {
-    var req = new XMLHttpRequest();
-    req.open("GET", this.getAllPath().concat("/createReclam/".concat(group).concat("/").concat(building).concat("/").concat(flat).concat("/").concat(content)), false);
-    req.send(null);
-    return req;
-  }
-
-    getList() {
+    //'/updateSwarm/:id/:value'
+    updateLongitude(id, value) {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/getList"), false);
+        req.open("GET", this.getAllPath().concat("/updateLongitude").concat("/").concat(id).concat("/").concat(value), false);
         req.send(null);
         return req;
     }
 
-    */
+    updateLatitude(id, value) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/updateLatitude").concat("/").concat(id).concat("/").concat(value), false);
+        req.send(null);
+        return req;
+    }
+
+    updateDate(id, value) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/updateDate").concat("/").concat(id).concat("/").concat(value), false);
+        req.send(null);
+        return req;
+    }
+
+    updateHour(id, value) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/updateHour").concat("/").concat(id).concat("/").concat(value), false);
+        req.send(null);
+        return req;
+    }
+
+    updateFeature(id, value) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/updateFeature").concat("/").concat(id).concat("/").concat(value), false);
+        req.send(null);
+        return req;
+    }
+
+    updateHeight(id, value) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/updateHeight").concat("/").concat(id).concat("/").concat(value), false);
+        req.send(null);
+        return req;
+    }
+
+    updateDescription(id, value) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/updateDescription").concat("/").concat(id).concat("/").concat(value), false);
+        req.send(null);
+        return req;
+    }
+
+    //treat/:id
+    treat(id) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/treat").concat("/").concat(id), false);
+        req.send(null);
+        return req;
+    }
 }

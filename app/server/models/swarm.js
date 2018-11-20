@@ -11,6 +11,7 @@ module.exports = class Swarm {
         this._feature = feature;
         this._height = height;
         this._description = description;
+        this._isTreated = false;
     }
 
 
@@ -44,5 +45,10 @@ module.exports = class Swarm {
 
     getDescription() {
         return this._description;
+    }
+
+
+    isTreated() {
+        return this._isTreated;
     }
 }
