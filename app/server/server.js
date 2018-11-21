@@ -50,7 +50,7 @@ var swarmList = new SwarmList();
  */
 
 //(id, longitude, latitude, date, hour, feature, height, description, isTreated)
-app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description', function (req, res) {
+app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:departement', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
@@ -59,8 +59,9 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
     const feature = req.params.feature;
     const height = req.params.height;
     const description = req.params.description;
+    const dept = req.params.departement;
 
-    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description);
+    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, dept);
     swarmList.push(swarm);
 
 
@@ -76,6 +77,7 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
             feature: feature,
             height: height,
             description: description,
+            departement: dept,
             isTreated: false
         };
         dbo.collection("swarms").insertOne(newSwarm, function (err, res) {
@@ -235,3 +237,16 @@ app.get('/treat/:id', function (req, res) {
     });
 });
 
+app.get('/deleteSwarm/:id', function (req, res) {
+    const id = req.params.id;
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = { id: +id };
+        dbo.collection("swarms").deleteOne(myquery, function(err, obj) {
+            if (err) throw err;
+            console.log("L'essaim a été supprimé !");
+            db.close();
+        });
+    });
+});

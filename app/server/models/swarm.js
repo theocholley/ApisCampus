@@ -2,7 +2,7 @@
 
 module.exports = class Swarm {
 
-    constructor(id, longitude, latitude, date, hour, feature, height, description) {
+    constructor(id, longitude, latitude, date, hour, feature, height, description, departement) {
         this._id = id;
         this._longitude = longitude;
         this._latitude = latitude;
@@ -12,6 +12,7 @@ module.exports = class Swarm {
         this._height = height;
         this._description = description;
         this._isTreated = false;
+        this._departement = departement;
     }
 
 
@@ -50,5 +51,10 @@ module.exports = class Swarm {
 
     isTreated() {
         return this._isTreated;
+    }
+
+
+    getDepartement() {
+        return this._departement;
     }
 }
