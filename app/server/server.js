@@ -237,3 +237,16 @@ app.get('/treat/:id', function (req, res) {
     });
 });
 
+app.get('/deleteSwarm/:id', function (req, res) {
+    const id = req.params.id;
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = { id: +id };
+        dbo.collection("swarms").deleteOne(myquery, function(err, obj) {
+            if (err) throw err;
+            console.log("L'essaim a été supprimé !");
+            db.close();
+        });
+    });
+});
