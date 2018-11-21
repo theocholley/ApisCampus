@@ -25,4 +25,12 @@ export class ReportEditPage {
     console.log('ionViewDidLoad ReportEditPage');
   }
 
+  editChanges(){
+    var req2 = this.server.updateLatitude(0, "updatedLatitude");
+    var req3= this.server.updateDate(0,"datee");
+    var req4 = this.server.updateHour(0,"h");
+    var req5= this.server.updateFeature(0,"f");
+    var req6 = this.server.updateDescription(0,"d");
+  }
+
 }

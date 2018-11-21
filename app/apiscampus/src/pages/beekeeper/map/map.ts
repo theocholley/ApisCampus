@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import leaflet from 'leaflet';
 import L from "leaflet";
 import {InformationsPage} from "../informations/informations";
+import {Server} from "../../../server/server";
 
 
 /**
@@ -17,9 +18,6 @@ var bee = L.icon({
   iconSize: [40, 40], // size of the icon
 });
 
-var myPos: L.marker[] = [[43.55, 7.05], [43.6, 7.1], [43.8, 7.2]];
-
-
 @IonicPage()
 @Component({
   selector: 'page-map',
@@ -27,14 +25,20 @@ var myPos: L.marker[] = [[43.55, 7.05], [43.6, 7.1], [43.8, 7.2]];
 })
 export class MapPage {
 
+  results;
+
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server) {
+    var req = this.server.getSwarms();
+    this.results = JSON.parse(req.responseText).result;
+    console.log(this.results);
+    console.log(this.results[0].date);
   }
 
   ionViewDidEnter() {
-    if(this.map) {
+    if (this.map) {
       this.map.remove();
     }
     this.loadmap();
@@ -55,10 +59,11 @@ export class MapPage {
     })
 
 
-    for (let i in myPos) {
+    for (let i in this.results) {
+      var tmpPos = [this.results[i].latitude, this.results[i].longitude]
       var tmpNav = this.navCtrl;
-      var marker = L.marker(myPos[i], {icon: bee}).addTo(this.map).bindPopup("<button>button</button>");
-      marker.on('click', function(){
+      var marker = L.marker(tmpPos, {icon: bee}).addTo(this.map).bindPopup("<button>button</button>");
+      marker.on('click', function () {
         tmpNav.push(InformationsPage);
       });
     }

@@ -17,7 +17,13 @@ import {Server} from "../../../server/server";
 })
 export class MyReportsPage {
 
+  results;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server) {
+      var req = this.server.getSwarms();
+      this.results = JSON.parse(req.responseText).result;
+      console.log(this.results);
+      console.log(this.results[0].date);
     }
 
     ionViewDidLoad() {
@@ -30,19 +36,19 @@ export class MyReportsPage {
         });
     }
 
-    addS() {
-        var req = this.server.addSwarm("long","lat","date","h","f","h","d");
-        var req2 = this.server.treat(0);
-       /* var req2 = this.server.updateLatitude(0, "updatedLatitude");
-        var req3= this.server.updateDate(0,"datee");
-        var req4 = this.server.updateHour(0,"h");
-        var req5= this.server.updateFeature(0,"f");
-        var req6 = this.server.updateDescription(0,"d");
-        /*
-              var req = this.server.getSwarms();
-              var resultat = JSON.parse(req.responseText);
-              console.log(resultat.result);
-              */
-            }
+    // addS() {
+    //     var req = this.server.addSwarm("long","lat","date","h","f","h","d");
+    //     var req2 = this.server.treat(0);
+    //    /* var req2 = this.server.updateLatitude(0, "updatedLatitude");
+    //     var req3= this.server.updateDate(0,"datee");
+    //     var req4 = this.server.updateHour(0,"h");
+    //     var req5= this.server.updateFeature(0,"f");
+    //     var req6 = this.server.updateDescription(0,"d");
+    //     /*
+    //           var req = this.server.getSwarms();
+    //           var resultat = JSON.parse(req.responseText);
+    //           console.log(resultat.result);
+    //           */
+    //         }
 
 }
