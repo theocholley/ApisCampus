@@ -16,16 +16,15 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item-sliding #item> <!--*ngFor here-->
+    <ion-item-sliding #item *ngFor="let item of results">
       <ion-item>
         <ion-card>
           <img width="80" height="80" src="assets/imgs/logoapiscampus.png"/>
-          <div class="card-title">Département, jour, heure</div>
+          <div class="card-title">Département, {{item}}, heure</div>
         </ion-card>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button (click)="edit(item)">Modifier</button>
-        <button ion-button (click)="addS()">addSwarm</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
