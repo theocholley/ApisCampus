@@ -7,7 +7,9 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>myReports</ion-title>
+    <ion-buttons>
+      <button ion-button (click)="goToMenu()">Close</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -16,15 +18,16 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item-sliding #item *ngFor="let item of results">
+    <ion-item-sliding #swarm *ngFor="let item of results">
       <ion-item>
         <ion-card>
           <img width="80" height="80" src="assets/imgs/logoapiscampus.png"/>
-          <div class="card-title">Département, {{item}}, heure</div>
+          <div class="card-title">Alpes-Maritimes, {{item.date}}, {{item.hour}}</div>
         </ion-card>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button (click)="edit(item)">Modifier</button>
+        <button ion-button (click)="edit(swarm)">Modifier</button>
+        <button ion-button color="danger" (click)="edit(swarm)">Supprimer</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

@@ -10,6 +10,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {ReportPageModule} from "../pages/reporting/report/report.module";
 import {MyReportsPage} from "../pages/reporting/my-reports/my-reports";
 import {MyReportsPageModule} from "../pages/reporting/my-reports/my-reports.module";
+import {ReportPhotoPageModule} from "../pages/reporting/report-photo/report-photo.module";
+import {ReportPhotoPage} from "../pages/reporting/report-photo/report-photo";
 import {ReportTabsPage} from "../pages/reporting/report-tabs/report-tabs";
 import {ReportEditPage} from "../pages/reporting/report-edit/report-edit";
 import {MapPage} from "../pages/beekeeper/map/map";
@@ -35,6 +37,7 @@ import {Server} from "../server/server"
         BrowserModule,
         IonicModule.forRoot(MyApp),
         ReportPageModule,
+        ReportPhotoPageModule,
         MyReportsPageModule
     ],
     bootstrap: [IonicApp],
@@ -45,6 +48,7 @@ import {Server} from "../server/server"
         MyReportsPage,
         ReportTabsPage,
         ReportEditPage,
+        ReportPhotoPage,
         MapPage,
         LoginPage,
         InformationsPage

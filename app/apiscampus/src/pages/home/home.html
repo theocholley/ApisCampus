@@ -1,15 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Accueil</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Bienvenue sur l'application ApisCampus!</h2>
-  <ion-item>
-    <button ion-button (click)="goToReport()">Signaler</button>
-  </ion-item>
-  <ion-item>
-    <button ion-button (click)="goToConnect()">Me connecter</button>
-  </ion-item>
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <img src="assets/imgs/logoapiscampus.png">
+      <h2>Bienvenue sur l'application ApisCampus!</h2>
+        <button ion-button (click)="goToReport()">Signaler</button>
+      <div></div>
+        <button ion-button (click)="goToConnect()">Me connecter</button>
+    </ion-col>
+  </ion-row>
+
+
+
+
 </ion-content>
