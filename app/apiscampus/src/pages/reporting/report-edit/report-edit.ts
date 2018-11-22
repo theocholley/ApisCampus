@@ -18,7 +18,18 @@ import {Server} from "../../../server/server";
 
 export class ReportEditPage {
 
+  item;
+  county;
+  date;
+  hour;
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public server:Server) {
+    this.item = navParams.get('item');
+    this.county = this.item.county;
+    this.hour = this.item.hour;
+    this.date = this.item.date;
+
   }
 
   ionViewDidLoad() {
@@ -26,11 +37,9 @@ export class ReportEditPage {
   }
 
   editChanges(){
-    var req2 = this.server.updateLatitude(0, "updatedLatitude");
-    var req3= this.server.updateDate(0,"datee");
-    var req4 = this.server.updateHour(0,"h");
-    var req5= this.server.updateFeature(0,"f");
-    var req6 = this.server.updateDescription(0,"d");
+    var req1= this.server.updateFeature(0,"f");
+    var req2= this.server.updateHeight(0,"f");
+    var req3 = this.server.updateDescription(0,"d");
   }
 
 }

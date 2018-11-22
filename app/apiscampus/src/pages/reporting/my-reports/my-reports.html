@@ -22,12 +22,12 @@
       <ion-item>
         <ion-card>
           <img width="80" height="80" src="assets/imgs/logoapiscampus.png"/>
-          <div class="card-title">Alpes-Maritimes, {{item.date}}, {{item.hour}}</div>
+          <div class="card-title">{{item.county}}, {{item.date}}, {{item.hour}}</div>
         </ion-card>
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button (click)="edit(swarm)">Modifier</button>
-        <button ion-button color="danger" (click)="edit(swarm)">Supprimer</button>
+        <button ion-button (click)="edit(item)">Modifier</button>
+        <button ion-button color="danger" (click)="delete(item)">Supprimer</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

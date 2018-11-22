@@ -7,44 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>informations</ion-title>
+    <ion-title>Informations</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
-  <h2>Département, jour, heure</h2>
-
-  <img src="assets/imgs/logoapiscampus.png">
-
-  <ion-item>
-    <ion-label>Situation de l'essaim</ion-label>
-
-  </ion-item>
-  <p>
-    Situation de l'essaim
-  </p>
-
-  <ion-item>
-    <ion-label>Hauteur approximative</ion-label>
-
-  </ion-item>
-  <p>
-    Entre 1 et 2m
-  </p>
-
-  <ion-item>
-    <ion-label>Commentaires</ion-label>
-
-  </ion-item>
-  <p>
-    I saw a werewolf with a Chinese menu in his hand.
-    Walking through the <sub ion-text color="danger">streets</sub> of Soho in the rain.
-    He <i ion-text color="primary">was</i> looking for a place called Lee Ho Fook's.
-    Gonna get a <a ion-text color="secondary">big dish of beef chow mein.</a>
-  </p>
-
-
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <h3>Le {{date}} à {{hour}}</h3>
+      <p>{{county}}</p>
+      <img src="assets/imgs/logoapiscampus.png">
+      <ion-item>
+        <ion-label>Situation de l'essaim</ion-label>
+      </ion-item>
+      <p>{{feature}}</p>
+      <ion-item>
+        <ion-label>Hauteur approximative</ion-label>
+      </ion-item>
+      <p>{{height}}</p>
+      <ion-item>
+        <ion-label>Commentaires</ion-label>
+      </ion-item>
+      <p>{{description}}</p>
+    </ion-col>
+  </ion-row>
 </ion-content>

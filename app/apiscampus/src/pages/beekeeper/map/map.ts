@@ -33,8 +33,6 @@ export class MapPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server) {
     var req = this.server.getSwarms();
     this.results = JSON.parse(req.responseText).result;
-    console.log(this.results);
-    console.log(this.results[0].date);
   }
 
   ionViewDidEnter() {
@@ -60,17 +58,16 @@ export class MapPage {
 
 
     for (let i in this.results) {
+      var tmpResults = this.results
       var tmpPos = [this.results[i].latitude, this.results[i].longitude]
       var tmpNav = this.navCtrl;
-      var marker = L.marker(tmpPos, {icon: bee}).addTo(this.map).bindPopup("<button>button</button>");
+      var marker = L.marker(tmpPos, {icon: bee}).addTo(this.map)//.bindPopup("<button>button</button>");
       marker.on('click', function () {
-        tmpNav.push(InformationsPage);
+        tmpNav.push(InformationsPage, {
+          item: tmpResults[i]
+        });
       });
     }
-  }
-
-  goToInfos() {
-
   }
 
 }

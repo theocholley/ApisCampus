@@ -49,12 +49,13 @@ export class ReportPhotoPage {
     var county = "undefined";
     var req = new XMLHttpRequest();
     req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat="+lat+"&lon="+long+"&zoom=18&addressdetails=1", false);
-    req.send(null);
-    let parseString = require('xml2js').parseString;
+    req.send(null);let parseString = require('xml2js').parseString;
     let xml = req.responseText
     parseString(xml, function (err, result) {
       var jsonResult = JSON.parse(JSON.stringify(result));
-      county = jsonResult.reversegeocode.addressparts[0].county;
+      county = jsonResult.reversegeocode.addressparts[0].town;
+      county += ", " + jsonResult.reversegeocode.addressparts[0].postcode;
+      county += ", " + jsonResult.reversegeocode.addressparts[0].county;
     });
     var data = {date : this.date, hour : this.hour, county : county.toString()};
     var modalPage = this.modalCtrl.create('ReportPage', data);
