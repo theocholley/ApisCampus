@@ -16,11 +16,11 @@ export class Server {
         return this.path.concat(this.port);
     }
 
-    ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description
+    ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs
 
-    addSwarm(longitude, latitude, date, hour, feature, height, description, county) {
+    addSwarm(longitude, latitude, date, hour, feature, height, description, county, numberObs) {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county)), false);
+        req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs)), false);
         req.send(null);
         return req;
     }
@@ -114,4 +114,23 @@ export class Server {
         req.send(null);
         return req;
     }
+
+    ///login/:name/:passcode
+    login(name, passcode){
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/login/".concat(name).concat("/").concat(passcode)), false);
+        req.send(null);
+        return req;
+    }
+
+    ///getMySwarms/:numberObs
+    //Numberobs est le numéro de tel de l'observateur
+    getMySwarms(numberObs){
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/getMySwarms/".concat(numberObs)), false);
+        req.send(null);
+        return req;
+    }
+
+
 }

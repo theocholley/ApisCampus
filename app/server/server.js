@@ -64,7 +64,7 @@ var beekeeperList = new BeekeeperList();
  */
 
 //(id, longitude, latitude, date, hour, feature, height, description, isTreated)
-app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county', function (req, res) {
+app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
@@ -74,8 +74,9 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
     const height = req.params.height;
     const description = req.params.description;
     const county = req.params.county;
+    const numberObs = req.params.numberObs;
 
-    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county);
+    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county, numberObs);
     swarmList.push(swarm);
 
 
@@ -92,6 +93,7 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
             height: height,
             description: description,
             county: county,
+            numberObs: numberObs,
             isTreated: false
         };
         dbo.collection("swarms").insertOne(newSwarm, function (err, res) {
@@ -119,6 +121,26 @@ app.get('/getSwarms', function (req, res) {
                 result: result
             });
             db.close();
+        });
+    });
+
+});
+
+app.get('/getMySwarms/:numberObs', function (req, res) {
+    const numberObs = req.params.numberObs;
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var query = { numberObs: numberObs };
+        dbo.collection("swarms").find(query).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+            res.send({
+                passed: true,
+                result: result
+            });
         });
     });
 
@@ -291,31 +313,62 @@ app.get('/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone', function 
     const ray = req.params.ray;
     const passcode = req.params.passcode;
     const phone = req.params.phone;
-
+    var alreadyExists = false;
     var beekeeper = new Beekeeper(id, name, surname, city, ray, passcode, phone);
-    beekeeperList.push(beekeeper);
+    for (var i = 0; i<beekeeperList.getSize(); i++){
+        if(beekeeperList.getList()[i].getName()===beekeeper.getName() && beekeeperList.getList()[i].getPasscode() === beekeeper.getPasscode()){
+            alreadyExists = true;
+        }
+    }
 
+    if (alreadyExists){
+        res.send({
+            passed: false
+        });
+    }else{
+        beekeeperList.push(beekeeper);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("ApisCampus");
+            var newBeekeeper = {
+                id: id,
+                name: name,
+                surname: surname,
+                city: city,
+                ray: ray,
+                passcode: passcode,
+                phone: phone
+            };
+            dbo.collection("beekeepers").insertOne(newBeekeeper, function (err, res) {
+                if (err) throw err;
+                console.log("Apiculteur ajouté");
+                db.close();
+            });
+        });
+        res.send({
+            passed: true,
+            idBeekeeper: id
+        });
+    }
+});
 
-    MongoClient.connect(url, function (err, db) {
+app.get('/login/:name/:passcode', function (req, res) {
+    const name = req.params.name;
+    const passcode = req.params.passcode;
+
+    MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var newBeekeeper = {
-            id: id,
-            name: name,
-            surname: surname,
-            city: city,
-            ray: ray,
-            passcode: passcode,
-            phone: phone
-        };
-        dbo.collection("beekeepers").insertOne(newBeekeeper, function (err, res) {
+        var query = { name: name , passcode: passcode };
+        dbo.collection("beekeepers").find(query).toArray(function(err, result) {
             if (err) throw err;
-            console.log("Apiculteur ajouté");
+            console.log(result);
             db.close();
+            res.send({
+                passed: true,
+                result: result
+            });
         });
     });
-    res.send({
-        passed: true,
-        swarm: swarm
-    });
+
 });
