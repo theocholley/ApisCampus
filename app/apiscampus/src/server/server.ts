@@ -17,9 +17,9 @@ export class Server {
     }
 
     ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description
-    addSwarm(longitude, latitude, date, hour, feature, height, description) {
+    addSwarm(longitude, latitude, date, hour, feature, height, description, departement) {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description)), false);
+        req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(departement)), false);
         req.send(null);
         return req;
     }
@@ -85,6 +85,24 @@ export class Server {
     treat(id) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/treat").concat("/").concat(id), false);
+        req.send(null);
+        return req;
+    }
+
+    //'/deleteSwarm/:id'
+    deleteSwarm(id){
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/deleteSwarm").concat("/").concat(id), false);
+        req.send(null);
+        return req;
+    }
+
+    //Partie Apiculteur :
+
+    //'/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone'
+    addBeekeeper(id, name, surname, city, ray, passcode, phone){
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/createBeekeeper/".concat(name).concat("/").concat(surname).concat("/").concat(city).concat("/").concat(ray).concat("/").concat(passcode).concat("/").concat(phone)), false);
         req.send(null);
         return req;
     }

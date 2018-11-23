@@ -3,6 +3,9 @@
 let Swarm = require("./models/swarm");
 let SwarmList = require("./models/swarmList");
 
+let Beekeeper = require("./models/beekeeper");
+let BeekeeperList = require("./models/beekeeperList");
+
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
@@ -36,6 +39,16 @@ MongoClient.connect(url, function (err, db) {
     });
 });
 
+MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("ApisCampus");
+    dbo.createCollection("beekeepers", function (err, res) {
+        if (err) throw err;
+        console.log("Collection created!");
+        db.close();
+    });
+});
+
 
 console.log("ApisCampus - Server");
 console.log("Connecting ...")
@@ -43,6 +56,7 @@ console.log("Connecting ...")
 const http = require('http').Server(app);
 const server = app.listen(process.env.PORT || 8080);
 var swarmList = new SwarmList();
+var beekeeperList = new BeekeeperList();
 
 
 /**
@@ -248,5 +262,44 @@ app.get('/deleteSwarm/:id', function (req, res) {
             console.log("L'essaim a été supprimé !");
             db.close();
         });
+    });
+});
+
+//Partie Beekeeper
+//Nom, Prénom, Ville, Rayon, mdp, no telephone.
+app.get('/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone', function (req, res) {
+    const id = beekeeperList.getSize();
+    const name = req.params.name;
+    const surname = req.params.surname;
+    const city = req.params.city;
+    const ray = req.params.ray;
+    const passcode = req.params.passcode;
+    const phone = req.params.phone;
+
+    var beekeeper = new Beekeeper(id, name, surname, city, ray, passcode, phone);
+    beekeeperList.push(beekeeper);
+
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var newBeekeeper = {
+            id: id,
+            name: name,
+            surname: surname,
+            city: city,
+            ray: ray,
+            passcode: passcode,
+            phone: phone
+        };
+        dbo.collection("beekeepers").insertOne(newBeekeeper, function (err, res) {
+            if (err) throw err;
+            console.log("Apiculteur ajouté");
+            db.close();
+        });
+    });
+    res.send({
+        passed: true,
+        swarm: swarm
     });
 });

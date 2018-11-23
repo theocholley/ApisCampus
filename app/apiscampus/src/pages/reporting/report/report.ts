@@ -48,7 +48,7 @@ export class ReportPage {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
       this.county = this.getCounty(this.lat, this.long);
-      var req = this.server.addSwarm(this.long,this.lat,this.date,this.hour,this.feature,this.height,this.description);
+      var req = this.server.addSwarm(this.long,this.lat,this.date,this.hour,this.feature,this.height,this.description, this.county);//departement = country en attendant
     }).catch((error) => {
       console.log('Error getting location', error);
     });

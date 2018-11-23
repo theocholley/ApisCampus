@@ -2,6 +2,7 @@
 
 module.exports = class Swarm {
 
+    //Ajouter idBeekeeper dans constructeur et bd
     constructor(id, longitude, latitude, date, hour, feature, height, description, departement) {
         this._id = id;
         this._longitude = longitude;
