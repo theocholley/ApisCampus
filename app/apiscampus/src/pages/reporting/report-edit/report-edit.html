@@ -15,35 +15,35 @@
 
 <ion-content padding>
 
-  <h2>Département, jour, heure</h2>
-  
-  <img src="assets/imgs/logoapiscampus.png">
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <h3>Le {{date}} à {{hour}}</h3>
+      <p>{{county}}</p>
 
-  <ion-item>
-    <ion-label>Situation de l'essaim</ion-label>
-    <ion-select [(ngModel)]="situation">
-      <ion-option value="situation1">situation1</ion-option>
-      <ion-option value="situation1">situation1</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label>Hauteur approximative</ion-label>
-    <ion-select [(ngModel)]="height">
-      <ion-option value="-1">Moins d'1m</ion-option>
-      <ion-option value="1-2">Entre 1 et 2m</ion-option>
-      <ion-option value="2-3">Entre 2 et 3m</ion-option>
-      <ion-option value="+3">Plus de 3m</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary">Commentaire</ion-label>
-    <ion-input placeholder="Récuperer commentaire"></ion-input>
-  </ion-item>
+      <img src="assets/imgs/logoapiscampus.png">
 
-  <ion-item>
-    <button ion-button (click)="editChanges()">Confirmer</button>
-  </ion-item>
-
-
-
+      <ion-item>
+        <ion-label>Situation de l'essaim</ion-label>
+        <ion-select [(ngModel)]="featureForm">
+          <ion-option value="situation1">situation1</ion-option>
+          <ion-option value="situation2">situation2</ion-option>
+          <ion-option value="situation3">situation3</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Hauteur approximative</ion-label>
+        <ion-select [(ngModel)]="heightForm">
+          <ion-option value="-1">Moins d'1m</ion-option>
+          <ion-option value="1-2">Entre 1 et 2m</ion-option>
+          <ion-option value="2-3">Entre 2 et 3m</ion-option>
+          <ion-option value="+3">Plus de 3m</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Commentaire</ion-label>
+        <ion-input [(ngModel)]="descriptionForm"></ion-input>
+      </ion-item>
+      <button ion-button (click)="editChanges()">Signaler</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

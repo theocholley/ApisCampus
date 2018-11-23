@@ -15,7 +15,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class ReportTabsPage {
 
-  reportRoot = 'ReportPage'
+  reportPhotoRoot = 'ReportPhotoPage'
   myReportsRoot = 'MyReportsPage'
 
 

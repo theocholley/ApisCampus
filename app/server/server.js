@@ -64,7 +64,7 @@ var beekeeperList = new BeekeeperList();
  */
 
 //(id, longitude, latitude, date, hour, feature, height, description, isTreated)
-app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:departement', function (req, res) {
+app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
@@ -73,9 +73,9 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
     const feature = req.params.feature;
     const height = req.params.height;
     const description = req.params.description;
-    const dept = req.params.departement;
+    const county = req.params.county;
 
-    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, dept);
+    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county);
     swarmList.push(swarm);
 
 
@@ -91,7 +91,7 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
             feature: feature,
             height: height,
             description: description,
-            departement: dept,
+            county: county,
             isTreated: false
         };
         dbo.collection("swarms").insertOne(newSwarm, function (err, res) {
@@ -221,6 +221,22 @@ app.get('/updateHeight/:id/:val', function (req, res) {
 });
 
 app.get('/updateDescription/:id/:val', function (req, res) {
+    const id = req.params.id;
+    const value = req.params.val;
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {id: +id};
+        var newvalues = {$set: {description: value}};
+        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("L'essaim a été mis à jour");
+            db.close();
+        });
+    });
+});
+
+app.get('/updateCounty/:id/:val', function (req, res) {
     const id = req.params.id;
     const value = req.params.val;
     MongoClient.connect(url, function (err, db) {

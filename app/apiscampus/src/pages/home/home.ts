@@ -9,6 +9,8 @@ import {LoginPage} from "../beekeeper/login/login";
 })
 export class HomePage {
 
+  tabBarElement;
+
   constructor(public navCtrl: NavController) {
 
   }
@@ -19,6 +21,8 @@ export class HomePage {
 
   goToConnect() {
     this.navCtrl.push(LoginPage);
+    this.tabBarElement = document.getElementsByClassName('show-tabbar').item(0);
+    this.tabBarElement.style.display = 'none';
   }
 
 }

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {ReportEditPage} from "../report-edit/report-edit";
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {Server} from "../../../server/server";
+import {HomePage} from "../../home/home";
 
 /**
  * Generated class for the MyReportsPage page.
@@ -17,13 +17,13 @@ import {Server} from "../../../server/server";
 })
 export class MyReportsPage {
 
+  tabBarElement
+
   results;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public server: Server) {
       var req = this.server.getSwarms();
       this.results = JSON.parse(req.responseText).result;
-      console.log(this.results);
-      console.log(this.results[0].date);
     }
 
     ionViewDidLoad() {
@@ -31,10 +31,19 @@ export class MyReportsPage {
     }
 
     edit(item) {
-        this.navCtrl.push(ReportEditPage, {
-            item: item
-        });
+      var modalPage = this.modalCtrl.create('ReportPage', item);
+      modalPage.present();
     }
+
+    delete(item){
+
+    }
+
+  goToMenu(){
+    this.navCtrl.setRoot(HomePage)
+    this.tabBarElement = document.getElementsByClassName('show-tabbar').item(0);
+    this.tabBarElement.style.display = 'none';
+  }
 
     // addS() {
     //     var req = this.server.addSwarm("long","lat","date","h","f","h","d");

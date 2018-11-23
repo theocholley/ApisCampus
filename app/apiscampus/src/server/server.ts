@@ -17,9 +17,10 @@ export class Server {
     }
 
     ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description
-    addSwarm(longitude, latitude, date, hour, feature, height, description, departement) {
+
+    addSwarm(longitude, latitude, date, hour, feature, height, description, county) {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(departement)), false);
+        req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county)), false);
         req.send(null);
         return req;
     }
@@ -77,6 +78,13 @@ export class Server {
     updateDescription(id, value) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/updateDescription").concat("/").concat(id).concat("/").concat(value), false);
+        req.send(null);
+        return req;
+    }
+
+    updateCounty(id, value) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/updateCounty").concat("/").concat(id).concat("/").concat(value), false);
         req.send(null);
         return req;
     }
