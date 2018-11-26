@@ -2,8 +2,7 @@
 
 module.exports = class Swarm {
 
-    //Ajouter idBeekeeper dans constructeur et bd
-    constructor(id, longitude, latitude, date, hour, feature, height, description, county, numberObs) {
+    constructor(id, longitude, latitude, date, hour, feature, height, description, county, numberObs, size, insectType) {
         this._id = id;
         this._longitude = longitude;
         this._latitude = latitude;
@@ -15,6 +14,8 @@ module.exports = class Swarm {
         this._isTreated = false;
         this._county = county;
         this._numberObs = numberObs;
+        this._size = size;
+        this._insectType = insectType;
     }
 
 
@@ -56,12 +57,19 @@ module.exports = class Swarm {
     }
 
 
-    getDepartement() {
+    getCounty() {
         return this._county;
     }
 
 
     getNumberObs() {
         return this._numberObs;
+    }
+
+    getInsectType() {
+        return this._insectType;
+    }
+    getSize() {
+        return this._size;
     }
 }

@@ -3,6 +3,8 @@
 let Swarm = require("./models/swarm");
 let SwarmList = require("./models/swarmList");
 
+var fs = require('fs');
+
 let Beekeeper = require("./models/beekeeper");
 let BeekeeperList = require("./models/beekeeperList");
 
@@ -64,7 +66,7 @@ var beekeeperList = new BeekeeperList();
  */
 
 //(id, longitude, latitude, date, hour, feature, height, description, isTreated)
-app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs', function (req, res) {
+app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
@@ -75,8 +77,10 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
     const description = req.params.description;
     const county = req.params.county;
     const numberObs = req.params.numberObs;
+    const size = req.params.size;
+    const insectType = req.params.insectType;
 
-    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county, numberObs);
+    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county, numberObs, size, insectType);
     swarmList.push(swarm);
 
 
@@ -94,7 +98,9 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
             description: description,
             county: county,
             numberObs: numberObs,
-            isTreated: false
+            isTreated: false,
+            size: size,
+            insectType: insectType
         };
         dbo.collection("swarms").insertOne(newSwarm, function (err, res) {
             if (err) throw err;
@@ -106,6 +112,7 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
         passed: true,
         swarm: swarm
     });
+    generateCsv();
 });
 
 app.get('/getSwarms', function (req, res) {
@@ -123,7 +130,7 @@ app.get('/getSwarms', function (req, res) {
             db.close();
         });
     });
-
+    generateCsv();
 });
 
 app.get('/getMySwarms/:numberObs', function (req, res) {
@@ -372,3 +379,19 @@ app.get('/login/:name/:passcode', function (req, res) {
     });
 
 });
+
+function generateCsv(){
+    var content="ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE\n";
+    console.log("size : "+swarmList.getSize());
+    for (var i = 0; i < swarmList.getSize(); i++) {
+        console.log(swarmList.getList());
+        var currentSwarm = swarmList.getList()[i];
+        content+=currentSwarm.getId()+";"+currentSwarm.getLongitude()+";"+currentSwarm.getLatitude()+";"+currentSwarm.getDate()+";"+currentSwarm.getHour()+";"+currentSwarm.getFeature()+";"+currentSwarm.getHeight()+";"+currentSwarm.getDescription()+";"+currentSwarm.getCounty()+";"+currentSwarm.getNumberObs()+";"+currentSwarm.isTreated()+";"+currentSwarm.getSize()+";"+currentSwarm.getInsectType()+"\n";
+    }
+    fs.writeFile("file/swarms.csv", content, function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    });
+}
