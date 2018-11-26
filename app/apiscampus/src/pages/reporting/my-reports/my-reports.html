@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-buttons>
-      <button ion-button (click)="goToMenu()">Close</button>
+      <button ion-button (click)="goToMenu()">Retour au menu</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -33,5 +33,17 @@
   </ion-list>
 
 
-
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-segment [(ngModel)]="choice">
+      <ion-segment-button value="photo" (click)="goToPhoto()">
+        Signaler
+      </ion-segment-button>
+      <ion-segment-button value="list">
+        Mes signalements
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

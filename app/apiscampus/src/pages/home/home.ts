@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {ReportTabsPage} from "../reporting/report-tabs/report-tabs";
 import {LoginPage} from "../beekeeper/login/login";
+import {ReportPhotoPage} from "../reporting/report-photo/report-photo";
 
 @Component({
   selector: 'page-home',
@@ -9,20 +9,16 @@ import {LoginPage} from "../beekeeper/login/login";
 })
 export class HomePage {
 
-  tabBarElement;
-
   constructor(public navCtrl: NavController) {
 
   }
 
   goToReport() {
-    this.navCtrl.push(ReportTabsPage);
+    this.navCtrl.setRoot(ReportPhotoPage);
   }
 
   goToConnect() {
     this.navCtrl.push(LoginPage);
-    this.tabBarElement = document.getElementsByClassName('show-tabbar').item(0);
-    this.tabBarElement.style.display = 'none';
   }
 
 }

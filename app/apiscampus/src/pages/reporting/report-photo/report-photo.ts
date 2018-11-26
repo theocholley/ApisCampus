@@ -1,11 +1,12 @@
 import {HomePage} from "../../home/home";
 
 declare var require: any;
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {ReportPage} from "../report/report";
 import {Server} from "../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
+import {MyReportsPage} from "../my-reports/my-reports";
 
 /**
  * Generated class for the ReportPhotoPage page.
@@ -21,7 +22,8 @@ import {Geolocation} from '@ionic-native/geolocation';
 })
 export class ReportPhotoPage {
 
-  tabBarElement
+  choice = 'photo';
+
   date;
   hour;
   county;
@@ -36,8 +38,8 @@ export class ReportPhotoPage {
   }
 
   openModalReport() {
-    this.date=this.now.getDate()+"-"+this.now.getMonth()+"-"+this.now.getFullYear();
-    this.hour=this.now.getHours()+"h"+(this.now.getMinutes()>10?this.now.getMinutes():"0"+this.now.getMinutes());
+    this.date = this.now.getDate() + "-" + this.now.getMonth() + "-" + this.now.getFullYear();
+    this.hour = this.now.getHours() + "h" + (this.now.getMinutes() > 10 ? this.now.getMinutes() : "0" + this.now.getMinutes());
     this.geolocation.getCurrentPosition().then((resp) => {
       this.county = this.getCounty(resp.coords.latitude, resp.coords.longitude);
     }).catch((error) => {
@@ -48,8 +50,9 @@ export class ReportPhotoPage {
   getCounty(lat, long) {
     var county = "undefined";
     var req = new XMLHttpRequest();
-    req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat="+lat+"&lon="+long+"&zoom=18&addressdetails=1", false);
-    req.send(null);let parseString = require('xml2js').parseString;
+    req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat=" + lat + "&lon=" + long + "&zoom=18&addressdetails=1", false);
+    req.send(null);
+    let parseString = require('xml2js').parseString;
     let xml = req.responseText
     parseString(xml, function (err, result) {
       var jsonResult = JSON.parse(JSON.stringify(result));
@@ -57,14 +60,16 @@ export class ReportPhotoPage {
       county += ", " + jsonResult.reversegeocode.addressparts[0].postcode;
       county += ", " + jsonResult.reversegeocode.addressparts[0].county;
     });
-    var data = {date : this.date, hour : this.hour, county : county.toString()};
+    var data = {date: this.date, hour: this.hour, county: county.toString()};
     var modalPage = this.modalCtrl.create('ReportPage', data);
     modalPage.present();
   }
 
-  goToMenu(){
+  goToMenu() {
     this.navCtrl.setRoot(HomePage)
-    this.tabBarElement = document.getElementsByClassName('show-tabbar').item(0);
-    this.tabBarElement.style.display = 'none';
+  }
+
+  goToReportList() {
+    this.navCtrl.setRoot(MyReportsPage);
   }
 }

@@ -27,7 +27,6 @@ import {Server} from "../server/server"
     declarations: [
         MyApp,
         HomePage,
-        ReportTabsPage,
         ReportEditPage,
         MapPage,
         LoginPage,
@@ -46,7 +45,6 @@ import {Server} from "../server/server"
         HomePage,
         ReportPage,
         MyReportsPage,
-        ReportTabsPage,
         ReportEditPage,
         ReportPhotoPage,
         MapPage,
