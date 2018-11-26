@@ -24,8 +24,10 @@ export class ReportPage {
   feature;
   description;
   height;
+  size;
   featureForm;
   heightForm;
+  sizeForm;
   descriptionForm;
   county;
 
@@ -47,6 +49,7 @@ export class ReportPage {
     this.feature=this.featureForm;
     this.height=this.heightForm;
     this.description=this.descriptionForm;
+    this.size=this.sizeForm;
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();

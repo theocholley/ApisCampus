@@ -12,7 +12,6 @@ import {MyReportsPage} from "../pages/reporting/my-reports/my-reports";
 import {MyReportsPageModule} from "../pages/reporting/my-reports/my-reports.module";
 import {ReportPhotoPageModule} from "../pages/reporting/report-photo/report-photo.module";
 import {ReportPhotoPage} from "../pages/reporting/report-photo/report-photo";
-import {ReportTabsPage} from "../pages/reporting/report-tabs/report-tabs";
 import {ReportEditPage} from "../pages/reporting/report-edit/report-edit";
 import {MapPage} from "../pages/beekeeper/map/map";
 import {InformationsPage} from "../pages/beekeeper/informations/informations";
@@ -21,43 +20,46 @@ import {ReportPage} from "../pages/reporting/report/report";
 
 import {Geolocation} from '@ionic-native/geolocation';
 import {Server} from "../server/server"
+import {InsectPickerPage} from "../pages/reporting/insect-picker/insect-picker";
 
 
 @NgModule({
-    declarations: [
-        MyApp,
-        HomePage,
-        ReportEditPage,
-        MapPage,
-        LoginPage,
-        InformationsPage
-    ],
-    imports: [
-        BrowserModule,
-        IonicModule.forRoot(MyApp),
-        ReportPageModule,
-        ReportPhotoPageModule,
-        MyReportsPageModule
-    ],
-    bootstrap: [IonicApp],
-    entryComponents: [
-        MyApp,
-        HomePage,
-        ReportPage,
-        MyReportsPage,
-        ReportEditPage,
-        ReportPhotoPage,
-        MapPage,
-        LoginPage,
-        InformationsPage
-    ],
-    providers: [
-        StatusBar,
-        SplashScreen,
-        Server,
-        Geolocation,
-        {provide: ErrorHandler, useClass: IonicErrorHandler}
-    ]
+  declarations: [
+    MyApp,
+    HomePage,
+    ReportEditPage,
+    MapPage,
+    LoginPage,
+    InformationsPage,
+    InsectPickerPage
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    ReportPageModule,
+    ReportPhotoPageModule,
+    MyReportsPageModule
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    HomePage,
+    ReportPage,
+    MyReportsPage,
+    ReportEditPage,
+    ReportPhotoPage,
+    MapPage,
+    LoginPage,
+    InformationsPage,
+    InsectPickerPage
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    Server,
+    Geolocation,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ]
 })
 export class AppModule {
 }

@@ -1,7 +1,3 @@
-/**
- * Created by thiba on 29/05/2018.
- */
-
 export class Server {
 
     path: string;

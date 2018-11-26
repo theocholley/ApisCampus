@@ -14,7 +14,7 @@ export class HomePage {
   }
 
   goToReport() {
-    this.navCtrl.setRoot(ReportPhotoPage);
+    this.navCtrl.push(ReportPhotoPage);
   }
 
   goToConnect() {
