@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
 import {LoginPage} from "../beekeeper/login/login";
-import {ReportPhotoPage} from "../reporting/report-photo/report-photo";
+import {CameraOrNotPage} from "../reporting/reportSwarm/camera-or-not/camera-or-not";
+
 
 @Component({
   selector: 'page-home',
@@ -14,7 +15,7 @@ export class HomePage {
   }
 
   goToReport() {
-    this.navCtrl.push(ReportPhotoPage);
+    this.navCtrl.push(CameraOrNotPage);
   }
 
   goToConnect() {

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { MapPage } from './map';
+import {NgModule} from '@angular/core';
+import {IonicPageModule} from 'ionic-angular';
+import {MapPage} from './map';
 
 @NgModule({
   declarations: [
@@ -10,4 +10,5 @@ import { MapPage } from './map';
     IonicPageModule.forChild(MapPage),
   ],
 })
-export class MapPageModule {}
+export class MapPageModule {
+}

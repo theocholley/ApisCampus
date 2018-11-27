@@ -1,32 +1,25 @@
-import {HomePage} from "../../home/home";
-
 declare var require: any;
+import {HomePage} from "../../../home/home";
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {InsectPickerPage} from "../insect-picker/insect-picker";
-import {Server} from "../../../server/server";
+import {Server} from "../../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
-import {MyReportsPage} from "../my-reports/my-reports";
+import {MyReportsPage} from "../../reportList/my-reports/my-reports";
 
-/**
- * Generated class for the ReportPhotoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
-  selector: 'page-report-photo',
-  templateUrl: 'report-photo.html',
+  selector: 'camera-or-not',
+  templateUrl: 'camera-or-not.html',
 })
-export class ReportPhotoPage {
+export class CameraOrNotPage {
 
   choice = 'photo';
 
-  date;
-  hour;
-  county;
+  private date;
+  private hour;
+  private county;
   public now: Date = new Date();
 
 

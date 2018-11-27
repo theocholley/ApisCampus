@@ -1,15 +1,9 @@
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
-import {Server} from "../../../server/server";
-import {HomePage} from "../../home/home";
-import {ReportPhotoPage} from "../report-photo/report-photo";
+import {Server} from "../../../../server/server";
+import {HomePage} from "../../../home/home";
+import {CameraOrNotPage} from "../../reportSwarm/camera-or-not/camera-or-not";
 
-/**
- * Generated class for the MyReportsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,9 +12,9 @@ import {ReportPhotoPage} from "../report-photo/report-photo";
 })
 export class MyReportsPage {
 
-  results;
   choice = 'list';
 
+  private results;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public server: Server) {
     var req = this.server.getSwarms();
@@ -45,7 +39,7 @@ export class MyReportsPage {
   }
 
   goToPhoto() {
-    this.navCtrl.setRoot(ReportPhotoPage);
+    this.navCtrl.setRoot(CameraOrNotPage);
   }
 
   // addS() {

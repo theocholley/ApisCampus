@@ -6,13 +6,6 @@ import {InformationsPage} from "../informations/informations";
 import {Server} from "../../../server/server";
 
 
-/**
- * Generated class for the MapPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 var bee = L.icon({
   iconUrl: 'https://cdn2.iconfinder.com/data/icons/outline-signs/350/bee-512.png',
   iconSize: [40, 40], // size of the icon
@@ -25,7 +18,7 @@ var bee = L.icon({
 })
 export class MapPage {
 
-  results;
+  private results;
 
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
@@ -43,7 +36,6 @@ export class MapPage {
   }
 
   loadmap() {
-
     this.map = leaflet.map("map").fitWorld();
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attributions: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -54,8 +46,7 @@ export class MapPage {
       maxZoom: 10
     }).on('locationerror', (err) => {
       alert(err.message);
-    })
-
+    });
 
     for (let i in this.results) {
       var tmpResults = this.results

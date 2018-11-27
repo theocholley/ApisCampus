@@ -7,21 +7,23 @@ import {HomePage} from '../pages/home/home';
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {ReportPageModule} from "../pages/reporting/report/report.module";
-import {MyReportsPage} from "../pages/reporting/my-reports/my-reports";
-import {MyReportsPageModule} from "../pages/reporting/my-reports/my-reports.module";
-import {ReportPhotoPageModule} from "../pages/reporting/report-photo/report-photo.module";
-import {ReportPhotoPage} from "../pages/reporting/report-photo/report-photo";
-import {InsectPickerPage} from "../pages/reporting/insect-picker/insect-picker";
-import {InsectPickerPageModule} from "../pages/reporting/insect-picker/insect-picker.module";
-import {ReportEditPage} from "../pages/reporting/report-edit/report-edit";
+import {ReportPageModule} from "../pages/reporting/reportSwarm/report/report.module";
+import {MyReportsPage} from "../pages/reporting/reportList/my-reports/my-reports";
+import {MyReportsPageModule} from "../pages/reporting/reportList/my-reports/my-reports.module";
+import {InsectPickerPage} from "../pages/reporting/reportSwarm/insect-picker/insect-picker";
+import {InsectPickerPageModule} from "../pages/reporting/reportSwarm/insect-picker/insect-picker.module";
+import {ReportEditPage} from "../pages/reporting/reportList/report-edit/report-edit";
 import {MapPage} from "../pages/beekeeper/map/map";
 import {InformationsPage} from "../pages/beekeeper/informations/informations";
 import {LoginPage} from "../pages/beekeeper/login/login";
-import {ReportPage} from "../pages/reporting/report/report";
+import {ReportPage} from "../pages/reporting/reportSwarm/report/report";
 
 import {Geolocation} from '@ionic-native/geolocation';
 import {Server} from "../server/server"
+import {CameraOrNotPage} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not";
+import {CameraPage} from "../pages/reporting/reportSwarm/camera/camera";
+import {CameraPageModule} from "../pages/reporting/reportSwarm/camera/camera.module";
+import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not.module";
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import {Server} from "../server/server"
     IonicModule.forRoot(MyApp),
     ReportPageModule,
     InsectPickerPageModule,
-    ReportPhotoPageModule,
+    CameraPageModule,
+    CameraOrNotPageModule,
     MyReportsPageModule
   ],
   bootstrap: [IonicApp],
@@ -48,11 +51,12 @@ import {Server} from "../server/server"
     ReportPage,
     MyReportsPage,
     ReportEditPage,
-    ReportPhotoPage,
     MapPage,
     LoginPage,
     InformationsPage,
-    InsectPickerPage
+    InsectPickerPage,
+    CameraPage,
+    CameraOrNotPage
   ],
   providers: [
     StatusBar,
