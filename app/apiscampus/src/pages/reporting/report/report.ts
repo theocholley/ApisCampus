@@ -21,6 +21,7 @@ export class ReportPage {
   lat;
   date;
   hour;
+  insect;
   feature;
   description;
   height;
@@ -35,6 +36,7 @@ export class ReportPage {
     this.date = navParams.get('date');
     this.hour = navParams.get('hour');
     this.county = navParams.get('county');
+    this.insect = navParams.get('insect');
   }
 
   public closeModal(){
@@ -53,7 +55,7 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      var req = this.server.addSwarm(this.long,this.lat,this.date,this.hour,this.feature,this.height,this.description, this.county, "nbObs",this.size, "insectType");
+      var req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.county, "nbObs",this.size, this.insect);
     }).catch((error) => {
       console.log('Error getting location', error);
     });

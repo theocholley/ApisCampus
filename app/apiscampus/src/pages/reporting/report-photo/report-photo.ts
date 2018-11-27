@@ -3,7 +3,7 @@ import {HomePage} from "../../home/home";
 declare var require: any;
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
-import {ReportPage} from "../report/report";
+import {InsectPickerPage} from "../insect-picker/insect-picker";
 import {Server} from "../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
 import {MyReportsPage} from "../my-reports/my-reports";
@@ -57,12 +57,15 @@ export class ReportPhotoPage {
     parseString(xml, function (err, result) {
       var jsonResult = JSON.parse(JSON.stringify(result));
       county = jsonResult.reversegeocode.addressparts[0].town;
-      county += ", " + jsonResult.reversegeocode.addressparts[0].postcode;
       county += ", " + jsonResult.reversegeocode.addressparts[0].county;
     });
     var data = {date: this.date, hour: this.hour, county: county.toString()};
-    var modalPage = this.modalCtrl.create('ReportPage', data);
+    var modalPage = this.modalCtrl.create('InsectPickerPage', data);
     modalPage.present();
+  }
+
+  openModalPhoto(){
+
   }
 
   goToMenu() {

@@ -16,9 +16,13 @@
 
 
 <ion-content padding>
-
-  <button ion-button (click)="openModalReport()">Prendre en photo</button>
-
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <button ion-button (click)="openModalPhoto()">Prendre l'essaim en photo</button>
+      <div></div>
+      <button ion-button (click)="openModalReport()">Je ne peux pas prendre de photo</button>
+    </ion-col>
+  </ion-row>
 </ion-content>
 
 <ion-footer>

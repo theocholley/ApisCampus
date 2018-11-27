@@ -1,5 +1,3 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;longitude;latitude;date;hour;feature;height;description;county;0615255461;false;sizeeeeee;FRELON
-1;longitude;latitude;date;hour;feature;height;description;county;0615255461;false;sizeeeeee;ABEIL
-2;longitude;latitude;date;hour;feature;height;description;county;0615255461;false;sizeeeeee;PUTE
-3;longitude;latitude;date;hour;feature;height;description;county;0615255461;false;sizeeeeee;ABEILL
+0;7.1245823999999995;43.597823999999996;27-10-2018;17h24;undefined;undefined;undefined;Antibes, Alpes-Maritimes;nbObs;false;undefined;undefined
+1;6.9791751;43.5548559;27-10-2018;18h48;wall;2-5;LOL;Cannes, Alpes-Maritimes;nbObs;false;tennis;Guêpe
