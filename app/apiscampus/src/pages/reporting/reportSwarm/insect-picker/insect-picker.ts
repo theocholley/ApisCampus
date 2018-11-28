@@ -35,6 +35,7 @@ export class InsectPickerPage {
     var data = {date: this.date, hour: this.hour, county: this.county, insect: this.insect};
     var modalPage = this.modalCtrl.create('ReportPage', data);
     modalPage.present();
+    this.closeModal();
   }
 
   changeColor(nb, id, idBis, idTer) {

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Server} from "../../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
 
@@ -27,7 +27,7 @@ export class ReportPage {
   private sizeForm;
   private descriptionForm;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public viewCtrl: ViewController, public navParams: NavParams, public server: Server, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public modalCtrl: ModalController, public viewCtrl: ViewController, public navParams: NavParams, public server: Server, private geolocation: Geolocation) {
     this.date = navParams.get('date');
     this.hour = navParams.get('hour');
     this.county = navParams.get('county');
@@ -36,6 +36,9 @@ export class ReportPage {
 
   public closeModal() {
     this.viewCtrl.dismiss();
+    var data = {date: this.date, hour: this.hour, county: this.county};
+    var modalPage = this.modalCtrl.create('InsectPickerPage', data);
+    modalPage.present();
   }
 
   ionViewDidLoad() {
@@ -55,7 +58,7 @@ export class ReportPage {
       console.log('Error getting location', error);
     });
     this.presentAlert();
-    this.viewCtrl.dismiss();
+    this.closeModal();
   }
 
   presentAlert() {

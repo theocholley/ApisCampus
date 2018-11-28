@@ -1,3 +1,5 @@
+import {CameraPage} from "../camera/camera";
+
 declare var require: any;
 import {HomePage} from "../../../home/home";
 import {Component} from '@angular/core';
@@ -57,8 +59,8 @@ export class CameraOrNotPage {
     modalPage.present();
   }
 
-  openModalPhoto(){
-
+  openCamera(){
+    this.navCtrl.push(CameraPage)
   }
 
   goToMenu() {
