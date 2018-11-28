@@ -1,6 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Informations</ion-title>
+    <ion-buttons>
+      <button ion-button (click)="closeModal()">Retour</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -11,25 +13,21 @@
       <p>{{county}}</p>
       <img src="assets/imgs/logoapiscampus.png">
       <ion-item>
-        <ion-label>Insecte reconnnu</ion-label>
+        <p>Insecte reconnnu : {{insectType}}</p>
       </ion-item>
-      <p>{{insectType}}</p>
       <ion-item>
-        <ion-label>Situation de l'essaim</ion-label>
+        <p>Situation de l'essaim : {{feature}}</p>
       </ion-item>
-      <p>{{feature}}</p>
       <ion-item>
-        <ion-label>Hauteur approximative</ion-label>
+        <p>Hauteur approximative : {{height}}</p>
       </ion-item>
-      <p>{{height}}</p>
       <ion-item>
-        <ion-label>Taille approximative</ion-label>
+        <p>Taille approximative : {{size}}</p>
       </ion-item>
-      <p>{{size}}</p>
       <ion-item>
-        <ion-label>Commentaires</ion-label>
+        <p>Commentaires : {{description}}</p>
       </ion-item>
-      <p>{{description}}</p>
+      <button ion-button (click)="bookSwarm()">Signaler</button>
     </ion-col>
   </ion-row>
 </ion-content>

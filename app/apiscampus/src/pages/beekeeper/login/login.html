@@ -1,20 +1,20 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <ion-title>Connexion</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
   <ion-item>
-    <ion-label color="primary"></ion-label>
-    <ion-input placeholder="email"></ion-input>
+    <ion-label color="primary">Nom</ion-label>
+    <ion-input [(ngModel)]="nameForm"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary"></ion-label>
-    <ion-input placeholder="mot de passe"></ion-input>
+    <ion-label color="primary">Mot de passe</ion-label>
+    <ion-input [(ngModel)]="passwordForm"></ion-input>
   </ion-item>
   <ion-item>
-    <button ion-button (click)="goToMap()">Connexion</button>
+    <button ion-button (click)="connect()">Connexion</button>
   </ion-item>
 </ion-content>

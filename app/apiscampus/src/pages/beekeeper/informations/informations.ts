@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 
 
 @IonicPage()
@@ -19,7 +19,7 @@ export class InformationsPage {
   private size;
   private insectType;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.item = navParams.get('item');
     this.county = this.item.county;
     this.hour = this.item.hour;
@@ -33,6 +33,23 @@ export class InformationsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InformationsPage');
+  }
+
+  public closeModal() {
+    this.viewCtrl.dismiss();
+  }
+
+  public bookSwarm() {
+    this.presentAlert()
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Essaim réservé!',
+      subTitle: 'L\'essaim va disparaître de la carte pendant 15h',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

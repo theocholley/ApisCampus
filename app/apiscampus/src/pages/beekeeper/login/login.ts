@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {MapPage} from "../map/map";
+import {Server} from "../../../server/server";
 
 
 @IonicPage()
@@ -10,7 +11,16 @@ import {MapPage} from "../map/map";
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private passwordForm;
+  private nameForm;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server) {
+  }
+
+  connect() {
+    var req = this.server.login(this.nameForm, this.passwordForm);
+    console.log(req)
+    this.goToMap()
   }
 
   goToMap() {

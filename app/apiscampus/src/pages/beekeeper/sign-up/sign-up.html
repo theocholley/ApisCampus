@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Inscription</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label color="primary">Nom</ion-label>
+    <ion-input [(ngModel)]="nameForm"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Prénom</ion-label>
+    <ion-input [(ngModel)]="surnameForm"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Ville</ion-label>
+    <ion-input [(ngModel)]="cityForm"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Rayon</ion-label>
+    <ion-input [(ngModel)]="rayForm"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Mot de passe</ion-label>
+    <ion-input [(ngModel)]="passcodeForm"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary">Numéro de téléphone</ion-label>
+    <ion-input [(ngModel)]="phoneForm"></ion-input>
+  </ion-item>
+  <ion-item>
+    <button ion-button (click)="signUp()">Connexion</button>
+  </ion-item>
+</ion-content>

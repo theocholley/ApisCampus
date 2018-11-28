@@ -2,9 +2,7 @@ import {NgModule, ErrorHandler} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
-
 import {HomePage} from '../pages/home/home';
-
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {ReportPageModule} from "../pages/reporting/reportSwarm/report/report.module";
@@ -17,13 +15,18 @@ import {MapPage} from "../pages/beekeeper/map/map";
 import {InformationsPage} from "../pages/beekeeper/informations/informations";
 import {LoginPage} from "../pages/beekeeper/login/login";
 import {ReportPage} from "../pages/reporting/reportSwarm/report/report";
-
-import {Geolocation} from '@ionic-native/geolocation';
-import {Server} from "../server/server"
 import {CameraOrNotPage} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not";
 import {CameraPage} from "../pages/reporting/reportSwarm/camera/camera";
 import {CameraPageModule} from "../pages/reporting/reportSwarm/camera/camera.module";
 import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not.module";
+import {Geolocation} from '@ionic-native/geolocation';
+import {Server} from "../server/server"
+import {Camera} from "@ionic-native/camera";
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import {SignUpPage} from "../pages/beekeeper/sign-up/sign-up";
+import {LogOrSignPage} from "../pages/beekeeper/log-or-sign/log-or-sign";
+import {InformationsPageModule} from "../pages/beekeeper/informations/informations.module";
+
 
 
 @NgModule({
@@ -33,7 +36,8 @@ import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-no
     ReportEditPage,
     MapPage,
     LoginPage,
-    InformationsPage
+    SignUpPage,
+    LogOrSignPage
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-no
     InsectPickerPageModule,
     CameraPageModule,
     CameraOrNotPageModule,
+    InformationsPageModule,
     MyReportsPageModule
   ],
   bootstrap: [IonicApp],
@@ -56,13 +61,16 @@ import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-no
     InformationsPage,
     InsectPickerPage,
     CameraPage,
-    CameraOrNotPage
+    CameraOrNotPage,
+    SignUpPage,
+    LogOrSignPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Server,
     Geolocation,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

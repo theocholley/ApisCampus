@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import leaflet from 'leaflet';
 import L from "leaflet";
 import {InformationsPage} from "../informations/informations";
@@ -23,7 +23,7 @@ export class MapPage {
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server, public modalCtrl: ModalController) {
     var req = this.server.getSwarms();
     this.results = JSON.parse(req.responseText).result;
   }
@@ -52,11 +52,12 @@ export class MapPage {
       var tmpResults = this.results
       var tmpPos = [this.results[i].latitude, this.results[i].longitude]
       var tmpNav = this.navCtrl;
+      var tmpMod = this.modalCtrl;
       var marker = L.marker(tmpPos, {icon: bee}).addTo(this.map)//.bindPopup("<button>button</button>");
       marker.on('click', function () {
-        tmpNav.push(InformationsPage, {
-          item: tmpResults[i]
-        });
+        var data = {item: tmpResults[i]};
+        var modalPage = tmpMod.create('InformationsPage', data);
+        modalPage.present();
       });
     }
   }
