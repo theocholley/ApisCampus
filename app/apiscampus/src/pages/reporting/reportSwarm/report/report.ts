@@ -53,7 +53,7 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.county, "nbObs", this.size, this.insect);
+      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.county, "nbObs", this.size, this.insect, "picture");
     }).catch((error) => {
       console.log('Error getting location', error);
     });

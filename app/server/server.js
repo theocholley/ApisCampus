@@ -66,7 +66,7 @@ var beekeeperList = new BeekeeperList();
  */
 
 //(id, longitude, latitude, date, hour, feature, height, description, isTreated)
-app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType', function (req, res) {
+app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
@@ -79,8 +79,9 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
     const numberObs = req.params.numberObs;
     const size = req.params.size;
     const insectType = req.params.insectType;
+    const pic = req.params.pic;
 
-    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county, numberObs, size, insectType);
+    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic);
     swarmList.push(swarm);
 
 
@@ -100,7 +101,8 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
             numberObs: numberObs,
             isTreated: false,
             size: size,
-            insectType: insectType
+            insectType: insectType,
+            pic: pic
         };
         dbo.collection("swarms").insertOne(newSwarm, function (err, res) {
             if (err) throw err;

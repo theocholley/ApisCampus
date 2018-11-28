@@ -1,1 +1,2 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
+0;:longitude;:latitude;:date;:hour;:feature;:height;:description;:county;:numberObs;false;:size;:insectType
