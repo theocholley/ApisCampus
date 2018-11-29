@@ -4,7 +4,8 @@ export class Server {
     port: string;
 
     constructor() {
-        this.path = "http://localhost:";
+      this.path = "http://localhost:";
+      //this.path = "http://192.168.1.21:";
         this.port = "8080";
     }
 

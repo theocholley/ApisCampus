@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Server} from "../../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
+import {Situation, Height, Size} from "../../../../utils/enums";
+
 
 
 @IonicPage()
@@ -11,16 +13,20 @@ import {Geolocation} from '@ionic-native/geolocation';
 })
 export class ReportPage {
 
+  public mySituation = Situation;
+  public myHeight = Height;
+  public mySize = Size;
+
   private long;
   private lat;
-  private date;
-  private hour;
+  private readonly date;
+  private readonly hour;
+  private readonly county;
   private insect;
   private feature;
   private description;
   private height;
   private size;
-  private county;
 
   private featureForm;
   private heightForm;
@@ -53,12 +59,12 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.county, "nbObs", this.size, this.insect);
+      var req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.county, "nbObs", this.size, this.insect);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
     this.presentAlert();
-    this.closeModal();
+    this.viewCtrl.dismiss();
   }
 
   presentAlert() {

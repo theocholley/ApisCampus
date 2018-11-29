@@ -48,7 +48,7 @@ export class CameraOrNotPage {
     req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat=" + lat + "&lon=" + long + "&zoom=18&addressdetails=1", false);
     req.send(null);
     let parseString = require('xml2js').parseString;
-    let xml = req.responseText
+    let xml = req.responseText;
     parseString(xml, function (err, result) {
       var jsonResult = JSON.parse(JSON.stringify(result));
       county = jsonResult.reversegeocode.addressparts[0].town;
