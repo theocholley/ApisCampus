@@ -51,9 +51,8 @@ export class MapPage {
     for (let i in this.results) {
       var tmpResults = this.results
       var tmpPos = [this.results[i].latitude, this.results[i].longitude]
-      var tmpNav = this.navCtrl;
       var tmpMod = this.modalCtrl;
-      var marker = L.marker(tmpPos, {icon: bee}).addTo(this.map)//.bindPopup("<button>button</button>");
+      var marker = L.marker(tmpPos, {icon: bee}).addTo(this.map)
       marker.on('click', function () {
         var data = {item: tmpResults[i]};
         var modalPage = tmpMod.create('InformationsPage', data);
