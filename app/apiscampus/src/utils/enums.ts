@@ -25,5 +25,6 @@ export enum Size {
 export enum Insect {
   Bee = "Abeille",
   Wasp = "Guêpe",
-  Hornet = "Frelon"
+  Hornet = "Frelon",
+  Unknown = "Non renseigné"
 }

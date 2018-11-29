@@ -22,7 +22,6 @@ import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-no
 import {Geolocation} from '@ionic-native/geolocation';
 import {Server} from "../server/server"
 import {Camera} from "@ionic-native/camera";
-import { AndroidPermissions } from '@ionic-native/android-permissions';
 import {SignUpPage} from "../pages/beekeeper/sign-up/sign-up";
 import {LogOrSignPage} from "../pages/beekeeper/log-or-sign/log-or-sign";
 import {InformationsPageModule} from "../pages/beekeeper/informations/informations.module";
