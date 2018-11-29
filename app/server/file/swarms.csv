@@ -1,3 +1,2 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;7.1245823999999995;43.597823999999996;29-10-2018;4h23;0;undefined;undefined;Antibes, Alpes-Maritimes;nbObs;false;undefined;Frelon
-1;6.9791931;43.5548431;29-10-2018;4h29;Wall;TwoToFive;undefined;Cannes, Alpes-Maritimes;nbObs;false;Handball;Abeille
+0;:longitude;:latitude;:date;:hour;:feature;:height;:description;:county;:numberObs;false;:size;:insectType
