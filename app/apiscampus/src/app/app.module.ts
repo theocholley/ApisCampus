@@ -16,13 +16,10 @@ import {InformationsPage} from "../pages/beekeeper/informations/informations";
 import {LoginPage} from "../pages/beekeeper/login/login";
 import {ReportPage} from "../pages/reporting/reportSwarm/report/report";
 import {CameraOrNotPage} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not";
-import {CameraPage} from "../pages/reporting/reportSwarm/camera/camera";
-import {CameraPageModule} from "../pages/reporting/reportSwarm/camera/camera.module";
 import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not.module";
 import {Geolocation} from '@ionic-native/geolocation';
 import {Server} from "../server/server"
 import {Camera} from "@ionic-native/camera";
-import { AndroidPermissions } from '@ionic-native/android-permissions';
 import {SignUpPage} from "../pages/beekeeper/sign-up/sign-up";
 import {LogOrSignPage} from "../pages/beekeeper/log-or-sign/log-or-sign";
 import {InformationsPageModule} from "../pages/beekeeper/informations/informations.module";
@@ -44,7 +41,6 @@ import {InformationsPageModule} from "../pages/beekeeper/informations/informatio
     IonicModule.forRoot(MyApp),
     ReportPageModule,
     InsectPickerPageModule,
-    CameraPageModule,
     CameraOrNotPageModule,
     InformationsPageModule,
     MyReportsPageModule
@@ -60,7 +56,6 @@ import {InformationsPageModule} from "../pages/beekeeper/informations/informatio
     LoginPage,
     InformationsPage,
     InsectPickerPage,
-    CameraPage,
     CameraOrNotPage,
     SignUpPage,
     LogOrSignPage
