@@ -1,0 +1,31 @@
+body {
+    background-color: white;
+  }
+
+  .slice text {
+    font-size: 12pt;
+    font-family: Arial;
+}   
+
+.carousel-control-prev{
+  height: 26%;
+top: 33%;
+width: 100px;
+background: black;
+}
+
+.carousel-control-next{
+height: 26%;
+top: 33%;
+width: 100px;
+background: black;
+}
+
+.insect{
+  align-content: center;
+}
+
+svg {
+  display: block;
+  margin: 0 auto;
+}
