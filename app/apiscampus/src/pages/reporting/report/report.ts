@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
-import {Server} from "../../../../server/server";
+import {Server} from "../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
-import {Situation, Height, Size} from "../../../../utils/enums";
-
+import {Situation, Height, Size} from "../../../utils/enums";
 
 
 @IonicPage()

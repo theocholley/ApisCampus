@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
-import {Insect} from "../../../../utils/enums";
+import {Insect} from "../../../utils/enums";
 import {ReportPage} from "../report/report";
 
 

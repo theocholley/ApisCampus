@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {CameraOrNotPage} from "../reporting/reportSwarm/camera-or-not/camera-or-not";
+import {CameraOrNotPage} from "../reporting/camera-or-not/camera-or-not";
 import {LogOrSignPage} from "../beekeeper/log-or-sign/log-or-sign";
 
 

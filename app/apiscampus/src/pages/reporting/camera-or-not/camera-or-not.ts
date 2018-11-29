@@ -1,11 +1,10 @@
 declare var require: any;
-import {HomePage} from "../../../home/home";
+import {HomePage} from "../../home/home";
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {InsectPickerPage} from "../insect-picker/insect-picker";
-import {Server} from "../../../../server/server";
+import {Server} from "../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
-import {MyReportsPage} from "../../reportList/my-reports/my-reports";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 
 
@@ -16,14 +15,11 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 })
 export class CameraOrNotPage {
 
-  choice = 'photo';
-
-  private base64Image: string = "assets/imgs/logoapiscampus.png";
+  private base64Image: string //= "assets/imgs/logoapiscampus.png";
   private date;
   private hour;
   private county;
   public now: Date = new Date();
-
 
   constructor(public navCtrl: NavController, private camera: Camera, public server: Server, public navParams: NavParams, public modalCtrl: ModalController, private geolocation: Geolocation) {
   }
@@ -55,7 +51,6 @@ export class CameraOrNotPage {
       county += ", " + jsonResult.reversegeocode.addressparts[0].county;
     });
     var data = {date: this.date, hour: this.hour, county: county.toString(), img: this.base64Image};
-    console.log(this.base64Image)
     var modalPage = this.modalCtrl.create('InsectPickerPage', data);
     modalPage.present();
   }
@@ -81,9 +76,5 @@ export class CameraOrNotPage {
 
   goToMenu() {
     this.navCtrl.setRoot(HomePage)
-  }
-
-  goToReportList() {
-    this.navCtrl.setRoot(MyReportsPage);
   }
 }

@@ -5,18 +5,15 @@ import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {ReportPageModule} from "../pages/reporting/reportSwarm/report/report.module";
-import {MyReportsPage} from "../pages/reporting/reportList/my-reports/my-reports";
-import {MyReportsPageModule} from "../pages/reporting/reportList/my-reports/my-reports.module";
-import {InsectPickerPage} from "../pages/reporting/reportSwarm/insect-picker/insect-picker";
-import {InsectPickerPageModule} from "../pages/reporting/reportSwarm/insect-picker/insect-picker.module";
-import {ReportEditPage} from "../pages/reporting/reportList/report-edit/report-edit";
+import {ReportPageModule} from "../pages/reporting/report/report.module";
+import {InsectPickerPage} from "../pages/reporting/insect-picker/insect-picker";
+import {InsectPickerPageModule} from "../pages/reporting/insect-picker/insect-picker.module";
 import {MapPage} from "../pages/beekeeper/map/map";
 import {InformationsPage} from "../pages/beekeeper/informations/informations";
 import {LoginPage} from "../pages/beekeeper/login/login";
-import {ReportPage} from "../pages/reporting/reportSwarm/report/report";
-import {CameraOrNotPage} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not";
-import {CameraOrNotPageModule} from "../pages/reporting/reportSwarm/camera-or-not/camera-or-not.module";
+import {ReportPage} from "../pages/reporting/report/report";
+import {CameraOrNotPage} from "../pages/reporting/camera-or-not/camera-or-not";
+import {CameraOrNotPageModule} from "../pages/reporting/camera-or-not/camera-or-not.module";
 import {Geolocation} from '@ionic-native/geolocation';
 import {Server} from "../server/server"
 import {Camera} from "@ionic-native/camera";
@@ -30,7 +27,6 @@ import {InformationsPageModule} from "../pages/beekeeper/informations/informatio
   declarations: [
     MyApp,
     HomePage,
-    ReportEditPage,
     MapPage,
     LoginPage,
     SignUpPage,
@@ -43,15 +39,12 @@ import {InformationsPageModule} from "../pages/beekeeper/informations/informatio
     InsectPickerPageModule,
     CameraOrNotPageModule,
     InformationsPageModule,
-    MyReportsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ReportPage,
-    MyReportsPage,
-    ReportEditPage,
     MapPage,
     LoginPage,
     InformationsPage,
