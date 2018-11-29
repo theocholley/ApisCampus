@@ -6,7 +6,7 @@ export class Server {
     constructor() {
       this.path = "http://localhost:";
       //this.path = "http://192.168.1.21:";
-        this.port = "8080";
+      this.port = "8080";
     }
 
     getAllPath() {
@@ -14,7 +14,6 @@ export class Server {
     }
 
     ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs
-
     addSwarm(longitude, latitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic)), false);

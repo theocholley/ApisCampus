@@ -22,6 +22,7 @@ export class InformationsPage {
   private feature;
   private height;
   private description;
+  private img;
   private size;
   private insectType;
 
@@ -31,6 +32,7 @@ export class InformationsPage {
     this.hour = this.item.hour;
     this.date = this.item.date;
     this.description = this.item.description;
+    this.img = this.item.img;
     this.getFeature(this.item.feature);
     this.getHeight(this.item.height);
     this.getSize(this.item.size);

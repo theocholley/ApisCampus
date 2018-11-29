@@ -27,6 +27,7 @@ export class ReportPage {
   private description;
   private height;
   private size;
+  private img;
 
   private featureForm;
   private heightForm;
@@ -38,6 +39,7 @@ export class ReportPage {
     this.hour = navParams.get('hour');
     this.county = navParams.get('county');
     this.insect = navParams.get('insect');
+    this.img = navParams.get('img');
   }
 
   public closeModal() {
@@ -59,7 +61,7 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.county, "nbObs", this.size, this.insect, "picture");
+      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.county, "nbObs", this.size, this.insect, this.img);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
