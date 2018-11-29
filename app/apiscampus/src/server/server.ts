@@ -128,5 +128,11 @@ export class Server {
         return req;
     }
 
+    getBeekeepers(){
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/getBeekeepers"), false);
+        req.send(null);
+        return req;
+    }
 
 }

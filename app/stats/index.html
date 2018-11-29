@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
+      crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css?family=Black Han Sans" rel="stylesheet">
 
 <script src='http://d3js.org/d3.v2.js'></script>
@@ -19,191 +22,317 @@
 </head>
 
 <body>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="false">
-                <div class="carousel-inner">
-                  <div class="carousel-item active" style="align-content: center;">
-                        <div id="insect"></div>
-                        <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion de type d'insectes</p>
-                    </div>
-                  <div class="carousel-item">
-                    <div id="size"></div>
-                    <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion de la taille des essaims</p>
-
-                  </div>
-                  <div class="carousel-item">
-                        <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion des départements saisis</p>
-
-                  </div>
-                  <div class="carousel-item">
-                        <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion de la hauteur d'implantation des essaims</p>
-                      </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="false"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="false"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-    <div class="alert alert-secondary" role="alert" style="text-align: center;">
-        Consulter la liste des essaims saisis
+<header id="topBanner" role="banner">
+    <div id="logo" style="text-align: center;">
+        <img src="http://apiscampus.unice.fr/sites/default/files/logoapiscampus.png" /></a>
     </div>
+    <h1 style="color: white; text-align: center; font-family: 'Black Han Sans';">APIS CAMPUS</h1>
+    <h2 style="color: white; text-align: center; font-family: 'Black Han Sans';">un rucher au campus de Nice</h2>>
+</header>
 
-    <table id="tableau" style="width: 100%; text-align: center;" border="1">
-            <thead>
-                <tr>
-                    <th>Coordonnées</th>
-                    <th>Date / Heure</th>
-                    <th>Caractéristiques</th>
-                    <th>Description</th>
-                    <th>Tel Observateur</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    <script type="text/javascript">
-        var data2;
-        var insectTypeData = [];
-        var sizeData = [];
-        var countyData = [];
-        var heightData = [];
-        var insectMap = new Map();
-        var sizeMap = new Map();
-        var countyMap = new Map();
-        var heightMap = new Map();
-        var req = new XMLHttpRequest();
-        req.open("GET", "http://localhost:8080".concat("/getSwarms"), false);
-        req.send(null);
-        data2 = JSON.parse(req.response).result;
-        console.log(data2);
+<div class="alert alert-success" role="alert">
+    Bienvenue sur la page statistiques
+</div>
+<div id="carouselExampleControls" class="carousel slide" data-ride="false">
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="align-content: center;">
+            <div id="insect"></div>
+            <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion de type
+                d'insectes</p>
+        </div>
+        <div class="carousel-item">
+            <div id="size"></div>
+            <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion de la taille
+                des essaims</p>
+
+        </div>
+        <div class="carousel-item">
+            <div id="county"></div>
+            <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion des
+                départements saisis</p>
+
+        </div>
+        <div class="carousel-item">
+            <div id="height"></div>
+            <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion de la hauteur
+                d'implantation des essaims</p>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="false"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div><br>
+<div class="alert alert-secondary" role="alert" style="text-align: center; font-family: 'Black Han Sans';">
+    Liste des apiculteurs inscris
+</div>
+
+<table id="tableauApi" style="width: 100%; text-align: center;" border="1">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Nom de famille</th>
+        <th>Numéro de tel</th>
+        <th>Ville</th>
+        <th>Rayon</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table><br>
+<div class="alert alert-secondary" role="alert" style="text-align: center; font-family: 'Black Han Sans';">
+    Liste des essaims saisis
+</div>
+
+<table id="tableau" style="width: 100%; text-align: center;" border="1">
+    <thead>
+    <tr>
+        <th>Coordonnées</th>
+        <th>Date / Heure</th>
+        <th>Caractéristiques</th>
+        <th>Description</th>
+        <th>Tel Observateur</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script type="text/javascript">
+    var data2;
+    var dataBeekeepers;
+    var insectTypeData = [];
+    var sizeData = [];
+    var countyData = [];
+    var heightData = [];
+    var insectMap = new Map();
+    var sizeMap = new Map();
+    var countyMap = new Map();
+    var heightMap = new Map();
+    var req = new XMLHttpRequest();
+    req.open("GET", "http://localhost:8080".concat("/getSwarms"), false);
+    req.send(null);
+    data2 = JSON.parse(req.response).result;
+    for (var i = 0; i < data2.length; i++) {
+        insectMap.set(data2[i].insectType, 0);
+        sizeMap.set(data2[i].size, 0);
+        countyMap.set(data2[i].county, 0);
+        heightMap.set(data2[i].height, 0);
+    }
+    for (var i = 0; i < data2.length; i++) {
+        insectMap.set(data2[i].insectType, insectMap.get(data2[i].insectType) + 1);
+        sizeMap.set(data2[i].size, sizeMap.get(data2[i].size) + 1);
+        countyMap.set(data2[i].county, countyMap.get(data2[i].county) + 1);
+        heightMap.set(data2[i].height, heightMap.get(data2[i].height) + 1);
+
+    }
+
+    for (var [clé, valeur] of insectMap) {
+        insectTypeData.push({ "label": clé, "value": valeur });
+    }
+    for (var [clé, valeur] of sizeMap) {
+        sizeData.push({ "label": clé, "value": valeur });
+    }
+    for (var [clé, valeur] of heightMap) {
+        heightData.push({ "label": clé, "value": valeur });
+    }
+    for (var [clé, valeur] of countyMap) {
+        countyData.push({ "label": clé, "value": valeur });
+    }
+    delete countyMap, heightMap, sizeMap, insectMap;
+
+    var reqBeekeepers = new XMLHttpRequest();
+    reqBeekeepers.open("GET", "http://localhost:8080".concat("/getBeekeepers"), false);
+    reqBeekeepers.send(null);
+    dataBeekeepers = JSON.parse(reqBeekeepers.response).result;
+    console.log(dataBeekeepers);
+    document.addEventListener("DOMContentLoaded", () => {
+
+        var w = 500,
+            h = 500,
+            r = 250,
+            color = d3.scale.category20c();
+        var insectVis = d3.select(document.getElementById('insect'))
+            .append("svg:svg")
+            .data([insectTypeData])
+            .attr("width", w)
+            .attr("height", h)
+            .append("svg:g")
+            .attr("transform", "translate(" + r + "," + r + ")")
+
+        var arcInsect = d3.svg.arc()
+            .outerRadius(r);
+
+        var pieInsect = d3.layout.pie()
+            .value(function (d) { return d.value; });
+
+        var arcsInsect = insectVis.selectAll("g.slice")
+            .data(pieInsect)
+            .enter()
+            .append("svg:g")
+            .attr("class", "slice");
+
+        arcsInsect.append("svg:path")
+            .attr("fill", function (d, i) { return color(i); })
+            .attr("d", arcInsect);
+
+        arcsInsect.append("svg:text")
+            .attr("transform", function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arcInsect.centroid(d) + ")";
+            })
+            .attr("text-anchor", "middle")
+            .text(function (d, i) { return insectTypeData[i].label; });
+
+        //Partie Size :
+
+        var sizeVis = d3.select(document.getElementById('size'))
+            .append("svg:svg")
+            .data([sizeData])
+            .attr("width", w)
+            .attr("height", h)
+            .append("svg:g")
+            .attr("transform", "translate(" + r + "," + r + ")")
+
+        var arcSize = d3.svg.arc()
+            .outerRadius(r);
+
+        var pieSize = d3.layout.pie()
+            .value(function (d) { return d.value; });
+
+        var arcsSize = sizeVis.selectAll("g.slice")
+            .data(pieSize)
+            .enter()
+            .append("svg:g")
+            .attr("class", "slice");
+
+        arcsSize.append("svg:path")
+            .attr("fill", function (d, i) { return color(i); })
+            .attr("d", arcSize);
+
+        arcsSize.append("svg:text")
+            .attr("transform", function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arcSize.centroid(d) + ")";
+            })
+            .attr("text-anchor", "middle")
+            .text(function (d, i) { return sizeData[i].label; });
+
+        //Partie county
+
+
+        var countyVis = d3.select(document.getElementById('county'))
+            .append("svg:svg")
+            .data([countyData])
+            .attr("width", w)
+            .attr("height", h)
+            .append("svg:g")
+            .attr("transform", "translate(" + r + "," + r + ")")
+
+        var arcCounty = d3.svg.arc()
+            .outerRadius(r);
+
+        var pieCounty = d3.layout.pie()
+            .value(function (d) { return d.value; });
+
+        var arcsCounty = countyVis.selectAll("g.slice")
+            .data(pieCounty)
+            .enter()
+            .append("svg:g")
+            .attr("class", "slice");
+
+        arcsCounty.append("svg:path")
+            .attr("fill", function (d, i) { return color(i); })
+            .attr("d", arcCounty);
+
+        arcsCounty.append("svg:text")
+            .attr("transform", function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arcCounty.centroid(d) + ")";
+            })
+            .attr("text-anchor", "middle")
+            .text(function (d, i) { return countyData[i].label; });
+
+        //Partie Height
+
+
+        var heightVis = d3.select(document.getElementById('height'))
+            .append("svg:svg")
+            .data([heightData])
+            .attr("width", w)
+            .attr("height", h)
+            .append("svg:g")
+            .attr("transform", "translate(" + r + "," + r + ")")
+
+        var arcHeight = d3.svg.arc()
+            .outerRadius(r);
+
+        var pieHeight = d3.layout.pie()
+            .value(function (d) { return d.value; });
+
+        var arcsHeight = heightVis.selectAll("g.slice")
+            .data(pieHeight)
+            .enter()
+            .append("svg:g")
+            .attr("class", "slice");
+
+        arcsHeight.append("svg:path")
+            .attr("fill", function (d, i) { return color(i); })
+            .attr("d", arcHeight);
+
+        arcsHeight.append("svg:text")
+            .attr("transform", function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arcHeight.centroid(d) + ")";
+            })
+            .attr("text-anchor", "middle")
+            .text(function (d, i) { return heightData[i].label; });
+        //Tableau d'essaims
         for (var i = 0; i < data2.length; i++) {
-            insectMap.set(data2[i].insectType, 0);
-            sizeMap.set(data2[i].size, 0);
-            countyMap.set(data2[i].county, 0);
-            heightMap.set(data2[i].height, 0);
+            var tableau = document.getElementById("tableau");
+
+            var ligne = tableau.insertRow(-1);
+
+            var colonne1 = ligne.insertCell(0);
+            colonne1.innerHTML += "[Long. " + data2[i].longitude + " ,Lat. " + data2[i].latitude + "]";
+
+            var colonne2 = ligne.insertCell(1);
+            colonne2.innerHTML += data2[i].date + " / " + data2[i].hour;
+
+            var colonne3 = ligne.insertCell(2);
+            colonne3.innerHTML += data2[i].feature;
+
+            var colonne4 = ligne.insertCell(3);
+            colonne4.innerHTML += data2[i].description;
+
+            var colonne5 = ligne.insertCell(4);
+            colonne5.innerHTML += data2[i].numberObs;
         }
-        for (var i = 0; i < data2.length; i++) {
-            insectMap.set(data2[i].insectType, insectMap.get(data2[i].insectType) + 1);
-            sizeMap.set(data2[i].size, sizeMap.get(data2[i].size) + 1);
-            countyMap.set(data2[i].county, countyMap.get(data2[i].county) + 1);
-            heightMap.set(data2[i].height, heightMap.get(data2[i].height) + 1);
 
+        //Tableau d'apiculteurs
+        for (var i = 0; i < dataBeekeepers.length; i++) {
+            var tableauApi = document.getElementById("tableauApi");
+            var ligne = tableauApi.insertRow(-1);
+            var colonne1 = ligne.insertCell(0);
+            colonne1.innerHTML += dataBeekeepers[i].name;
+            var colonne2 = ligne.insertCell(1);
+            colonne2.innerHTML += dataBeekeepers[i].surname;
+            var colonne3 = ligne.insertCell(2);
+            colonne3.innerHTML += dataBeekeepers[i].phone;
+            var colonne4 = ligne.insertCell(3);
+            colonne4.innerHTML += dataBeekeepers[i].city;
+            var colonne5 = ligne.insertCell(4);
+            colonne5.innerHTML += dataBeekeepers[i].ray;
         }
-
-        for (var [clé, valeur] of insectMap) {
-            insectTypeData.push({ "label": clé, "value": valeur });
-        }
-        for (var [clé, valeur] of sizeMap) {
-            sizeData.push({ "label": clé, "value": valeur });
-        }
-        for (var [clé, valeur] of heightData) {
-            heightData.push({ "label": clé, "value": valeur });
-        }
-        for (var [clé, valeur] of countyData) {
-            countyData.push({ "label": clé, "value": valeur });
-        }
-        delete countyMap, heightMap, sizeMap, insectMap;
-
-        document.addEventListener("DOMContentLoaded", () => {
-
-            var w = 500,
-                h = 500,
-                r = 250,
-                color = d3.scale.category20c();
-            var insectVis = d3.select(document.getElementById('insect'))
-                .append("svg:svg")
-                .data([insectTypeData])
-                .attr("width", w)
-                .attr("height", h)
-                .append("svg:g")
-                .attr("transform", "translate(" + r + "," + r + ")")
-
-            var arcInsect = d3.svg.arc()
-                .outerRadius(r);
-
-            var pieInsect = d3.layout.pie()
-                .value(function (d) { return d.value; });
-
-            var arcsInsect = insectVis.selectAll("g.slice")
-                .data(pieInsect)
-                .enter()
-                .append("svg:g")
-                .attr("class", "slice");
-
-            arcsInsect.append("svg:path")
-                .attr("fill", function (d, i) { return color(i); })
-                .attr("d", arcInsect);
-
-            arcsInsect.append("svg:text")
-                .attr("transform", function (d) {
-                    d.innerRadius = 0;
-                    d.outerRadius = r;
-                    return "translate(" + arcInsect.centroid(d) + ")";
-                })
-                .attr("text-anchor", "middle")
-                .text(function (d, i) { return insectTypeData[i].label; });
-
-            //Partie Size :
-
-            var sizeVis = d3.select(document.getElementById('size'))
-                .append("svg:svg")
-                .data([sizeData])
-                .attr("width", w)
-                .attr("height", h)
-                .append("svg:g")
-                .attr("transform", "translate(" + r + "," + r + ")")
-
-            var arcSize = d3.svg.arc()
-                .outerRadius(r);
-
-            var pieSize = d3.layout.pie()
-                .value(function (d) { return d.value; });
-
-            var arcsSize = sizeVis.selectAll("g.slice")
-                .data(pieSize)
-                .enter()
-                .append("svg:g")
-                .attr("class", "slice");
-
-            arcsSize.append("svg:path")
-                .attr("fill", function (d, i) { return color(i); })
-                .attr("d", arcInsect);
-
-            arcsSize.append("svg:text")
-                .attr("transform", function (d) {
-                    d.innerRadius = 0;
-                    d.outerRadius = r;
-                    return "translate(" + arcSize.centroid(d) + ")";
-                })
-                .attr("text-anchor", "middle")
-                .text(function (d, i) { return sizeData[i].label; });
-
-
-            for (var i = 0; i < data2.length; i++) {
-                var tableau = document.getElementById("tableau");
-
-                var ligne = tableau.insertRow(-1);
-
-                var colonne1 = ligne.insertCell(0);
-                colonne1.innerHTML += "[Long. " + data2[i].longitude + " ,Lat. " + data2[i].latitude + "]";
-
-                var colonne2 = ligne.insertCell(1);
-                colonne2.innerHTML += data2[i].date + " / " + data2[i].hour;
-
-                var colonne3 = ligne.insertCell(2);
-                colonne3.innerHTML += data2[i].feature;
-
-                var colonne4 = ligne.insertCell(3);
-                colonne4.innerHTML += data2[i].description;
-
-                var colonne5 = ligne.insertCell(4);
-                colonne5.innerHTML += data2[i].numberObs;
-            }
-        });
-    </script>
+    });
+</script>
 
 </body>
 

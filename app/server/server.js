@@ -396,4 +396,40 @@ function generateCsv(){
         }
         console.log("The file was saved!");
     });
+
+    app.get('/getSwarms', function (req, res) {
+
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("ApisCampus");
+            dbo.collection("swarms").find({}).toArray(function (err, result) {
+                if (err) throw err;
+                console.log(result);
+                res.send({
+                    passed: true,
+                    result: result
+                });
+                db.close();
+            });
+        });
+        generateCsv();
+    });
+
 }
+
+app.get('/getBeekeepers', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        dbo.collection("beekeepers").find({}).toArray(function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            res.send({
+                passed: true,
+                result: result
+            });
+            db.close();
+        });
+    });
+});

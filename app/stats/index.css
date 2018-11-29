@@ -1,24 +1,24 @@
 body {
-    background-color: white;
-  }
+  background-color: white;
+}
 
-  .slice text {
-    font-size: 12pt;
-    font-family: Arial;
-}   
+.slice text {
+  font-size: 12pt;
+  font-family: Arial;
+}
 
 .carousel-control-prev{
   height: 26%;
-top: 33%;
-width: 100px;
-background: black;
+  top: 33%;
+  width: 100px;
+  background: black;
 }
 
 .carousel-control-next{
-height: 26%;
-top: 33%;
-width: 100px;
-background: black;
+  height: 26%;
+  top: 33%;
+  width: 100px;
+  background: black;
 }
 
 .insect{
@@ -29,3 +29,9 @@ svg {
   display: block;
   margin: 0 auto;
 }
+
+header{
+  background-color: #ffa256;
+  color: #FFA256;
+}
+
