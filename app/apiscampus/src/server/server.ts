@@ -27,76 +27,11 @@ export class Server {
         req.send(null);
         return req;
     }
-
-    //'/updateSwarm/:id/:value'
-    updateLongitude(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateLongitude").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
-    updateLatitude(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateLatitude").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
-    updateDate(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateDate").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
-    updateHour(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateHour").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
-    updateFeature(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateFeature").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
-    updateHeight(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateHeight").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
-    updateDescription(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateDescription").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
-    updateCounty(id, value) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/updateCounty").concat("/").concat(id).concat("/").concat(value), false);
-        req.send(null);
-        return req;
-    }
-
+    
     //treat/:id
     treat(id) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/treat").concat("/").concat(id), false);
-        req.send(null);
-        return req;
-    }
-
-    //'/deleteSwarm/:id'
-    deleteSwarm(id){
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/deleteSwarm").concat("/").concat(id), false);
         req.send(null);
         return req;
     }
