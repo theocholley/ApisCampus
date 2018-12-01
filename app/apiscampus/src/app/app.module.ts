@@ -20,6 +20,10 @@ import {Camera} from "@ionic-native/camera";
 import {SignUpPage} from "../pages/beekeeper/sign-up/sign-up";
 import {LogOrSignPage} from "../pages/beekeeper/log-or-sign/log-or-sign";
 import {InformationsPageModule} from "../pages/beekeeper/informations/informations.module";
+import {UserInformationsPage} from "../pages/reporting/user-informations/user-informations";
+import {UserInformationsPageModule} from "../pages/reporting/user-informations/user-informations.module";
+import {Network} from "@ionic-native/network";
+import {NativeStorage} from "@ionic-native/native-storage";
 
 
 
@@ -39,6 +43,7 @@ import {InformationsPageModule} from "../pages/beekeeper/informations/informatio
     InsectPickerPageModule,
     CameraOrNotPageModule,
     InformationsPageModule,
+    UserInformationsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +56,8 @@ import {InformationsPageModule} from "../pages/beekeeper/informations/informatio
     InsectPickerPage,
     CameraOrNotPage,
     SignUpPage,
-    LogOrSignPage
+    LogOrSignPage,
+    UserInformationsPage
   ],
   providers: [
     StatusBar,
@@ -59,7 +65,9 @@ import {InformationsPageModule} from "../pages/beekeeper/informations/informatio
     Server,
     Geolocation,
     Camera,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Network,
+    NativeStorage,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {

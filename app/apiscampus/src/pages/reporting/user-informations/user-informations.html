@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons>
+      <button ion-button (click)="closeModal()">Retour</button>
+    </ion-buttons>
+    <ion-title>Identification</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <ion-item>
+        <ion-label color="primary" fixed>N° de téléphone</ion-label>
+        <ion-input type="tel" [(ngModel)]="telNumber"></ion-input>
+      </ion-item>
+
+      <p>Nous avons besoin de votre numéro de téléphone afin que
+        l'apiculteur souhaitant venir récupérer l'essaim puisse vous
+        contacter facilement pour obtenir des détails. Ce numéro ne vous
+        sera demandé qu'une seule fois jusqu'à la prochaine installation
+        de l'application.</p>
+
+      <button ion-button (click)="storeNumber()">Valider</button>
+
+    </ion-col>
+  </ion-row>
+</ion-content>
