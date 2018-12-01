@@ -14,6 +14,8 @@
       <button ion-button (click)="openCamera()">Prendre l'essaim en photo</button>
       <div></div>
       <button ion-button (click)="openModalReport()">Je ne peux pas prendre de photo</button>
+      <img [src]=base64Image>
+      <button ion-button (click)="upload()">Upload</button>
     </ion-col>
   </ion-row>
 </ion-content>

@@ -26,6 +26,10 @@ import {Network} from "@ionic-native/network";
 import {NativeStorage} from "@ionic-native/native-storage";
 import {SettingsPage} from "../pages/reporting/settings/settings";
 import {SettingsPageModule} from "../pages/reporting/settings/settings.module";
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import {HttpClientModule} from "@angular/common/http";
+
 
 
 
@@ -46,6 +50,7 @@ import {SettingsPageModule} from "../pages/reporting/settings/settings.module";
     CameraOrNotPageModule,
     InformationsPageModule,
     SettingsPageModule,
+    HttpClientModule,
     UserInformationsPageModule
   ],
   bootstrap: [IonicApp],
@@ -67,9 +72,11 @@ import {SettingsPageModule} from "../pages/reporting/settings/settings.module";
     StatusBar,
     SplashScreen,
     Server,
+    File,
     Geolocation,
     Camera,
     Network,
+    FileTransfer,
     NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]

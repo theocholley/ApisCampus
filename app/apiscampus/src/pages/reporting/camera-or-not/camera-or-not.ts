@@ -1,13 +1,15 @@
 import {HomePage} from "../../home/home";
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
 import {InsectPickerPage} from "../insect-picker/insect-picker";
 import {Server} from "../../../server/server";
-import {Geolocation} from '@ionic-native/geolocation';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {UserInformationsPage} from "../user-informations/user-informations";
 import {NativeStorage} from "@ionic-native/native-storage";
 import {SettingsPage} from "../settings/settings";
+import {HttpClient} from "@angular/common/http";
+import {File} from "@ionic-native/file";
+import {FileTransfer, FileUploadOptions, FileTransferObject} from "@ionic-native/file-transfer";
 
 
 @IonicPage()
@@ -23,7 +25,16 @@ export class CameraOrNotPage {
   private telNumber: number;
   public now: Date = new Date();
 
-  constructor(private nativeStorage: NativeStorage, public navCtrl: NavController, private camera: Camera, public server: Server, public navParams: NavParams, public modalCtrl: ModalController, private geolocation: Geolocation) {
+  constructor(private nativeStorage: NativeStorage,
+              public navCtrl: NavController,
+              private camera: Camera,
+              public server: Server,
+              public navParams: NavParams,
+              private file: File,
+              private transfer: FileTransfer,
+              public modalCtrl: ModalController,
+              private loadingCtrl: LoadingController,
+              private http: HttpClient) {
     this.nativeStorage.getItem('telNumber')
       .then(
         data => {
@@ -50,7 +61,7 @@ export class CameraOrNotPage {
 
   openCamera(){
     const options: CameraOptions = {
-      quality: 1,
+      quality: 80,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -58,10 +69,8 @@ export class CameraOrNotPage {
 
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
+      // If it's base64:
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      console.log(this.base64Image);
-      this.openModalReport();
     }, (err) => {
       // Handle error
     });
@@ -74,5 +83,40 @@ export class CameraOrNotPage {
   goToSettings() {
     let modalPage = this.modalCtrl.create('SettingsPage');
     modalPage.present();
+  }
+
+  upload(){
+    //Show loading
+    let loader = this.loadingCtrl.create({
+      content: "Uploading..."
+    });
+    loader.present();
+
+    //create file transfer object
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    //random int
+    var random = Math.floor(Math.random() * 100);
+
+    //option transfer
+    let options: FileUploadOptions = {
+      fileKey: 'photo',
+      fileName: "myImage_" + random + ".jpg",
+      chunkedMode: false,
+      httpMethod: 'post',
+      mimeType: "image/jpeg",
+      headers: {}
+    };
+
+    //file transfer action
+    fileTransfer.upload(this.base64Image, 'http://192.168.1.21/api/upload/upload.php', options)
+      .then((data) => {
+        alert("Success");
+        loader.dismiss();
+      }, (err) => {
+        console.log(err);
+        alert("Error");
+        loader.dismiss();
+      });
   }
 }
