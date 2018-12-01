@@ -13,18 +13,18 @@ export class InsectPickerPage {
 
   public myInsect = Insect;
 
-  private readonly date;
-  private readonly hour;
-  private readonly county;
+  private readonly date: string;
+  private readonly hour: string;
   private readonly img;
-  private insect;
-  private currentInsect;
+  private readonly telNumber: number;
+  private insect: string;
+  private currentInsect: number;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.date = navParams.get('date');
     this.hour = navParams.get('hour');
-    this.county = navParams.get('county');
     this.img = navParams.get('img');
+    this.telNumber = this.navParams.get('telNumber');
   }
 
   public closeModal() {
@@ -39,8 +39,8 @@ export class InsectPickerPage {
     this.insect = (this.currentInsect == 1 ? this.myInsect.Bee :
       this.currentInsect == 2 ? this.myInsect.Wasp :
         this.currentInsect == 3 ? this.myInsect.Hornet : this.myInsect.Unknown)
-    var data = {date: this.date, hour: this.hour, county: this.county, insect: this.insect, img: this.img};
-    var modalPage = this.modalCtrl.create('ReportPage', data);
+    let data = {date: this.date, hour: this.hour, insect: this.insect, img: this.img, telNumber: this.telNumber};
+    let modalPage = this.modalCtrl.create('ReportPage', data);
     this.closeModal();
     modalPage.present();
   }

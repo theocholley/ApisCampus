@@ -1,4 +1,3 @@
-declare var require: any;
 import {HomePage} from "../../home/home";
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
@@ -6,6 +5,8 @@ import {InsectPickerPage} from "../insect-picker/insect-picker";
 import {Server} from "../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
 import {Camera, CameraOptions} from "@ionic-native/camera";
+import {UserInformationsPage} from "../user-informations/user-informations";
+import {NativeStorage} from "@ionic-native/native-storage";
 
 
 @IonicPage()
@@ -16,12 +17,22 @@ import {Camera, CameraOptions} from "@ionic-native/camera";
 export class CameraOrNotPage {
 
   private base64Image: string //= "assets/imgs/logoapiscampus.png";
-  private date;
-  private hour;
-  private county;
+  private date: string;
+  private hour: string;
+  private telNumber: number;
   public now: Date = new Date();
 
-  constructor(public navCtrl: NavController, private camera: Camera, public server: Server, public navParams: NavParams, public modalCtrl: ModalController, private geolocation: Geolocation) {
+  constructor(private nativeStorage: NativeStorage, public navCtrl: NavController, private camera: Camera, public server: Server, public navParams: NavParams, public modalCtrl: ModalController, private geolocation: Geolocation) {
+    this.nativeStorage.getItem('telNumber')
+      .then(
+        data => {
+          this.telNumber=data.number
+        },
+        error => {
+          var modalPage = this.modalCtrl.create('UserInformationsPage');
+          modalPage.present();
+        }
+      );
   }
 
   ionViewDidLoad() {
@@ -31,27 +42,8 @@ export class CameraOrNotPage {
   openModalReport() {
     this.date = this.now.getDate() + "-" + this.now.getMonth() + "-" + this.now.getFullYear();
     this.hour = this.now.getHours() + "h" + (this.now.getMinutes() > 10 ? this.now.getMinutes() : "0" + this.now.getMinutes());
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.county = this.getCounty(resp.coords.latitude, resp.coords.longitude);
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-  }
-
-  getCounty(lat, long) {
-    var county = "undefined";
-    var req = new XMLHttpRequest();
-    req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat=" + lat + "&lon=" + long + "&zoom=18&addressdetails=1", false);
-    req.send(null);
-    let parseString = require('xml2js').parseString;
-    let xml = req.responseText;
-    parseString(xml, function (err, result) {
-      var jsonResult = JSON.parse(JSON.stringify(result));
-      county = jsonResult.reversegeocode.addressparts[0].town;
-      county += ", " + jsonResult.reversegeocode.addressparts[0].county;
-    });
-    var data = {date: this.date, hour: this.hour, county: county.toString(), img: this.base64Image};
-    var modalPage = this.modalCtrl.create('InsectPickerPage', data);
+    let data = {date: this.date, hour: this.hour, img: this.base64Image, telNumber: this.telNumber};
+    let modalPage = this.modalCtrl.create('InsectPickerPage', data);
     modalPage.present();
   }
 

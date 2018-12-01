@@ -1,3 +1,5 @@
+declare var require: any;
+
 export class Server {
 
     path: string;
@@ -14,12 +16,27 @@ export class Server {
     }
 
     ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs
-    addSwarm(longitude, latitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic)), false);
-        req.send(null);
-        return req;
+    addSwarm(longitude, latitude, date, hour, feature, height, description, numberObs, size, insectType, pic) {
+      let county = this.getCounty(latitude, longitude)
+      let req = new XMLHttpRequest();
+      req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic)), false);
+      req.send(null);
+      return req;
     }
+
+    getCounty(lat, long): string {
+      let county = "undefined";
+      let req = new XMLHttpRequest();
+      req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat=" + lat + "&lon=" + long + "&zoom=18&addressdetails=1", false);
+      req.send(null);
+      require('xml2js').parseString(req.responseText, function (err, result) {
+        let jsonResult = JSON.parse(JSON.stringify(result));
+        county = jsonResult.reversegeocode.addressparts[0].postcode;
+        county += ", " + jsonResult.reversegeocode.addressparts[0].county;
+      });
+      return county
+    }
+
 
     getSwarms() {
         var req = new XMLHttpRequest();
@@ -27,7 +44,7 @@ export class Server {
         req.send(null);
         return req;
     }
-    
+
     //treat/:id
     treat(id) {
         var req = new XMLHttpRequest();

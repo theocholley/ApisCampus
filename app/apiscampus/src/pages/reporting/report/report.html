@@ -15,7 +15,7 @@
       <img [src]=img>
       <ion-item>
         <ion-label>Situation de l'essaim</ion-label>
-        <ion-select [(ngModel)]="featureForm">
+        <ion-select [(ngModel)]="feature">
           <ion-option value="Roof">{{mySituation.Roof}}</ion-option>
           <ion-option value="Wall">{{mySituation.Wall}}</ion-option>
           <ion-option value="Lamp">{{mySituation.Lamp}}</ion-option>
@@ -25,7 +25,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Hauteur approximative</ion-label>
-        <ion-select [(ngModel)]="heightForm">
+        <ion-select [(ngModel)]="height">
           <ion-option value="Ground">{{myHeight.Ground}}</ion-option>
           <ion-option value="HumanSize">{{myHeight.HumanSize}}</ion-option>
           <ion-option value="TwoToFive">{{myHeight.TwoToFive}}</ion-option>
@@ -34,7 +34,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Taille/Diamètre de l'essaim</ion-label>
-        <ion-select [(ngModel)]="sizeForm">
+        <ion-select [(ngModel)]="size">
           <ion-option value="Tennis">{{mySize.Tennis}}</ion-option>
           <ion-option value="Handball">{{mySize.Handball}}</ion-option>
           <ion-option value="Basket">{{mySize.Basket}}</ion-option>
@@ -42,7 +42,7 @@
       </ion-item>
       <ion-item>
         <ion-label color="primary">Commentaire</ion-label>
-        <ion-input [(ngModel)]="descriptionForm"></ion-input>
+        <ion-input [(ngModel)]="description"></ion-input>
       </ion-item>
         <button ion-button (click)="addSwarm()">Signaler</button>
     </ion-col>
