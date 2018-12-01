@@ -24,6 +24,8 @@ import {UserInformationsPage} from "../pages/reporting/user-informations/user-in
 import {UserInformationsPageModule} from "../pages/reporting/user-informations/user-informations.module";
 import {Network} from "@ionic-native/network";
 import {NativeStorage} from "@ionic-native/native-storage";
+import {SettingsPage} from "../pages/reporting/settings/settings";
+import {SettingsPageModule} from "../pages/reporting/settings/settings.module";
 
 
 
@@ -43,6 +45,7 @@ import {NativeStorage} from "@ionic-native/native-storage";
     InsectPickerPageModule,
     CameraOrNotPageModule,
     InformationsPageModule,
+    SettingsPageModule,
     UserInformationsPageModule
   ],
   bootstrap: [IonicApp],
@@ -55,6 +58,7 @@ import {NativeStorage} from "@ionic-native/native-storage";
     InformationsPage,
     InsectPickerPage,
     CameraOrNotPage,
+    SettingsPage,
     SignUpPage,
     LogOrSignPage,
     UserInformationsPage

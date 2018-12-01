@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons>
+      <button ion-button (click)="closeModal()">Retour</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <ion-item>
+        <ion-label stacked>Votre numéro de téléphone</ion-label>
+        <ion-input [(ngModel)]="telNumber" type="tel">{{telNumber}}</ion-input>
+      </ion-item>
+      <button ion-button (click)="modifyNumber()">Valider</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

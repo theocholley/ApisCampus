@@ -7,6 +7,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {UserInformationsPage} from "../user-informations/user-informations";
 import {NativeStorage} from "@ionic-native/native-storage";
+import {SettingsPage} from "../settings/settings";
 
 
 @IonicPage()
@@ -29,7 +30,7 @@ export class CameraOrNotPage {
           this.telNumber=data.number
         },
         error => {
-          var modalPage = this.modalCtrl.create('UserInformationsPage');
+          let modalPage = this.modalCtrl.create('UserInformationsPage');
           modalPage.present();
         }
       );
@@ -68,5 +69,10 @@ export class CameraOrNotPage {
 
   goToMenu() {
     this.navCtrl.setRoot(HomePage)
+  }
+
+  goToSettings() {
+    let modalPage = this.modalCtrl.create('SettingsPage');
+    modalPage.present();
   }
 }
