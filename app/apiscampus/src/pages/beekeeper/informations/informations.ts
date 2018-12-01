@@ -16,15 +16,15 @@ export class InformationsPage {
   public mySize = Size;
 
   private item;
-  private hour;
-  private date;
-  private county;
-  private feature;
-  private height;
-  private description;
+  private hour: string;
+  private date: string;
+  private county: string;
+  private feature: string;
+  private height: string;
+  private description: string;
+  private size: string;
+  private insectType: string;
   private img;
-  private size;
-  private insectType;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.item = navParams.get('item');

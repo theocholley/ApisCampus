@@ -12,12 +12,12 @@ import {LoginPage} from "../login/login";
 export class SignUpPage {
 
   private idForm=0;
-  private nameForm;
-  private surnameForm;
-  private cityForm;
-  private rayForm;
-  private passcodeForm;
-  private phoneForm;
+  private nameForm: string;
+  private surnameForm: string;
+  private cityForm: string;
+  private rayForm: string;
+  private passcodeForm: string;
+  private phoneForm: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server) {
   }

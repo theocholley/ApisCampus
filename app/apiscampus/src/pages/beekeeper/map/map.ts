@@ -18,13 +18,13 @@ var bee = L.icon({
 })
 export class MapPage {
 
-  private results;
+  private readonly results;
 
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server, public modalCtrl: ModalController) {
-    var req = this.server.getSwarms();
+    let req = this.server.getSwarms();
     this.results = JSON.parse(req.responseText).result;
   }
 
@@ -49,13 +49,13 @@ export class MapPage {
     });
 
     for (let i in this.results) {
-      var tmpResults = this.results
-      var tmpPos = [this.results[i].latitude, this.results[i].longitude]
-      var tmpMod = this.modalCtrl;
-      var marker = L.marker(tmpPos, {icon: bee}).addTo(this.map)
+      let tmpResults = this.results;
+      let tmpPos = [this.results[i].latitude, this.results[i].longitude];
+      let tmpMod = this.modalCtrl;
+      let marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
       marker.on('click', function () {
-        var data = {item: tmpResults[i]};
-        var modalPage = tmpMod.create('InformationsPage', data);
+        let data = {item: tmpResults[i]};
+        let modalPage = tmpMod.create('InformationsPage', data);
         modalPage.present();
       });
     }

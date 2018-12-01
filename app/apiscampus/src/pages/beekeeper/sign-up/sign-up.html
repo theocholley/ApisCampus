@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-item>
     <ion-label color="primary">Nom</ion-label>
-    <ion-input [(ngModel)]="nameForm"></ion-input>
+    <ion-input type="email" [(ngModel)]="nameForm"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary">Prénom</ion-label>
@@ -20,15 +20,15 @@
   </ion-item>
   <ion-item>
     <ion-label color="primary">Rayon</ion-label>
-    <ion-input [(ngModel)]="rayForm"></ion-input>
+    <ion-input type="number" [(ngModel)]="rayForm"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary">Mot de passe</ion-label>
-    <ion-input [(ngModel)]="passcodeForm"></ion-input>
+    <ion-input type="password" [(ngModel)]="passcodeForm"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary">Numéro de téléphone</ion-label>
-    <ion-input [(ngModel)]="phoneForm"></ion-input>
+    <ion-input type="tel" [(ngModel)]="phoneForm"></ion-input>
   </ion-item>
   <ion-item>
     <button ion-button (click)="signUp()">Connexion</button>

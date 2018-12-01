@@ -18,7 +18,7 @@ export class LoginPage {
   }
 
   connect() {
-    var req = this.server.login(this.nameForm, this.passwordForm);
+    let req = this.server.login(this.nameForm, this.passwordForm);
     //console.log(req)
     this.goToMap()
   }
