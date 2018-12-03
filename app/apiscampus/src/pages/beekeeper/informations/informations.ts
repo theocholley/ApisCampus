@@ -15,6 +15,9 @@ export class InformationsPage {
   public myInsect = Insect;
   public mySize = Size;
 
+  private isNoPic: boolean;
+  private isPicPresent: boolean;
+
   private item;
   private hour: string;
   private date: string;
@@ -24,7 +27,7 @@ export class InformationsPage {
   private description: string;
   private size: string;
   private insectType: string;
-  private img;
+  private pic: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.item = navParams.get('item');
@@ -32,7 +35,9 @@ export class InformationsPage {
     this.hour = this.item.hour;
     this.date = this.item.date;
     this.description = this.item.description;
-    this.img = this.item.img;
+    if (this.item.pic != 'noimg')
+      this.pic = 'http://192.168.1.21/api/upload/images/' + this.item.pic;
+    else this.pic = this.item.pic;
     this.getFeature(this.item.feature);
     this.getHeight(this.item.height);
     this.getSize(this.item.size);
@@ -60,97 +65,97 @@ export class InformationsPage {
     alert.present();
   }
 
-  getFeature(feature){
-    switch(feature) {
+  getFeature(feature) {
+    switch (feature) {
       case "Roof": {
-        this.feature=this.mySituation.Roof.valueOf();
+        this.feature = this.mySituation.Roof.valueOf();
         break;
       }
       case "Wall": {
-        this.feature=this.mySituation.Wall.valueOf();
+        this.feature = this.mySituation.Wall.valueOf();
         break;
       }
       case "Lamp": {
-        this.feature=this.mySituation.Lamp.valueOf();
+        this.feature = this.mySituation.Lamp.valueOf();
         break;
       }
       case "Tree": {
-        this.feature=this.mySituation.Tree.valueOf();
+        this.feature = this.mySituation.Tree.valueOf();
         break;
       }
       case "Other": {
-        this.feature=this.mySituation.Other.valueOf();
+        this.feature = this.mySituation.Other.valueOf();
         break;
       }
       default: {
-        this.feature=this.mySituation.Unknown.valueOf();
+        this.feature = this.mySituation.Unknown.valueOf();
         break;
       }
     }
   }
 
-  getHeight(height){
-    switch(height) {
+  getHeight(height) {
+    switch (height) {
       case "Ground": {
-        this.height=this.myHeight.Ground.valueOf();
+        this.height = this.myHeight.Ground.valueOf();
         break;
       }
       case "HumanSize": {
-        this.height=this.myHeight.HumanSize.valueOf();
+        this.height = this.myHeight.HumanSize.valueOf();
         break;
       }
       case "TwoToFive": {
-        this.height=this.myHeight.TwoToFive.valueOf();
+        this.height = this.myHeight.TwoToFive.valueOf();
         break;
       }
       case "MoreThanFive": {
-        this.height=this.myHeight.MoreThanFive.valueOf();
+        this.height = this.myHeight.MoreThanFive.valueOf();
         break;
       }
       default: {
-        this.height=this.myHeight.Unknown.valueOf();
+        this.height = this.myHeight.Unknown.valueOf();
         break;
       }
     }
   }
 
-  getSize(size){
-    switch(size) {
+  getSize(size) {
+    switch (size) {
       case "Tennis": {
-        this.size=this.mySize.Tennis.valueOf();
+        this.size = this.mySize.Tennis.valueOf();
         break;
       }
       case "Handball": {
-        this.size=this.mySize.Handball.valueOf();
+        this.size = this.mySize.Handball.valueOf();
         break;
       }
       case "Basket": {
-        this.size=this.mySize.Basket.valueOf();
+        this.size = this.mySize.Basket.valueOf();
         break;
       }
       default: {
-        this.size=this.mySize.Unknown.valueOf();
+        this.size = this.mySize.Unknown.valueOf();
         break;
       }
     }
   }
 
-  getInsect(insect){
-    switch(insect) {
+  getInsect(insect) {
+    switch (insect) {
       case "Bee": {
-        this.insectType=this.myInsect.Bee.valueOf();
+        this.insectType = this.myInsect.Bee.valueOf();
         break;
       }
       case "Wasp": {
-        this.insectType=this.myInsect.Wasp.valueOf();
+        this.insectType = this.myInsect.Wasp.valueOf();
         break;
       }
       case "Hornet": {
-        this.insectType=this.myInsect.Hornet.valueOf();
+        this.insectType = this.myInsect.Hornet.valueOf();
         break;
       }
       default: {
-        this.insectType=this.myInsect.Bee.valueOf();
+        this.insectType = this.myInsect.Bee.valueOf();
         break;
       }
     }

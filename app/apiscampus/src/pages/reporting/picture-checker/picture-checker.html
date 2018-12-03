@@ -2,18 +2,16 @@
   <ion-navbar>
     <ion-buttons>
       <button ion-button (click)="goToMenu()">Retour au menu</button>
-      <button ion-button (click)="goToSettings()" end>Réglages</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <ion-row>
     <ion-col width-50 style="text-align: center">
-      <button ion-button (click)="openPictureChecker()">Prendre l'essaim en photo</button>
-      <div></div>
-      <button ion-button (click)="openInsectPicker()">Je ne peux pas prendre de photo</button>
+      <img [src]=base64Image>
+      <button ion-button (click)="openCamera()">Modifier la photo</button>
+      <button ion-button (click)="upload()">Valider</button>
     </ion-col>
   </ion-row>
 </ion-content>

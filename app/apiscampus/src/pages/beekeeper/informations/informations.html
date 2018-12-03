@@ -11,7 +11,12 @@
     <ion-col width-50 style="text-align: center">
       <h3>Le {{date}} à {{hour}}</h3>
       <p>{{county}}</p>
-      <img [src]=img>
+      <div *ngIf="pic != 'noimg'">
+        <img [src]=pic>
+      </div>
+      <div *ngIf="pic == 'noimg'">
+        Pas de photo disponible
+      </div>
       <ion-item>
         <p>Insecte reconnnu : {{insectType}}</p>
       </ion-item>

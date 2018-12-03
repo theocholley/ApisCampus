@@ -29,6 +29,8 @@ import {SettingsPageModule} from "../pages/reporting/settings/settings.module";
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import {HttpClientModule} from "@angular/common/http";
+import {PictureCheckerPageModule} from "../pages/reporting/picture-checker/picture-checker.module";
+import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-checker";
 
 
 
@@ -50,6 +52,7 @@ import {HttpClientModule} from "@angular/common/http";
     CameraOrNotPageModule,
     InformationsPageModule,
     SettingsPageModule,
+    PictureCheckerPageModule,
     HttpClientModule,
     UserInformationsPageModule
   ],
@@ -60,6 +63,7 @@ import {HttpClientModule} from "@angular/common/http";
     ReportPage,
     MapPage,
     LoginPage,
+    PictureCheckerPage,
     InformationsPage,
     InsectPickerPage,
     CameraOrNotPage,

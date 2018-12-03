@@ -37,7 +37,7 @@ export class ReportPage {
   private description;
   private height;
   private size;
-  private img;
+  private imgPath;
 
   constructor(private nativeStorage: NativeStorage,
               public platform: Platform,
@@ -52,7 +52,7 @@ export class ReportPage {
     this.date = navParams.get('date');
     this.hour = navParams.get('hour');
     this.insect = navParams.get('insect');
-    this.img = navParams.get('img');
+    this.imgPath = navParams.get('imgPath');
     this.telNumber = navParams.get('telNumber');
     this.platform.ready().then(() => {
       if (this.network.type == "none") {
@@ -119,7 +119,7 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.img);
+      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -142,7 +142,7 @@ export class ReportPage {
           telNumber: this.telNumber,
           size: this.size,
           insect: this.insect,
-          img: this.img
+          img: this.imgPath
         })
         .then(
           () => console.log('Stored request!'),

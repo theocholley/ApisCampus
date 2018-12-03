@@ -1,4 +1,3 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;6.9792347;43.5548597;1-11-2018;2h06;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
-1;6.9792345;43.5548598;1-11-2018;2h07;undefined;undefined;Sabncgjj;undefined;25;false;undefined;Abeille
-2;6.979217;43.5548616;1-11-2018;2h39;Wall;undefined;6yjjj;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
+0;6.9792365;43.5548604;3-11-2018;14h010;undefined;undefined;undefined;06150, Alpes-Maritimes;25;false;undefined;Frelon
+1;6.9792351;43.5548604;3-11-2018;14h33;undefined;undefined;undefined;06150, Alpes-Maritimes;25;false;undefined;Abeille
