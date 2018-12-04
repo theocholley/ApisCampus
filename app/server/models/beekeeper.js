@@ -1,19 +1,22 @@
 "use strict";
 
 module.exports = class Beekeeper {
+
 //Nom, Prénom, Ville, Rayon, mdp, no telephone.
 
 
 
-    constructor(id, name, surname, city, ray, passcode, phone) {
+    constructor(id, name, surname, latCentre,longCentre, ray, passcode, phone, mail) {
         this._id = id;
         this._name = name;
         this._surname = surname;
-        this._city = city;
         this._ray = ray;
         this._passcode = passcode;
         this._phone = phone;
         this._swarms = [];
+        this._latCentre = latCentre;
+        this._longCentre = longCentre;
+        this._mail = mail;
     }
 
 
@@ -27,10 +30,6 @@ module.exports = class Beekeeper {
 
     getSurname() {
         return this._surname;
-    }
-
-    getCity() {
-        return this._city;
     }
 
     getRay() {
@@ -52,5 +51,18 @@ module.exports = class Beekeeper {
 
     addSwarms(swarm){
         this._swarms.push(swarm);
+    }
+
+
+    getLatCentre() {
+        return this._latCentre;
+    }
+
+    getLongCentre() {
+        return this._longCentre;
+    }
+
+    getMail() {
+        return this._mail;
     }
 }

@@ -27,7 +27,7 @@ export class SignUpPage {
   }
 
   signUp() {
-    this.server.addBeekeeper(this.idForm, this.nameForm, this.surnameForm, this.cityForm, this.rayForm, this.passcodeForm, this.phoneForm);
+    //this.server.addBeekeeper(this.idForm, this.nameForm, this.surnameForm, this.cityForm, this.rayForm, this.passcodeForm, this.phoneForm);
     this.navCtrl.push(LoginPage)
   }
 

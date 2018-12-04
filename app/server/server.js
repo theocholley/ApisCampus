@@ -147,11 +147,11 @@ app.get('/getSwarms', function (req, res) {
 app.get('/getMySwarms/:numberObs', function (req, res) {
     const numberObs = req.params.numberObs;
 
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var query = { numberObs: numberObs };
-        dbo.collection("swarms").find(query).toArray(function(err, result) {
+        var query = {numberObs: numberObs};
+        dbo.collection("swarms").find(query).toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
             db.close();
@@ -166,27 +166,31 @@ app.get('/getMySwarms/:numberObs', function (req, res) {
 
 //Partie Beekeeper
 //Nom, Prénom, Ville, Rayon, mdp, no telephone.
-app.get('/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone', function (req, res) {
+app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:phone/:mail', function (req, res) {
     const id = beekeeperList.getSize();
     const name = req.params.name;
     const surname = req.params.surname;
-    const city = req.params.city;
+    const latCentre = req.params.latCentre;
+    const longCentre = req.params.longCentre;
     const ray = req.params.ray;
     const passcode = req.params.passcode;
     const phone = req.params.phone;
+    const mail = req.params.mail;
+
+
     var alreadyExists = false;
-    var beekeeper = new Beekeeper(id, name, surname, city, ray, passcode, phone);
-    for (var i = 0; i<beekeeperList.getSize(); i++){
-        if(beekeeperList.getList()[i].getName()===beekeeper.getName() && beekeeperList.getList()[i].getPasscode() === beekeeper.getPasscode()){
+    var beekeeper = new Beekeeper(id, name, surname, latCentre, longCentre, ray, passcode, phone, mail);
+    for (var i = 0; i < beekeeperList.getSize(); i++) {
+        if (beekeeperList.getList()[i].getMail() === beekeeper.getMail()) {
             alreadyExists = true;
         }
     }
 
-    if (alreadyExists){
+    if (alreadyExists) {
         res.send({
             passed: false
         });
-    }else{
+    } else {
         beekeeperList.push(beekeeper);
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
@@ -195,10 +199,12 @@ app.get('/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone', function 
                 id: id,
                 name: name,
                 surname: surname,
-                city: city,
+                latCentre: latCentre,
+                longCentre: longCentre,
                 ray: ray,
                 passcode: passcode,
-                phone: phone
+                phone: phone,
+                mail: mail
             };
             dbo.collection("beekeepers").insertOne(newBeekeeper, function (err, res) {
                 if (err) throw err;
@@ -213,15 +219,15 @@ app.get('/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone', function 
     }
 });
 
-app.get('/login/:name/:passcode', function (req, res) {
-    const name = req.params.name;
+app.get('/login/:mail/:passcode', function (req, res) {
+    const mail = req.params.mail;
     const passcode = req.params.passcode;
 
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var query = { name: name , passcode: passcode };
-        dbo.collection("beekeepers").find(query).toArray(function(err, result) {
+        var query = {mail: mail, passcode: passcode};
+        dbo.collection("beekeepers").find(query).toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
             db.close();
@@ -273,7 +279,7 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
     const idApi = req.params.idApi;
     const idSwarm = req.params.idSwarm;
 
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
         var newReservation = {
@@ -281,9 +287,9 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
             idSwarm: idSwarm,
             date: ref.getTime()
         };
-        dbo.collection("reservations").find({$or : [{idApi: idApi}, {idSwarm: idSwarm}]}).toArray(function(err, result) {
+        dbo.collection("reservations").find({$or: [{idApi: idApi}, {idSwarm: idSwarm}]}).toArray(function (err, result) {
             if (err) throw err;
-            if (result.length===0){
+            if (result.length === 0) {
                 dbo.collection("reservations").insertOne(newReservation, function (err, res) {
                     if (err) throw err;
                     console.log("Reservation ajoutée");
@@ -292,7 +298,14 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
                 res.send({
                     passed: true,
                 });
-            }else{
+                var myquery = {id: +idSwarm};
+                var newvalues = {$set: {isTreated: true}};
+                dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
+                    if (err) throw err;
+                    console.log("L'essaim a été mis à jour");
+                    db.close();
+                });
+            } else {
                 res.send({
                     passed: false,
                 });
@@ -302,13 +315,13 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
     });
 });
 
-function updateReservations(){
+function updateReservations() {
     let currentDate = ref.getTime();
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var myquery = {date:{$lt : currentDate-54000000}};//54000000 == 15h : current - date > 15h ==> on supprime
-        dbo.collection("reservations").deleteMany(myquery, function(err, obj) {
+        var myquery = {date: {$lt: currentDate - 54000000}};//54000000 == 15h : current - date > 15h ==> on supprime
+        dbo.collection("reservations").deleteMany(myquery, function (err, obj) {
             if (err) throw err;
             console.log("documents deleted");
             db.close();
@@ -316,7 +329,7 @@ function updateReservations(){
     });
 }
 
-setInterval(updateReservations,3600000);
+setInterval(updateReservations, 3600000);
 
 var nbResa;
 var nbTot;

@@ -55,18 +55,18 @@ export class Server {
 
     //Partie Apiculteur :
 
-    //'/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone'
-    addBeekeeper(id, name, surname, city, ray, passcode, phone){
+    ///createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:phone
+    addBeekeeper(name, surname, latCentre, longCentre, ray, passcode, phone, mail){
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/createBeekeeper/".concat(name).concat("/").concat(surname).concat("/").concat(city).concat("/").concat(ray).concat("/").concat(passcode).concat("/").concat(phone)), false);
+        req.open("GET", this.getAllPath().concat("/createBeekeeper/".concat(name).concat("/").concat(surname).concat("/").concat(latCentre).concat("/").concat(longCentre).concat("/").concat(ray).concat("/").concat(passcode).concat("/").concat(phone).concat("/").concat(mail)), false);
         req.send(null);
         return req;
     }
 
-    ///login/:name/:passcode
-    login(name, passcode){
+    ///login/:mail/:passcode
+    login(mail, passcode){
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/login/".concat(name).concat("/").concat(passcode)), false);
+        req.open("GET", this.getAllPath().concat("/login/".concat(mail).concat("/").concat(passcode)), false);
         req.send(null);
         return req;
     }
