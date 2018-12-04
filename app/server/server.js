@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cors());
 app.use(express.static('media'));
+var ref = new Date();
 
 MongoClient.connect(url, function (err, db) {
     if (err) throw err;
@@ -51,6 +52,15 @@ MongoClient.connect(url, function (err, db) {
     });
 });
 
+MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("ApisCampus");
+    dbo.createCollection("reservations", function (err, res) {
+        if (err) throw err;
+        console.log("Collection created!");
+        db.close();
+    });
+});
 
 console.log("ApisCampus - Server");
 console.log("Connecting ...")
@@ -155,22 +165,6 @@ app.get('/getMySwarms/:numberObs', function (req, res) {
 
 });
 
-app.get('/treat/:id', function (req, res) {
-    const id = req.params.id;
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("ApisCampus");
-        var myquery = {id: +id};
-        var newvalues = {$set: {isTreated: true}};
-        dbo.collection("swarms").updateOne(myquery, newvalues, function (err, res) {
-            if (err) throw err;
-            console.log("L'essaim a été mis à jour");
-            db.close();
-        });
-    });
-});
-
-
 //Partie Beekeeper
 //Nom, Prénom, Ville, Rayon, mdp, no telephone.
 app.get('/createBeekeeper/:name/:surname/:city/:ray/:passcode/:phone', function (req, res) {
@@ -241,13 +235,13 @@ app.get('/login/:name/:passcode', function (req, res) {
 
 });
 
-function generateCsv(){
-    var content="ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE\n";
-    console.log("size : "+swarmList.getSize());
+function generateCsv() {
+    var content = "ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE\n";
+    console.log("size : " + swarmList.getSize());
     for (var i = 0; i < swarmList.getSize(); i++) {
         console.log(swarmList.getList());
         var currentSwarm = swarmList.getList()[i];
-        content+=currentSwarm.getId()+";"+currentSwarm.getLongitude()+";"+currentSwarm.getLatitude()+";"+currentSwarm.getDate()+";"+currentSwarm.getHour()+";"+currentSwarm.getFeature()+";"+currentSwarm.getHeight()+";"+currentSwarm.getDescription()+";"+currentSwarm.getCounty()+";"+currentSwarm.getNumberObs()+";"+currentSwarm.isTreated()+";"+currentSwarm.getSize()+";"+currentSwarm.getInsectType()+"\n";
+        content += currentSwarm.getId() + ";" + currentSwarm.getLongitude() + ";" + currentSwarm.getLatitude() + ";" + currentSwarm.getDate() + ";" + currentSwarm.getHour() + ";" + currentSwarm.getFeature() + ";" + currentSwarm.getHeight() + ";" + currentSwarm.getDescription() + ";" + currentSwarm.getCounty() + ";" + currentSwarm.getNumberObs() + ";" + currentSwarm.isTreated() + ";" + currentSwarm.getSize() + ";" + currentSwarm.getInsectType() + "\n";
     }
     fs.writeFile("file/swarms.csv", content, function (err) {
         if (err) {
@@ -255,25 +249,6 @@ function generateCsv(){
         }
         console.log("The file was saved!");
     });
-
-    app.get('/getSwarms', function (req, res) {
-
-        MongoClient.connect(url, function (err, db) {
-            if (err) throw err;
-            var dbo = db.db("ApisCampus");
-            dbo.collection("swarms").find({}).toArray(function (err, result) {
-                if (err) throw err;
-                console.log(result);
-                res.send({
-                    passed: true,
-                    result: result
-                });
-                db.close();
-            });
-        });
-        generateCsv();
-    });
-
 }
 
 app.get('/getBeekeepers', function (req, res) {
@@ -292,3 +267,55 @@ app.get('/getBeekeepers', function (req, res) {
         });
     });
 });
+
+//Partie reservation
+
+app.get('/treat/:idApi/:idSwarm', function (req, res) {
+    const idApi = req.params.idApi;
+    const idSwarm = req.params.idSwarm;
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var newReservation = {
+            idApi: idApi,
+            idSwarm: idSwarm,
+            date: ref.getTime()
+        };
+        dbo.collection("reservations").find({$or : [{idApi: idApi}, {idSwarm: idSwarm}]}).toArray(function(err, result) {
+            if (err) throw err;
+            if (result.length===0){
+                dbo.collection("reservations").insertOne(newReservation, function (err, res) {
+                    if (err) throw err;
+                    console.log("Reservation ajoutée");
+                    db.close();
+                });
+                res.send({
+                    passed: true,
+                });
+            }else{
+                res.send({
+                    passed: false,
+                });
+            }
+            db.close();
+        });
+    });
+});
+
+function updateReservations(){
+    let currentDate = ref.getTime();
+    console.log(currentDate);
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {date:{$lt : currentDate-54000000}};//54000000 == 15h : current - date > 15h ==> on supprime
+        dbo.collection("reservations").deleteMany(myquery, function(err, obj) {
+            if (err) throw err;
+            console.log("documents deleted");
+            db.close();
+        });
+    });
+}
+
+setInterval(updateReservations(),3600000);

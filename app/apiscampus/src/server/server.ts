@@ -45,10 +45,10 @@ export class Server {
         return req;
     }
 
-    //treat/:id
-    treat(id) {
+    //treat/:idApi/:idSwarm
+    treat(idApi, idSwarm) {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/treat").concat("/").concat(id), false);
+        req.open("GET", this.getAllPath().concat("/treat").concat("/").concat(idApi).concat("/").concat(idSwarm), false);
         req.send(null);
         return req;
     }
