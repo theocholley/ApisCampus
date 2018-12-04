@@ -142,7 +142,6 @@ app.get('/getSwarms', function (req, res) {
             db.close();
         });
     });
-    generateCsv();
 });
 
 app.get('/getMySwarms/:numberObs', function (req, res) {
@@ -305,7 +304,6 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
 
 function updateReservations(){
     let currentDate = ref.getTime();
-    console.log(currentDate);
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
@@ -318,4 +316,30 @@ function updateReservations(){
     });
 }
 
-setInterval(updateReservations(),3600000);
+setInterval(updateReservations,3600000);
+
+var nbResa;
+var nbTot;
+app.get('/getReservationsDetails', function (req, res) {
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        dbo.collection("reservations").find({}).toArray(function (err, result) {
+            if (err) throw err;
+            nbResa = result.length;
+            console.log(result.length);
+        });
+        dbo.collection("swarms").find({}).toArray(function (err, result) {
+            if (err) throw err;
+            nbTot = result.length;
+            console.log(result.length);
+        });
+        db.close();
+    });
+    res.send({
+        passed: true,
+        nbResa: nbResa,
+        nbTot: nbTot
+    })
+});
