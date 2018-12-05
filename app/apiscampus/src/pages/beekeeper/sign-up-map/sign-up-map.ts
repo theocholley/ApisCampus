@@ -85,7 +85,7 @@ export class SignUpMapPage {
   }
 
   signUp() {
-    //this.server.addBeekeeper(this.nameForm, this.surnameForm, "", this.rayForm, this.passcodeForm, this.phoneForm);
+    this.server.addBeekeeper(this.name, this.surname, latitude, longitude, this.rayForm, this.passcode, this.phone, this.mail);
     this.navCtrl.setRoot(LoginPage)
   }
 

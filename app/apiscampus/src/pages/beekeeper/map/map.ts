@@ -19,6 +19,7 @@ var bee = L.icon({
 export class MapPage {
 
   private readonly results;
+  private readonly idBeekeeper;
 
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
@@ -26,6 +27,7 @@ export class MapPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server, public modalCtrl: ModalController) {
     let req = this.server.getSwarms();
     this.results = JSON.parse(req.responseText).result;
+    this.idBeekeeper = navParams.get('idBeekeeper');
   }
 
   ionViewDidEnter() {
@@ -50,11 +52,18 @@ export class MapPage {
 
     for (let i in this.results) {
       let tmpResults = this.results;
+      let tmpIdBeekeeper = this.idBeekeeper;
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
       let tmpMod = this.modalCtrl;
-      let marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
+      let marker;
+      if (this.results[i].isTreated==true) {
+        marker = L.marker(tmpPos).addTo(this.map);
+      }
+      else {
+        marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
+      }
       marker.on('click', function () {
-        let data = {item: tmpResults[i]};
+        let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper};
         let modalPage = tmpMod.create('InformationsPage', data);
         modalPage.present();
       });

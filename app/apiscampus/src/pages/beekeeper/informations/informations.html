@@ -32,7 +32,12 @@
       <ion-item>
         <p>Commentaires : {{description}}</p>
       </ion-item>
-      <button ion-button (click)="bookSwarm()">Réserver cet essaim</button>
+      <div *ngIf="isTreated == false">
+        <button ion-button (click)="bookSwarm()">Réserver cet essaim</button>
+      </div>
+      <div *ngIf="isTreated == true">
+        Essaim déjà réservé
+      </div>
     </ion-col>
   </ion-row>
 </ion-content>

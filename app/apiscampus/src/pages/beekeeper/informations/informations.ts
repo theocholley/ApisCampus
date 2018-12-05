@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Height, Insect, Situation, Size} from "../../../utils/enums";
+import {Server} from "../../../server/server";
 
 
 @IonicPage()
@@ -15,10 +16,10 @@ export class InformationsPage {
   public myInsect = Insect;
   public mySize = Size;
 
-  private isNoPic: boolean;
-  private isPicPresent: boolean;
-
+  private idBeekeeper;
+  private idSwarm;
   private item;
+  private isTreated;
   private hour: string;
   private date: string;
   private county: string;
@@ -29,8 +30,11 @@ export class InformationsPage {
   private insectType: string;
   private pic: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public server: Server, public navParams: NavParams, private alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.item = navParams.get('item');
+    this.idBeekeeper = navParams.get('idBeekeeper');
+    this.idSwarm = this.item.id;
+    this.isTreated = this.item.isTreated;
     this.county = this.item.county;
     this.hour = this.item.hour;
     this.date = this.item.date;
@@ -53,6 +57,7 @@ export class InformationsPage {
   }
 
   public bookSwarm() {
+    let req = this.server.treat(this.idBeekeeper, this.idSwarm);
     this.presentAlert()
   }
 
