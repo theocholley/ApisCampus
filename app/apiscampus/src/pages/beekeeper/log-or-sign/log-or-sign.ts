@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {SignUpPage} from "../sign-up/sign-up";
-import {LoginPage} from "../login/login";
+import {MapPage} from "../map/map";
+import {Server} from "../../../server/server";
 
 
 @IonicPage()
@@ -11,19 +12,40 @@ import {LoginPage} from "../login/login";
 })
 export class LogOrSignPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private passwordForm;
+  private nameForm;
+  private results;
+
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public server: Server) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LogOrSignPage');
   }
 
-  goToSignUp(){
-    this.navCtrl.push(SignUpPage)
+  connect() {
+    let req = this.server.login(this.nameForm, this.passwordForm);
+    this.results = JSON.parse(req.responseText).result;
+    if (this.results.length==1){
+      this.goToMap()
+    }
+    else{
+      let alert = this.alertCtrl.create({
+        title: 'Erreur',
+        subTitle: 'La combinaison adresse mail / mot de passe est incorrecte',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
   }
 
-  goToLogIn(){
-    this.navCtrl.push(LoginPage)
+  goToMap() {
+    let data = {idBeekeeper: this.results[0].id};
+    this.navCtrl.push(MapPage, data);
+  }
+
+  goToSignUp(){
+    this.navCtrl.push(SignUpPage)
   }
 
 }

@@ -7,11 +7,26 @@
 <ion-content padding>
   <ion-row>
     <ion-col width-50 style="text-align: center">
-      <img src="assets/imgs/logoapiscampus.png">
-      <h2>Bienvenue sur l'application ApisCampus!</h2>
-      <button ion-button (click)="goToLogIn()">J'ai déjà un compte</button>
-      <div></div>
-      <button ion-button (click)="goToSignUp()">Je veux créer un compte</button>
+      <ion-item>
+        <ion-label stacked>Adresse e-mail</ion-label>
+        <ion-input [(ngModel)]="nameForm"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Mot de passe</ion-label>
+        <ion-input type="password" [(ngModel)]="passwordForm"></ion-input>
+      </ion-item>
+      <button ion-button (click)="connect()">Connexion</button>
     </ion-col>
   </ion-row>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col width-50 style="text-align: center">
+        Je ne me suis pas encore inscrit :
+        <button ion-button (click)="goToSignUp()">Créer un compte</button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

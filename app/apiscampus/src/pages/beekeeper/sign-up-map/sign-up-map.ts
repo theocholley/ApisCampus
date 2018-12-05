@@ -1,10 +1,10 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Server} from "../../../server/server";
-import {LoginPage} from "../login/login";
 import leaflet from 'leaflet';
 import L from "leaflet";
 import {Geolocation} from "@ionic-native/geolocation";
+import {LogOrSignPage} from "../log-or-sign/log-or-sign";
 
 var latitude;
 var longitude;
@@ -92,7 +92,7 @@ export class SignUpMapPage {
 
   signUp() {
     this.server.addBeekeeper(this.name, this.surname, latitude, longitude, this.rayForm, this.passcode, this.phone, this.mail);
-    this.navCtrl.setRoot(LoginPage)
+    this.navCtrl.setRoot(LogOrSignPage)
   }
 
 }

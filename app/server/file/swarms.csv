@@ -1,6 +1,8 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;6.9746688;43.5494912;5-11-2018;22h06;Lamp;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Frelon
-1;6.9746688;43.5494912;5-11-2018;22h07;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
-2;6.9746688;43.5494912;5-11-2018;22h21;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
-3;6.9746688;43.5494912;5-11-2018;22h27;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
-4;6.9791998;43.5548619;5-11-2018;22h42;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Frelon
+0;6.9746688;43.5494912;5-11-2018;23h20;Roof;TwoToFive;L'essaim est sur ma cheminée;06150, Alpes-Maritimes;undefined;false;Tennis;Abeille
+1;6.9746688;43.5494912;5-11-2018;23h23;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Frelon
+2;6.9746688;43.5494912;5-11-2018;23h24;Wall;HumanSize;L'essaim est sur un mur de ma grange;06150, Alpes-Maritimes;undefined;false;Tennis;Abeille
+3;6.9746688;43.5494912;5-11-2018;23h26;Wall;HumanSize;L'essaim est sur un mur de ma grange;06150, Alpes-Maritimes;0637528498;false;Tennis;Abeille
+4;6.9546688;43.5494912;5-11-2018;23h24;Wall;HumanSize;L'essaim est sur un mur de ma grange;06150, Alpes-Maritimes;undefined;false;Tennis;Abeille
+5;6.9546688;43.5194912;5-11-2018;23h24;Wall;HumanSize;L'essaim est sur un mur de ma grange;06150, Alpes-Maritimes;undefined;false;Tennis;Abeille
+6;6.9746688;43.5194912;5-11-2018;23h24;Wall;HumanSize;L'essaim est sur un mur de ma grange;06150, Alpes-Maritimes;undefined;false;Tennis;Abeille

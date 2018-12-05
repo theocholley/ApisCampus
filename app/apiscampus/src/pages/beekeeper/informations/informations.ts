@@ -27,6 +27,7 @@ export class InformationsPage {
   private height: string;
   private description: string;
   private size: string;
+  private telNumber: number;
   private insectType: string;
   private pic: string;
 
@@ -34,6 +35,7 @@ export class InformationsPage {
     this.item = navParams.get('item');
     this.idBeekeeper = navParams.get('idBeekeeper');
     this.idSwarm = this.item.id;
+    this.telNumber = this.item.numberObs;
     this.isTreated = this.item.isTreated;
     this.county = this.item.county;
     this.hour = this.item.hour;

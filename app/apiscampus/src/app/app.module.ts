@@ -8,7 +8,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {InsectPickerPage} from "../pages/reporting/insect-picker/insect-picker";
 import {MapPage} from "../pages/beekeeper/map/map";
 import {InformationsPage} from "../pages/beekeeper/informations/informations";
-import {LoginPage} from "../pages/beekeeper/login/login";
 import {ReportPage} from "../pages/reporting/report/report";
 import {CameraOrNotPage} from "../pages/reporting/camera-or-not/camera-or-not";
 import {Geolocation} from '@ionic-native/geolocation';
@@ -39,7 +38,6 @@ import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
     CameraOrNotPage,
     InsectPickerPage,
     ReportPage,
-    LoginPage,
     SignUpPage,
     SignUpMapPage,
     LogOrSignPage
@@ -59,7 +57,6 @@ import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
     HomePage,
     ReportPage,
     MapPage,
-    LoginPage,
     PictureCheckerPage,
     InformationsPage,
     InsectPickerPage,
