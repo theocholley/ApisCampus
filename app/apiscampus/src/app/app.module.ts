@@ -31,6 +31,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import {HttpClientModule} from "@angular/common/http";
 import {PictureCheckerPageModule} from "../pages/reporting/picture-checker/picture-checker.module";
 import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-checker";
+import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
 
 
 
@@ -42,6 +43,7 @@ import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-che
     MapPage,
     LoginPage,
     SignUpPage,
+    SignUpMapPage,
     LogOrSignPage
   ],
   imports: [
@@ -69,6 +71,7 @@ import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-che
     CameraOrNotPage,
     SettingsPage,
     SignUpPage,
+    SignUpMapPage,
     LogOrSignPage,
     UserInformationsPage
   ],

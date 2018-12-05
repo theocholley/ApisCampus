@@ -6,31 +6,29 @@
 
 
 <ion-content padding>
-  <ion-item>
-    <ion-label color="primary">Nom</ion-label>
-    <ion-input type="email" [(ngModel)]="nameForm"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary">Prénom</ion-label>
-    <ion-input [(ngModel)]="surnameForm"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary">Ville</ion-label>
-    <ion-input [(ngModel)]="cityForm"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary">Rayon</ion-label>
-    <ion-input type="number" [(ngModel)]="rayForm"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary">Mot de passe</ion-label>
-    <ion-input type="password" [(ngModel)]="passcodeForm"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary">Numéro de téléphone</ion-label>
-    <ion-input type="tel" [(ngModel)]="phoneForm"></ion-input>
-  </ion-item>
-  <ion-item>
-    <button ion-button (click)="signUp()">Connexion</button>
-  </ion-item>
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <ion-item>
+        <ion-label color="primary">Adresse mail</ion-label>
+        <ion-input type="email" [(ngModel)]="mailForm"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Nom</ion-label>
+        <ion-input type="email" [(ngModel)]="nameForm"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Prénom</ion-label>
+        <ion-input [(ngModel)]="surnameForm"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Mot de passe</ion-label>
+        <ion-input type="password" [(ngModel)]="passcodeForm"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Numéro de téléphone</ion-label>
+        <ion-input type="tel" [(ngModel)]="phoneForm"></ion-input>
+      </ion-item>
+      <button ion-button (click)="signUp()">Suivant</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

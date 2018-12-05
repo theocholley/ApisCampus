@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Inscription</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      Si vous souhaitez être averti des signalements ayant lieu proches de chez vous,
+      cliquez sur la carte pour choisir un point autour duquel vous serez prévenu (dans un rayon que vous définissez)
+      <ion-item>
+        <ion-label color="primary">Rayon (en km)</ion-label>
+        <ion-input (ionChange)="refreshRay()" type="number" [(ngModel)]="rayForm"></ion-input>
+      </ion-item>
+      <div id="map" style="width:100%; height:200%;"></div>
+      <button ion-button (click)="signUp()">Enregistrer</button>
+    </ion-col>
+  </ion-row>
+</ion-content>
