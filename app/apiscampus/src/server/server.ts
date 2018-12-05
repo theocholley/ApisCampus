@@ -19,7 +19,7 @@ export class Server {
     addSwarm(longitude, latitude, date, hour, feature, height, description, numberObs, size, insectType, pic) {
       let county = this.getCounty(latitude, longitude)
       let req = new XMLHttpRequest();
-      req.open("GET", this.getAllPath().concat("/addSwarm/".concat(longitude).concat("/").concat(latitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic)), false);
+      req.open("GET", this.getAllPath().concat("/addSwarm/".concat(latitude).concat("/").concat(longitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic)), false);
       req.send(null);
       return req;
     }
