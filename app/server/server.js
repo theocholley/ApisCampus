@@ -1,5 +1,6 @@
 "use strict";
-
+//En cas de coupure server penser à faire des fonctions de remplissage pour les beekeeperList et swarmList
+//isTreated à mettre à false quand les 15h sont écoulées
 let Swarm = require("./models/swarm");
 let SwarmList = require("./models/swarmList");
 
@@ -76,7 +77,7 @@ var beekeeperList = new BeekeeperList();
  */
 
 //(id, longitude, latitude, date, hour, feature, height, description, isTreated)
-app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic', function (req, res) {
+app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
@@ -91,7 +92,7 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
     const insectType = req.params.insectType;
     const pic = req.params.pic;
 
-    var swarm = new Swarm(id, longitude, latitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic);
+    var swarm = new Swarm(id, latitude, longitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic);
     swarmList.push(swarm);
 
 
@@ -100,8 +101,8 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
         var dbo = db.db("ApisCampus");
         var newSwarm = {
             id: id,
+            latitude: latitude ,
             longitude: longitude,
-            latitude: latitude,
             date: date,
             hour: hour,
             feature: feature,
@@ -125,6 +126,7 @@ app.get('/addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:descriptio
         swarm: swarm
     });
     generateCsv();
+    getClosest(latitude, longitude);
 });
 
 app.get('/getSwarms', function (req, res) {
@@ -341,12 +343,10 @@ app.get('/getReservationsDetails', function (req, res) {
         dbo.collection("reservations").find({}).toArray(function (err, result) {
             if (err) throw err;
             nbResa = result.length;
-            console.log(result.length);
         });
         dbo.collection("swarms").find({}).toArray(function (err, result) {
             if (err) throw err;
             nbTot = result.length;
-            console.log(result.length);
         });
         db.close();
     });
@@ -355,4 +355,37 @@ app.get('/getReservationsDetails', function (req, res) {
         nbResa: nbResa,
         nbTot: nbTot
     })
+    getClosest();
 });
+
+function getClosest(latB, longB){
+    let closest = [];
+    for (let i=0; i< beekeeperList.getSize(); i++){
+        let currentBeekeeper = beekeeperList.getList()[i];
+        let longA = currentBeekeeper.getLongCentre();
+        let latA = currentBeekeeper.getLatCentre();
+        let D =getDistanceFromLatLonInKm(latA, longA, latB, longB);
+        if (D <= currentBeekeeper.getRay()){
+            closest.push(currentBeekeeper);
+        }
+    }
+    return closest;
+}
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);
+    var a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
