@@ -1,4 +1,3 @@
-import {HomePage} from "../../home/home";
 import {Component} from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {InsectPickerPage} from "../insect-picker/insect-picker";
@@ -42,18 +41,12 @@ export class CameraOrNotPage {
 
   openInsectPicker() {
     let data = {telNumber: this.telNumber, imgPath: "noimg"};
-    let modalPage = this.modalCtrl.create('InsectPickerPage', data);
-    modalPage.present();
+    this.navCtrl.push(InsectPickerPage, data)
   }
 
   openPictureChecker() {
     let data = {telNumber: this.telNumber};
-    let modalPage = this.modalCtrl.create('PictureCheckerPage', data);
-    modalPage.present();
-  }
-
-  goToMenu() {
-    this.navCtrl.setRoot(HomePage)
+    this.navCtrl.push(PictureCheckerPage, data)
   }
 
   goToSettings() {

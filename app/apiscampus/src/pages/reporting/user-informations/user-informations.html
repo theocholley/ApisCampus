@@ -3,7 +3,6 @@
     <ion-buttons>
       <button ion-button (click)="closeModal()">Retour</button>
     </ion-buttons>
-    <ion-title>Identification</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +11,7 @@
   <ion-row>
     <ion-col width-50 style="text-align: center">
       <ion-item>
-        <ion-label color="primary" fixed>N° de téléphone</ion-label>
+        <ion-label stacked>Votre numéro de téléphone</ion-label>
         <ion-input type="tel" [(ngModel)]="telNumber"></ion-input>
       </ion-item>
 
@@ -20,8 +19,8 @@
         l'apiculteur souhaitant venir récupérer l'essaim puisse vous
         contacter facilement pour obtenir des détails. Ce numéro ne vous
         sera demandé qu'une seule fois jusqu'à la prochaine installation
-        de l'application. Pour modifier votre numéro, cliquez sur "Réglages"
-        dans le coin supérieur droit</p>
+        de l'application. Pour modifier votre numéro, cliquez sur l'icône de
+        réglages dans le coin supérieur droit</p>
 
       <button ion-button (click)="storeNumber()">Valider</button>
 

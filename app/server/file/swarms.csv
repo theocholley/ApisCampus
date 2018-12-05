@@ -1,2 +1,6 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;6.9791779;43.5548163;5-11-2018;8h51;Roof;MoreThanFive;undefined;06150, Alpes-Maritimes;undefined;false;Handball;Abeille
+0;6.9746688;43.5494912;5-11-2018;22h06;Lamp;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Frelon
+1;6.9746688;43.5494912;5-11-2018;22h07;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
+2;6.9746688;43.5494912;5-11-2018;22h21;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
+3;6.9746688;43.5494912;5-11-2018;22h27;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
+4;6.9791998;43.5548619;5-11-2018;22h42;undefined;undefined;undefined;06150, Alpes-Maritimes;undefined;false;undefined;Frelon

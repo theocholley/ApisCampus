@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {NativeStorage} from "@ionic-native/native-storage";
+import {HomePage} from "../../home/home";
 
 
 @IonicPage()
@@ -17,6 +18,7 @@ export class UserInformationsPage {
 
   public closeModal() {
     this.viewCtrl.dismiss();
+    this.navCtrl.setRoot(HomePage);
   }
 
   ionViewDidLoad() {
@@ -30,7 +32,7 @@ export class UserInformationsPage {
         () => console.log('Stored number!'),
         error => console.error('Error storing item', error)
       );
-    this.closeModal();
+    this.viewCtrl.dismiss();
   }
 
 

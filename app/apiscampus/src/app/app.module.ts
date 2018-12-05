@@ -5,15 +5,12 @@ import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {ReportPageModule} from "../pages/reporting/report/report.module";
 import {InsectPickerPage} from "../pages/reporting/insect-picker/insect-picker";
-import {InsectPickerPageModule} from "../pages/reporting/insect-picker/insect-picker.module";
 import {MapPage} from "../pages/beekeeper/map/map";
 import {InformationsPage} from "../pages/beekeeper/informations/informations";
 import {LoginPage} from "../pages/beekeeper/login/login";
 import {ReportPage} from "../pages/reporting/report/report";
 import {CameraOrNotPage} from "../pages/reporting/camera-or-not/camera-or-not";
-import {CameraOrNotPageModule} from "../pages/reporting/camera-or-not/camera-or-not.module";
 import {Geolocation} from '@ionic-native/geolocation';
 import {Server} from "../server/server"
 import {Camera} from "@ionic-native/camera";
@@ -34,13 +31,14 @@ import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-che
 import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
 
 
-
-
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     MapPage,
+    CameraOrNotPage,
+    InsectPickerPage,
+    ReportPage,
     LoginPage,
     SignUpPage,
     SignUpMapPage,
@@ -49,9 +47,6 @@ import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    ReportPageModule,
-    InsectPickerPageModule,
-    CameraOrNotPageModule,
     InformationsPageModule,
     SettingsPageModule,
     PictureCheckerPageModule,

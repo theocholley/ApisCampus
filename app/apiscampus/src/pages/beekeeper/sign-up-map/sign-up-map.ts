@@ -8,6 +8,8 @@ import {Geolocation} from "@ionic-native/geolocation";
 
 var latitude;
 var longitude;
+var latitudeOfCenter;
+var longitudeOfCenter;
 
 @IonicPage()
 @Component({
@@ -20,12 +22,12 @@ export class SignUpMapPage {
   map: any;
 
   private zoom: number=10;
-  private mail: string;
-  private name: string;
-  private surname: string;
   private rayForm: number = 10;
-  private passcode: string;
-  private phone: number;
+  private readonly mail: string;
+  private readonly name: string;
+  private readonly surname: string;
+  private readonly passcode: string;
+  private readonly phone: number;
 
   constructor(public navCtrl: NavController,
               private geolocation: Geolocation,
@@ -34,6 +36,8 @@ export class SignUpMapPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       latitude=resp.coords.latitude;
       longitude=resp.coords.longitude;
+      latitudeOfCenter=latitude;
+      longitudeOfCenter=longitude;
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -53,7 +57,7 @@ export class SignUpMapPage {
   }
 
   loadmap() {
-    this.map = L.map('map').setView([latitude, longitude], this.zoom);
+    this.map = L.map('map').setView([latitudeOfCenter, longitudeOfCenter], this.zoom);
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attributions: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18
@@ -79,6 +83,8 @@ export class SignUpMapPage {
 
   refreshRay(){
     this.zoom = this.map.getZoom();
+    latitudeOfCenter = this.map.getCenter().lat;
+    longitudeOfCenter = this.map.getCenter().lng;
     this.map.remove();
     this.loadmap();
     this.printStuff(this.rayForm, this.map);

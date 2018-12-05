@@ -4,16 +4,15 @@ import {Component} from '@angular/core';
 import {
   AlertController,
   IonicPage,
-  ModalController,
   NavController,
   NavParams,
   Platform,
-  ViewController
 } from 'ionic-angular';
 import {Server} from "../../../server/server";
 import {Geolocation} from '@ionic-native/geolocation';
 import {Situation, Height, Size} from "../../../utils/enums";
 import {Network} from "@ionic-native/network";
+import {HomePage} from "../../home/home";
 
 
 @IonicPage()
@@ -44,8 +43,6 @@ export class ReportPage {
               public network: Network,
               public navCtrl: NavController,
               private alertCtrl: AlertController,
-              public modalCtrl: ModalController,
-              public viewCtrl: ViewController,
               public navParams: NavParams,
               public server: Server,
               private geolocation: Geolocation) {
@@ -61,12 +58,6 @@ export class ReportPage {
     });
   }
 
-  public closeModal() {
-    this.viewCtrl.dismiss();
-    let data = {date: this.date, hour: this.hour};
-    let modalPage = this.modalCtrl.create('InsectPickerPage', data);
-    modalPage.present();
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReportPage');
@@ -81,7 +72,7 @@ export class ReportPage {
         this.addSwarmConnected()
       }
     });
-    this.viewCtrl.dismiss();
+    this.navCtrl.setRoot(HomePage);
   }
 
   presentAlert() {

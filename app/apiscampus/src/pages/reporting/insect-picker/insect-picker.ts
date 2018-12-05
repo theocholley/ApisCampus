@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Insect} from "../../../utils/enums";
 import {ReportPage} from "../report/report";
 
@@ -21,13 +21,9 @@ export class InsectPickerPage {
   private currentInsect: number;
   public now: Date = new Date();
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.imgPath = navParams.get('imgPath');
     this.telNumber = navParams.get('telNumber');
-  }
-
-  public closeModal() {
-    this.viewCtrl.dismiss();
   }
 
   ionViewDidLoad() {
@@ -41,9 +37,7 @@ export class InsectPickerPage {
       this.currentInsect == 2 ? this.myInsect.Wasp :
         this.currentInsect == 3 ? this.myInsect.Hornet : this.myInsect.Unknown)
     let data = {date: this.date, hour: this.hour, insect: this.insect, telNumber: this.telNumber, imgPath: this.imgPath};
-    let modalPage = this.modalCtrl.create('ReportPage', data);
-    this.closeModal();
-    modalPage.present();
+    this.navCtrl.push(ReportPage, data)
   }
 
   changeColor(nb, id, idBis, idTer) {
@@ -52,5 +46,4 @@ export class InsectPickerPage {
     idBis.style = "border:2px solid white";
     idTer.style = "border:2px solid white";
   }
-
 }

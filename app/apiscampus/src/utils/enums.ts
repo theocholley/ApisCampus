@@ -17,8 +17,8 @@ export enum Height {
 
 export enum Size {
   Tennis = "Balle de tennis (moins de 10cm)",
-  Handball = "Ballon de handball (≈50cm)",
-  Basket = "Ballon de basket (≈75cm)",
+  Handball = "Ballon de handball (≈10cm)",
+  Basket = "Ballon de basket (≈20cm)",
   Unknown = "Non renseigné"
 }
 
