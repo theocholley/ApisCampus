@@ -6,13 +6,7 @@
 
 <ion-content padding>
   <ion-row>
-    <ion-col width-50 style="text-align: center">
-      <h3>Le {{date}} à {{hour}}</h3>
-      <p>{{county}}</p>
-      <div *ngIf="imgPath != 'noimg'">
-        <img [src]=imgPath>
-      </div>
-      <div *ngIf="imgPath == 'noimg'"></div>
+    <ion-col style="text-align: center">
       <ion-item>
         <ion-label>Situation de l'essaim</ion-label>
         <ion-select [(ngModel)]="feature">

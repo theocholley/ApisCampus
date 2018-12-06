@@ -38,6 +38,7 @@ import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
     CameraOrNotPage,
     InsectPickerPage,
     ReportPage,
+    InformationsPage,
     SignUpPage,
     SignUpMapPage,
     LogOrSignPage
@@ -45,7 +46,6 @@ import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    InformationsPageModule,
     SettingsPageModule,
     PictureCheckerPageModule,
     HttpClientModule,

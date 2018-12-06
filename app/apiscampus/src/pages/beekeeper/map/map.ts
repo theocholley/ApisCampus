@@ -54,7 +54,7 @@ export class MapPage {
       let tmpResults = this.results;
       let tmpIdBeekeeper = this.idBeekeeper;
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
-      let tmpMod = this.modalCtrl;
+      let tmpNavCtrl = this.navCtrl;
       let marker;
       if (this.results[i].isTreated==true) {
         marker = L.marker(tmpPos).addTo(this.map);
@@ -64,8 +64,7 @@ export class MapPage {
       }
       marker.on('click', function () {
         let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper};
-        let modalPage = tmpMod.create('InformationsPage', data);
-        modalPage.present();
+        tmpNavCtrl.push(InformationsPage, data);
       });
     }
   }

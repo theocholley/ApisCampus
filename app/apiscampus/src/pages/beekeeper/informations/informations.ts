@@ -54,10 +54,6 @@ export class InformationsPage {
     console.log('ionViewDidLoad InformationsPage');
   }
 
-  public closeModal() {
-    this.viewCtrl.dismiss();
-  }
-
   public bookSwarm() {
     let req = this.server.treat(this.idBeekeeper, this.idSwarm);
     this.presentAlert()

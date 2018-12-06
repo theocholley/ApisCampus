@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 import {NativeStorage} from "@ionic-native/native-storage";
 import {Server} from "../../../server/server";
 import {File} from "@ionic-native/file";
-import {HttpClient} from "@angular/common/http";
-import {HomePage} from "../../home/home";
+import {InsectPickerPage} from "../insect-picker/insect-picker";
 
 
 @IonicPage()
@@ -16,7 +15,7 @@ import {HomePage} from "../../home/home";
 })
 export class PictureCheckerPage {
 
-  private base64Image: string //= "assets/imgs/logoapiscampus.png";
+  private base64Image: string;
   private readonly telNumber: number;
   private imgPath: string;
   public now: Date = new Date();
@@ -28,7 +27,6 @@ export class PictureCheckerPage {
               public navParams: NavParams,
               private file: File,
               private transfer: FileTransfer,
-              public modalCtrl: ModalController,
               private loadingCtrl: LoadingController) {
     this.telNumber = navParams.get('telNumber');
     this.openCamera()
@@ -40,12 +38,7 @@ export class PictureCheckerPage {
 
   openInsectPicker() {
     let data = {telNumber: this.telNumber, imgPath: this.imgPath};
-    let modalPage = this.modalCtrl.create('InsectPickerPage', data);
-    modalPage.present();
-  }
-
-  goToMenu() {
-    this.navCtrl.setRoot(HomePage)
+    this.navCtrl.push(InsectPickerPage, data);
   }
 
   openCamera(){
@@ -54,7 +47,8 @@ export class PictureCheckerPage {
       quality: 80,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
     };
 
     this.camera.getPicture(options).then((imageData) => {
