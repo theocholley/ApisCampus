@@ -12,6 +12,7 @@
 
 <script src='http://d3js.org/d3.v2.js'></script>
 <link rel="stylesheet" href="index.css">
+<link rel="shortcut icon" type="image/png" href="res/logoapiscampus.png" />
 
 
 <head>
@@ -23,6 +24,12 @@
 
 <body>
     <header id="topBanner" role="banner">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='swarms.html'">Voir les
+                essaims</button>
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='beekeepers.html'">Voir les
+                apiculteurs</button>
+        </div>
         <div id="logo" style="text-align: center;">
             <img src="http://apiscampus.unice.fr/sites/default/files/logoapiscampus.png" /></a>
         </div>
@@ -35,6 +42,7 @@
     <div class="alert alert-success" role="alert">
         Bienvenue sur la page statistiques
     </div>
+
     <div id="carouselExampleControls" class="carousel slide" data-ride="false">
         <div class="carousel-inner">
             <div class="carousel-item active" style="align-content: center;">
@@ -59,10 +67,6 @@
                 <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion de la hauteur
                     d'implantation des essaims</p>
             </div>
-            <div class="carousel-item">
-                <div id="resa"></div>
-                <p style="text-align: center; font-family: 'Black Han Sans';">Graphique de la proportion d'essaims reserves</p>
-            </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="false"></span>
@@ -83,7 +87,7 @@
                 <th>Nom</th>
                 <th>Nom de famille</th>
                 <th>Numéro de tel</th>
-                <th>Ville</th>
+                <th>Point de Ref</th>
                 <th>Rayon (km)</th>
             </tr>
         </thead>
@@ -159,8 +163,9 @@
         var reqResa = new XMLHttpRequest();
         reqResa.open("GET", "http://localhost:8080".concat("/getReservationsDetails"), false);
         reqResa.send(null);
-        resaData.push({"label": "Reserve", "value":JSON.parse(reqResa.response).nbResa});
-        resaData.push({"label": "Libre", "value":JSON.parse(reqResa.response).nbTot});
+        resaData.push({ "label": "Reserve", "value": JSON.parse(reqResa.response).nbResa });
+        resaData.push({ "label": "Libre", "value": JSON.parse(reqResa.response).nbTot });
+        console.log(resaData);
 
         document.addEventListener("DOMContentLoaded", () => {
 
@@ -308,41 +313,6 @@
                 .attr("text-anchor", "middle")
                 .text(function (d, i) { return heightData[i].label; });
 
-           //Partie resa
-           
-           var resaVis = d3.select(document.getElementById('resa'))
-                .append("svg:svg")
-                .data([resaData])
-                .attr("width", w)
-                .attr("height", h)
-                .append("svg:g")
-                .attr("transform", "translate(" + r + "," + r + ")")
-
-            var arcResa = d3.svg.arc()
-                .outerRadius(r);
-
-            var pieResa = d3.layout.pie()
-                .value(function (d) { return d.value; });
-
-            var arcsResa = resaVis.selectAll("g.slice")
-                .data(pieResa)
-                .enter()
-                .append("svg:g")
-                .attr("class", "slice");
-
-            arcsResa.append("svg:path")
-                .attr("fill", function (d, i) { return color(i); })
-                .attr("d", arcResa);
-
-            arcsResa.append("svg:text")
-                .attr("transform", function (d) {
-                    d.innerRadius = 0;
-                    d.outerRadius = r;
-                    return "translate(" + arcResa.centroid(d) + ")";
-                })
-                .attr("text-anchor", "middle")
-                .text(function (d, i) { return resaData[i].label; });
-
             //Tableau d'essaims
             for (var i = 0; i < data2.length; i++) {
                 var tableau = document.getElementById("tableau");
@@ -350,7 +320,7 @@
                 var ligne = tableau.insertRow(-1);
 
                 var colonne1 = ligne.insertCell(0);
-                colonne1.innerHTML += "[Long. " + data2[i].longitude + " ,Lat. " + data2[i].latitude + "]";
+                colonne1.innerHTML += "[Lat. " + data2[i].latitude + ", Long. " + data2[i].longitude;
 
                 var colonne2 = ligne.insertCell(1);
                 colonne2.innerHTML += data2[i].date + " / " + data2[i].hour;
@@ -376,7 +346,7 @@
                 var colonne3 = ligne.insertCell(2);
                 colonne3.innerHTML += dataBeekeepers[i].phone;
                 var colonne4 = ligne.insertCell(3);
-                colonne4.innerHTML += dataBeekeepers[i].city;
+                colonne4.innerHTML += "[" + dataBeekeepers[i].latCentre + "," + dataBeekeepers[i].longCentre + "]";
                 var colonne5 = ligne.insertCell(4);
                 colonne5.innerHTML += dataBeekeepers[i].ray;
             }
