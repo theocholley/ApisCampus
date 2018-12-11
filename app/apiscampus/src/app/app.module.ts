@@ -28,6 +28,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {PictureCheckerPageModule} from "../pages/reporting/picture-checker/picture-checker.module";
 import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-checker";
 import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
+import {BookedSwarmPage} from "../pages/beekeeper/booked-swarm/booked-swarm";
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
     InsectPickerPage,
     ReportPage,
     InformationsPage,
+    BookedSwarmPage,
     SignUpPage,
     SignUpMapPage,
     LogOrSignPage
@@ -65,6 +67,7 @@ import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
     SignUpPage,
     SignUpMapPage,
     LogOrSignPage,
+    BookedSwarmPage,
     UserInformationsPage
   ],
   providers: [

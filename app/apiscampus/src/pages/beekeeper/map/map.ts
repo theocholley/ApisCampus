@@ -4,6 +4,7 @@ import leaflet from 'leaflet';
 import L from "leaflet";
 import {InformationsPage} from "../informations/informations";
 import {Server} from "../../../server/server";
+import {BookedSwarmPage} from "../booked-swarm/booked-swarm";
 
 
 var bee = L.icon({
@@ -67,6 +68,11 @@ export class MapPage {
         tmpNavCtrl.push(InformationsPage, data);
       });
     }
+  }
+
+  goToBookedSwarm(){
+    let data = {idBeekeeper: this.idBeekeeper};
+    this.navCtrl.push(BookedSwarmPage, data);
   }
 
 }

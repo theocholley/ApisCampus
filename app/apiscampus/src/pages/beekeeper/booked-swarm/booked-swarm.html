@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Ma réservation</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <!--
+<ion-row>
+<ion-col width-50 style="text-align: center">
+  <h3>Le {{date}} à {{hour}}</h3>
+      <p>{{county}}</p>
+      <div *ngIf="pic != 'noimg'">
+        <img [src]=pic>
+      </div>
+      <div *ngIf="pic == 'noimg'">
+        Pas de photo disponible
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-item>
+    <ion-label stacked>Insecte reconnu</ion-label>
+    <ion-label>{{insectType}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Situation de l'essaim</ion-label>
+    <ion-label>{{feature}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Hauteur approximative</ion-label>
+    <ion-label>{{height}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Taille approximative</ion-label>
+    <ion-label>{{size}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Commentaires</ion-label>
+    <ion-label>{{description}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Numéro de téléphone</ion-label>
+    <ion-label>{{telNumber}}</ion-label>
+  </ion-item>
+  -->
+  <ion-row>
+    <ion-col style="text-align: center">
+      <button ion-button (click)="endBooking()">J'ai récupéré l'essaim</button>
+      <div></div>
+      <button ion-button color="danger" (click)="cancelBooking()">Annuler ma réservation</button>
+    </ion-col>
+  </ion-row>
+</ion-content>
