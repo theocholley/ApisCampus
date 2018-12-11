@@ -72,6 +72,36 @@ var swarmList = new SwarmList();
 var beekeeperList = new BeekeeperList();
 
 
+function init(){
+    //on récupère tous les essaims puis tous les beekeepers et on construit dynamiquement les objets et on les add aux listes
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        dbo.collection("swarms").find({}).toArray(function (err, result) {
+            if (err) throw err;
+            for (let i = 0; i<result.length; +i++){
+                var swarm = new Swarm(result[i].id, result[i].latitude, result[i].longitude, result[i].date, result[i].hour, result[i].feature, result[i].height, result[i].description, result[i].county, result[i].numberObs, result[i].size, result[i].insectType, result[i].pic, result[i].isTreated);
+                swarmList.push(swarm);
+            }
+            db.close();
+        });
+    });
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        dbo.collection("beekeepers").find({}).toArray(function (err, result) {
+            if (err) throw err;
+            for (let i = 0; i<result.length; +i++){
+                var beekeeper = new Beekeeper(result[i].id, result[i].name, result[i].surname, result[i].latCentre, result[i].longCentre, result[i].ray, result[i].passcode, result[i].phone, result[i].mail);
+                beekeeperList.push(beekeeper);
+            }
+            db.close();
+        });
+    });
+}
+init();
+
 /**
  * Partie API
  */
@@ -92,7 +122,7 @@ app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:descriptio
     const insectType = req.params.insectType;
     const pic = req.params.pic;
 
-    var swarm = new Swarm(id, latitude, longitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic);
+    var swarm = new Swarm(id, latitude, longitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic, false);
     swarmList.push(swarm);
 
 
@@ -192,6 +222,7 @@ app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:
         res.send({
             passed: false
         });
+        console.log("user already exists");
     } else {
         beekeeperList.push(beekeeper);
         MongoClient.connect(url, function (err, db) {
@@ -318,11 +349,17 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
 });
 
 function updateReservations() {
+    var ids = [];
     let currentDate = ref.getTime();
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
         var myquery = {date: {$lt: currentDate - 54000000}};//54000000 == 15h : current - date > 15h ==> on supprime
+        dbo.collection("reservations").find(myquery).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+        });
         dbo.collection("reservations").deleteMany(myquery, function (err, obj) {
             if (err) throw err;
             console.log("documents deleted");
