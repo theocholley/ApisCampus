@@ -105,6 +105,9 @@ init();
  * Partie API
  */
 
+
+//Partie Swarms :
+
 app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
