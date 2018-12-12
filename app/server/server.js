@@ -315,6 +315,7 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
+        ref = new Date();
         var newReservation = {
             idApi: idApi,
             idSwarm: idSwarm,
@@ -348,16 +349,48 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
     });
 });
 
-function updateReservations() {
-    var ids = [];
-    let currentDate = ref.getTime();
+app.get('/getReservation/:idApi', function (req, res) {
+    const idApi = req.params.idApi;
+
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var myquery = {date: {$lt: currentDate - 54000000}};//54000000 == 15h : current - date > 15h ==> on supprime
+        var query = {idApi: idApi};
+        dbo.collection("reservations").find(query).toArray(function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+            res.send({
+                passed: true,
+                result: result
+            });
+        });
+    });
+
+});
+
+
+function updateReservations() {
+    var ids = [];
+    var myRef = new Date();
+    let currentDate = myRef.getTime();
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {date: {$lt: currentDate - 54}};//54000000 == 15h : current - date > 15h ==> on supprime
         dbo.collection("reservations").find(myquery).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
+            var newvalues = {$set: {isTreated: false}};
+            for (let i=0; i<result.length; i++){
+                ids.push(result[i].idSwarm);
+                var newQuery = {id: +result[i].idSwarm};
+                dbo.collection("swarms").updateOne(newQuery, newvalues, function (err, res) {
+                    if (err) throw err;
+                    console.log("L'essaim a été mis à jour");
+                    db.close();
+                });
+            }
             db.close();
         });
         dbo.collection("reservations").deleteMany(myquery, function (err, obj) {
@@ -368,32 +401,7 @@ function updateReservations() {
     });
 }
 
-setInterval(updateReservations, 3600000);
-
-var nbResa;
-var nbTot;
-app.get('/getReservationsDetails', function (req, res) {
-
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("ApisCampus");
-        dbo.collection("reservations").find({}).toArray(function (err, result) {
-            if (err) throw err;
-            nbResa = result.length;
-        });
-        dbo.collection("swarms").find({}).toArray(function (err, result) {
-            if (err) throw err;
-            nbTot = result.length;
-        });
-        db.close();
-    });
-    res.send({
-        passed: true,
-        nbResa: nbResa,
-        nbTot: nbTot
-    })
-    getClosest();
-});
+setInterval(updateReservations, 20000);//3600000
 
 function getClosest(latB, longB){
     let closest = [];
@@ -426,3 +434,5 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 function deg2rad(deg) {
     return deg * (Math.PI/180)
 }
+
+

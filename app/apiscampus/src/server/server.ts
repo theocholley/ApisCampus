@@ -87,4 +87,12 @@ export class Server {
         return req;
     }
 
+    ///getReservation/:idApi
+    getReservation(idApi){
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/getReservation".concat("/").concat(idApi)), false);
+        req.send(null);
+        return req;
+    }
+
 }
