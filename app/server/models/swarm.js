@@ -17,6 +17,7 @@ module.exports = class Swarm {
         this._size = size;
         this._insectType = insectType;
         this._pic = pic;
+        this._isAvailable = true;
     }
 
 
@@ -77,5 +78,10 @@ module.exports = class Swarm {
 
     getPic() {
         return this._pic;
+    }
+
+
+    getIsAvailable() {
+        return this._isAvailable;
     }
 }

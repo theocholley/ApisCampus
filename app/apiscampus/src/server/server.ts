@@ -45,6 +45,14 @@ export class Server {
         return req;
     }
 
+    //getAvailableSwarms
+    getAvailableSwarms() {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/getAvailableSwarms"), false);
+        req.send(null);
+        return req;
+    }
+
     //treat/:idApi/:idSwarm
     treat(idApi, idSwarm) {
         var req = new XMLHttpRequest();
@@ -52,6 +60,15 @@ export class Server {
         req.send(null);
         return req;
     }
+
+    ///retrieve/:idSwarm
+    retrieve(idSwarm) {
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/retrieve").concat("/").concat(idSwarm), false);
+        req.send(null);
+        return req;
+    }
+    
 
     //Partie Apiculteur :
 

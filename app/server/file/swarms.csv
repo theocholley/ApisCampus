@@ -1,6 +1,4 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
 0;5.839997;43.093602;date;hour;feature;height;description;county;0615255461;false;size;insectType
-1;60;60;date;hour;feature;height;description;county;0615255461;false;size;insectType
-2;5.821917;43.083214;date;h;f;h;d;c;n;false;s;i
-3;5.823162;43.084405;date;h;f;h;d;c;n;false;s;i
-4;5.831561;43.089354;date;h;f;h;d;c;n;false;s;i
+1;5.839997;43.093602;date;hour;feature;height;description;county;0615255461;false;size;insectType
+2;5.839997;43.093602;date;hour;feature;height;description;county;0615255461;false;size;insectType
