@@ -377,7 +377,7 @@ function updateReservations() {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var myquery = {date: {$lt: currentDate - 54}};//54000000 == 15h : current - date > 15h ==> on supprime
+        var myquery = {date: {$lt: currentDate - 54000000}};//54000000 == 15h : current - date > 15h ==> on supprime
         dbo.collection("reservations").find(myquery).toArray(function(err, result) {
             if (err) throw err;
             console.log(result);
@@ -401,7 +401,7 @@ function updateReservations() {
     });
 }
 
-setInterval(updateReservations, 20000);//3600000
+setInterval(updateReservations, 3600000);//3600000
 
 function getClosest(latB, longB){
     let closest = [];
