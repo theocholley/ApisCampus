@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {SignUpPage} from "../sign-up/sign-up";
 import {MapPage} from "../map/map";
@@ -26,10 +26,10 @@ export class LogOrSignPage {
   connect() {
     let req = this.server.login(this.nameForm, this.passwordForm);
     this.results = JSON.parse(req.responseText).result;
-    if (this.results.length==1){
+    if (this.results.length == 1) {
       this.goToMap()
     }
-    else{
+    else {
       let alert = this.alertCtrl.create({
         title: 'Erreur',
         subTitle: 'La combinaison adresse mail / mot de passe est incorrecte',
@@ -40,11 +40,19 @@ export class LogOrSignPage {
   }
 
   goToMap() {
-    let data = {idBeekeeper: this.results[0].id};
+    let idMyReservedSwarm=-2;
+    let req = this.server.getReservation(this.results[0].id);
+    try {
+      idMyReservedSwarm=JSON.parse(req.responseText).result[0].idSwarm;
+    }
+    catch(e) {
+      idMyReservedSwarm=-1;
+    }
+    let data = {idBeekeeper: this.results[0].id, idMyReservedSwarm: idMyReservedSwarm};
     this.navCtrl.push(MapPage, data);
   }
 
-  goToSignUp(){
+  goToSignUp() {
     this.navCtrl.push(SignUpPage)
   }
 

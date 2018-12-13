@@ -21,6 +21,7 @@ export class MapPage {
 
   private readonly results;
   private readonly idBeekeeper;
+  private idMyReservedSwarm;
 
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
@@ -29,6 +30,7 @@ export class MapPage {
     let req = this.server.getSwarms();
     this.results = JSON.parse(req.responseText).result;
     this.idBeekeeper = navParams.get('idBeekeeper');
+    this.idMyReservedSwarm = navParams.get('idMyReservedSwarm');
   }
 
   ionViewDidEnter() {
@@ -54,6 +56,7 @@ export class MapPage {
     for (let i in this.results) {
       let tmpResults = this.results;
       let tmpIdBeekeeper = this.idBeekeeper;
+      let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
       let tmpNavCtrl = this.navCtrl;
       let marker;
@@ -64,14 +67,14 @@ export class MapPage {
         marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
       }
       marker.on('click', function () {
-        let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper};
+        let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
         tmpNavCtrl.push(InformationsPage, data);
       });
     }
   }
 
   goToBookedSwarm(){
-    let data = {idBeekeeper: this.idBeekeeper};
+    let data = {idBeekeeper: this.idBeekeeper, idMyReservedSwarm: this.idMyReservedSwarm};
     this.navCtrl.push(BookedSwarmPage, data);
   }
 

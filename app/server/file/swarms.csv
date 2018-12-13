@@ -1,4 +1,2 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;5.839997;43.093602;date;hour;feature;height;description;county;0615255461;false;size;insectType
-1;5.839997;43.093602;date;hour;feature;height;description;county;0615255461;false;size;insectType
-2;5.839997;43.093602;date;hour;feature;height;description;county;0615255461;false;size;insectType
+0;6.9792447;43.554856699999995;13-11-2018;1h38;Wall;Ground;20;06150, Alpes-Maritimes;undefined;false;Handball;Frelon

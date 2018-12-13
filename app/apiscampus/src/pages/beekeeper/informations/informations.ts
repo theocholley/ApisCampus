@@ -30,10 +30,12 @@ export class InformationsPage {
   private telNumber: number;
   private insectType: string;
   private pic: string;
+  private idMyReservedSwarm: number;
 
   constructor(public navCtrl: NavController, public server: Server, public navParams: NavParams, private alertCtrl: AlertController, public viewCtrl: ViewController) {
     this.item = navParams.get('item');
     this.idBeekeeper = navParams.get('idBeekeeper');
+    this.idMyReservedSwarm = navParams.get('idMyReservedSwarm');
     this.idSwarm = this.item.id;
     this.telNumber = this.item.numberObs;
     this.isTreated = this.item.isTreated;
