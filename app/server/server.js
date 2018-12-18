@@ -403,6 +403,31 @@ app.get('/getReservation/:idApi', function (req, res) {
 });
 
 
+app.get('/cancelReservation/:idSwarm', function (req, res) {
+    const idSwarm = req.params.idSwarm;
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var myquery = {idSwarm: idSwarm};
+        dbo.collection("reservations").deleteMany(myquery, function (err, obj) {
+            if (err) throw err;
+            db.close();
+        });
+        var newvalues = {$set: {isTreated: false}};
+        var newQuery = {id: +idSwarm};
+        dbo.collection("swarms").updateOne(newQuery, newvalues, function (err, res) {
+            if (err) throw err;
+            db.close();
+        });
+
+    });
+    res.send({
+        passed: true
+    });
+});
+
+
 function updateReservations() {
     var ids = [];
     var myRef = new Date();

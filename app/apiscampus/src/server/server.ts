@@ -111,4 +111,11 @@ export class Server {
         return req;
     }
 
+    ///cancelReservation/:idSwarm
+    cancelReservation(idSwarm){
+        var req = new XMLHttpRequest();
+        req.open("GET", this.getAllPath().concat("/cancelReservation".concat("/").concat(idSwarm)), false);
+        req.send(null);
+        return req;
+    }
 }
