@@ -108,7 +108,7 @@ init();
 
 //Partie Swarms :
 
-app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic', function (req, res) {
+app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic/:idDevice', function (req, res) {
     const id = swarmList.getSize();
     const longitude = req.params.longitude;
     const latitude = req.params.latitude;
@@ -122,8 +122,9 @@ app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:descriptio
     const size = req.params.size;
     const insectType = req.params.insectType;
     const pic = req.params.pic;
+    const idDevice = req.params.idDevice;
 
-    var swarm = new Swarm(id, latitude, longitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic, false);
+    var swarm = new Swarm(id, latitude, longitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic, false, idDevice);
     swarmList.push(swarm);
 
 
@@ -145,7 +146,8 @@ app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:descriptio
             size: size,
             insectType: insectType,
             pic: pic,
-            isAvailable: true
+            isAvailable: true,
+            idDevice: idDevice
         };
         dbo.collection("swarms").insertOne(newSwarm, function (err, res) {
             if (err) throw err;

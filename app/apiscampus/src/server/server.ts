@@ -15,11 +15,10 @@ export class Server {
         return this.path.concat(this.port);
     }
 
-    ///addSwarm/:longitude/:latitude/:date/:hour/:feature/:height/:description/:county/:numberObs
-    addSwarm(longitude, latitude, date, hour, feature, height, description, numberObs, size, insectType, pic) {
+    addSwarm(longitude, latitude, date, hour, feature, height, description, numberObs, size, insectType, pic, idDevice) {
       let county = this.getCounty(latitude, longitude)
       let req = new XMLHttpRequest();
-      req.open("GET", this.getAllPath().concat("/addSwarm/".concat(latitude).concat("/").concat(longitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic)), false);
+      req.open("GET", this.getAllPath().concat("/addSwarm/".concat(latitude).concat("/").concat(longitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic).concat("/").concat(idDevice)), false);
       req.send(null);
       return req;
     }

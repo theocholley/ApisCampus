@@ -110,7 +110,7 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      let req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath);
+      let req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath, "");
     }).catch((error) => {
       console.log('Error getting location', error);
     });

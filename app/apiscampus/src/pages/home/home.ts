@@ -16,7 +16,7 @@ export class HomePage {
     this.nativeStorage.getItem('request')
       .then(
         data => {
-          this.server.addSwarm(data.long, data.lat, data.date, data.hour, data.feature, data.height, data.description, data.telNumber, data.size, data.insect, data.img);
+          this.server.addSwarm(data.long, data.lat, data.date, data.hour, data.feature, data.height, data.description, data.telNumber, data.size, data.insect, data.img, "");
           this.nativeStorage.remove('request')
         },
         error => {
