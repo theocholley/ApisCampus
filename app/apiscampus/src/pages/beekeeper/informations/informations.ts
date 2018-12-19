@@ -58,13 +58,41 @@ export class InformationsPage {
 
   public bookSwarm() {
     let req = this.server.treat(this.idBeekeeper, this.idSwarm);
-    this.presentAlert()
+    this.presentAlertBook()
   }
 
-  presentAlert() {
+  endBooking(){
+    let req = this.server.cancelReservation(this.idSwarm);
+    this.presentAlertEnd();
+  }
+
+  cancelBooking(){
+    let req = this.server.cancelReservation(this.idSwarm);
+    this.presentAlertCancel();
+  }
+
+  presentAlertBook() {
     let alert = this.alertCtrl.create({
       title: 'Essaim réservé!',
       subTitle: 'L\'essaim va disparaître de la carte pendant 15h',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  presentAlertCancel() {
+    let alert = this.alertCtrl.create({
+      title: 'Réservation annulée',
+      subTitle: 'Votre réservation a bien été annulée',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  presentAlertEnd() {
+    let alert = this.alertCtrl.create({
+      title: 'Essaim récupéré',
+      subTitle: 'Merci!',
       buttons: ['OK']
     });
     alert.present();

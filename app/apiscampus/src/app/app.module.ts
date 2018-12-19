@@ -15,7 +15,6 @@ import {Server} from "../server/server"
 import {Camera} from "@ionic-native/camera";
 import {SignUpPage} from "../pages/beekeeper/sign-up/sign-up";
 import {LogOrSignPage} from "../pages/beekeeper/log-or-sign/log-or-sign";
-import {InformationsPageModule} from "../pages/beekeeper/informations/informations.module";
 import {UserInformationsPage} from "../pages/reporting/user-informations/user-informations";
 import {UserInformationsPageModule} from "../pages/reporting/user-informations/user-informations.module";
 import {Network} from "@ionic-native/network";
@@ -29,6 +28,9 @@ import {PictureCheckerPageModule} from "../pages/reporting/picture-checker/pictu
 import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-checker";
 import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
 import {BookedSwarmPage} from "../pages/beekeeper/booked-swarm/booked-swarm";
+import { Uid } from '@ionic-native/uid';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+
 
 
 @NgModule({
@@ -79,6 +81,8 @@ import {BookedSwarmPage} from "../pages/beekeeper/booked-swarm/booked-swarm";
     Camera,
     Network,
     FileTransfer,
+    Uid,
+    AndroidPermissions,
     NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]

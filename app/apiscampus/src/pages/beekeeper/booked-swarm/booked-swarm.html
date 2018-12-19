@@ -6,10 +6,9 @@
 
 
 <ion-content padding>
-  <!--
-<ion-row>
-<ion-col width-50 style="text-align: center">
-  <h3>Le {{date}} à {{hour}}</h3>
+  <ion-row>
+    <ion-col width-50 style="text-align: center">
+      <h3>Le {{date}} à {{hour}}</h3>
       <p>{{county}}</p>
       <div *ngIf="pic != 'noimg'">
         <img [src]=pic>
@@ -43,7 +42,6 @@
     <ion-label stacked>Numéro de téléphone</ion-label>
     <ion-label>{{telNumber}}</ion-label>
   </ion-item>
-  -->
   <ion-row>
     <ion-col style="text-align: center">
       <button ion-button (click)="endBooking()">J'ai récupéré l'essaim</button>

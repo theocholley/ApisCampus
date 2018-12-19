@@ -40,7 +40,7 @@
     <ion-label stacked>Numéro de téléphone</ion-label>
     <ion-label>{{telNumber}}</ion-label>
   </ion-item>
-  <div *ngIf="idMyReservedSwarm != -1">
+  <div *ngIf="idMyReservedSwarm != -1 && idMyReservedSwarm != idSwarm">
     <ion-label>Vous ne pouvez pas réserver cet essaim car vous avez déjà une réservation en cours</ion-label>
   </div>
   <div *ngIf="isTreated == false && idMyReservedSwarm == -1">
@@ -48,5 +48,14 @@
   </div>
   <div *ngIf="isTreated == true && idMyReservedSwarm == -1">
     <ion-label>Cet essaim est déjà réservé</ion-label>
+  </div>
+  <div *ngIf="idMyReservedSwarm == idSwarm">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <button ion-button (click)="endBooking()">J'ai récupéré l'essaim</button>
+        <div></div>
+        <button ion-button color="danger" (click)="cancelBooking()">Annuler ma réservation</button>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>
