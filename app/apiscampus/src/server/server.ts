@@ -4,11 +4,13 @@ export class Server {
 
     path: string;
     port: string;
+    token: string;
 
     constructor() {
-      //this.path = "http://localhost:";
-      this.path = "http://192.168.1.21:";
+      this.path = "http://localhost:";
+      //this.path = "http://192.168.1.21:";
       this.port = "8080";
+      this.token = "";
     }
 
     getAllPath() {
@@ -16,7 +18,7 @@ export class Server {
     }
 
     addSwarm(longitude, latitude, date, hour, feature, height, description, numberObs, size, insectType, pic, idDevice) {
-      let county = this.getCounty(latitude, longitude)
+      let county = this.getCounty(latitude, longitude);
       let req = new XMLHttpRequest();
       req.open("GET", this.getAllPath().concat("/addSwarm/".concat(latitude).concat("/").concat(longitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic).concat("/").concat(idDevice)), false);
       req.send(null);
@@ -39,7 +41,8 @@ export class Server {
 
     getSwarms() {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/getSwarms"), false);
+        req.open("GET", this.getAllPath().concat("/api/getSwarms"), false);
+        req.setRequestHeader(this.token,"");
         req.send(null);
         return req;
     }
@@ -47,7 +50,8 @@ export class Server {
     //getAvailableSwarms
     getAvailableSwarms() {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/getAvailableSwarms"), false);
+        req.open("GET", this.getAllPath().concat("/api/getAvailableSwarms"), false);
+        req.setRequestHeader(this.token,"");
         req.send(null);
         return req;
     }
@@ -55,7 +59,8 @@ export class Server {
     //treat/:idApi/:idSwarm
     treat(idApi, idSwarm) {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/treat").concat("/").concat(idApi).concat("/").concat(idSwarm), false);
+        req.open("GET", this.getAllPath().concat("/api/treat").concat("/").concat(idApi).concat("/").concat(idSwarm), false);
+        req.setRequestHeader(this.token,"");
         req.send(null);
         return req;
     }
@@ -63,7 +68,8 @@ export class Server {
     ///retrieve/:idSwarm
     retrieve(idSwarm) {
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/retrieve").concat("/").concat(idSwarm), false);
+        req.open("GET", this.getAllPath().concat("/api/retrieve").concat("/").concat(idSwarm), false);
+        req.setRequestHeader(this.token,"");
         req.send(null);
         return req;
     }
@@ -84,21 +90,14 @@ export class Server {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/login/".concat(mail).concat("/").concat(passcode)), false);
         req.send(null);
-        return req;
-    }
-
-    ///getMySwarms/:numberObs
-    //Numberobs est le numéro de tel de l'observateur
-    getMySwarms(numberObs){
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/getMySwarms/".concat(numberObs)), false);
-        req.send(null);
+        this.token = JSON.parse(req.response).token;
         return req;
     }
 
     getBeekeepers(){
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/getBeekeepers"), false);
+        req.open("GET", this.getAllPath().concat("/api/getBeekeepers"), false);
+        req.setRequestHeader(this.token,"");
         req.send(null);
         return req;
     }
@@ -106,7 +105,8 @@ export class Server {
     ///getReservation/:idApi
     getReservation(idApi){
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/getReservation".concat("/").concat(idApi)), false);
+        req.open("GET", this.getAllPath().concat("/api/getReservation".concat("/").concat(idApi)), false);
+        req.setRequestHeader(this.token,"");
         req.send(null);
         return req;
     }
@@ -114,7 +114,8 @@ export class Server {
     ///cancelReservation/:idSwarm
     cancelReservation(idSwarm){
         var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/cancelReservation".concat("/").concat(idSwarm)), false);
+        req.open("GET", this.getAllPath().concat("/api/cancelReservation".concat("/").concat(idSwarm)), false);
+        req.setRequestHeader(this.token,"");
         req.send(null);
         return req;
     }

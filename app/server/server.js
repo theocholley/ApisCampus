@@ -3,6 +3,7 @@ let Swarm = require("./models/swarm");
 let SwarmList = require("./models/swarmList");
 
 var fs = require('fs');
+var passwordHash = require('password-hash');
 
 let Beekeeper = require("./models/beekeeper");
 let BeekeeperList = require("./models/beekeeperList");
@@ -18,11 +19,16 @@ const methodOverride = require('method-override');
 const cors = require('cors');
 
 const app = express();
+const  ProtectedRoutes = express.Router();
+app.use('/api', ProtectedRoutes);
+const jwt = require('jsonwebtoken');
+const config = require('./configuration/config');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cors());
 app.use(express.static('media'));
+app.set('Secret', config.secret);
 var ref = new Date();
 
 MongoClient.connect(url, function (err, db) {
@@ -101,6 +107,40 @@ function init() {
 
 init();
 
+ProtectedRoutes.use((req, res, next) =>{
+    var token = req.headers['access-control-request-headers'];
+    console.log(token);
+    if (token) {
+        jwt.verify(token, app.get('Secret'), (err, decoded) =>{
+            if (err) {
+                return res.json({ message: 'invalid token' });
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        res.send({
+            message: 'No token provided.'
+        });
+    }
+});
+
+ProtectedRoutes.get('/test',(req,res)=>{
+    let devs = [
+        {
+            id: 1,
+            name:"Canovas Romain"
+        },
+        {
+            id: 2,
+            name:"Cholley Theo"
+        }
+    ];
+
+    res.json(devs);
+
+});
 /**
  * Partie API
  */
@@ -162,8 +202,7 @@ app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:descriptio
     generateCsv();
 });
 
-app.get('/getSwarms', function (req, res) {
-
+ProtectedRoutes.get('/getSwarms',(req,res)=>{
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
@@ -179,9 +218,7 @@ app.get('/getSwarms', function (req, res) {
     });
 });
 
-
-app.get('/getAvailableSwarms', function (req, res) {
-
+ProtectedRoutes.get('/getAvailableSwarms',(req,res)=>{
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
@@ -198,27 +235,7 @@ app.get('/getAvailableSwarms', function (req, res) {
     });
 });
 
-app.get('/getMySwarms/:numberObs', function (req, res) {
-    const numberObs = req.params.numberObs;
-
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("ApisCampus");
-        var query = {numberObs: numberObs};
-        dbo.collection("swarms").find(query).toArray(function (err, result) {
-            if (err) throw err;
-            console.log(result);
-            db.close();
-            res.send({
-                passed: true,
-                result: result
-            });
-        });
-    });
-
-});
-
-app.get('/retrieve/:idSwarm', function (req, res) {
+ProtectedRoutes.get('/retrieve/:idSwarm',(req,res)=>{
     const idSwarm = req.params.idSwarm;
 
     MongoClient.connect(url, function (err, db) {
@@ -244,12 +261,14 @@ app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:
     const longCentre = req.params.longCentre;
     const ray = req.params.ray;
     const passcode = req.params.passcode;
+    const hashedPassword = passwordHash.generate(passcode);
+
     const phone = req.params.phone;
     const mail = req.params.mail;
 
 
     var alreadyExists = false;
-    var beekeeper = new Beekeeper(id, name, surname, latCentre, longCentre, ray, passcode, phone, mail);
+    var beekeeper = new Beekeeper(id, name, surname, latCentre, longCentre, ray, hashedPassword, phone, mail);
     for (var i = 0; i < beekeeperList.getSize(); i++) {
         if (beekeeperList.getList()[i].getMail() === beekeeper.getMail()) {
             alreadyExists = true;
@@ -273,7 +292,7 @@ app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:
                 latCentre: latCentre,
                 longCentre: longCentre,
                 ray: ray,
-                passcode: passcode,
+                passcode: hashedPassword,
                 phone: phone,
                 mail: mail
             };
@@ -290,6 +309,7 @@ app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:
     }
 });
 
+
 app.get('/login/:mail/:passcode', function (req, res) {
     const mail = req.params.mail;
     const passcode = req.params.passcode;
@@ -297,14 +317,33 @@ app.get('/login/:mail/:passcode', function (req, res) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
-        var query = {mail: mail, passcode: passcode};
+        var query = {mail: mail};
         dbo.collection("beekeepers").find(query).toArray(function (err, result) {
             if (err) throw err;
             db.close();
-            res.send({
-                passed: true,
-                result: result
-            });
+            if (result.length >0){
+                if (passwordHash.verify(passcode,result[0].passcode)){
+                    const payload = {
+                        check:  true
+                    };
+                    var token = jwt.sign(payload, app.get('Secret'), {
+                        expiresIn: 1440
+                    });
+                    res.send({
+                        passed: true,
+                        result: result,
+                        token: token
+                    });
+                }else{
+                    res.send({
+                        passed: false
+                    });
+                }
+            }else {
+                res.send({
+                    passed: false
+                });
+            }
         });
     });
 
@@ -324,8 +363,8 @@ function generateCsv() {
     });
 }
 
-app.get('/getBeekeepers', function (req, res) {
 
+ProtectedRoutes.get('/getBeekeepers',(req,res)=>{
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
@@ -342,7 +381,8 @@ app.get('/getBeekeepers', function (req, res) {
 
 //Partie reservation
 
-app.get('/treat/:idApi/:idSwarm', function (req, res) {
+
+ProtectedRoutes.get('/treat/:idApi/:idSwarm',(req,res)=>{
     const idApi = req.params.idApi;
     const idSwarm = req.params.idSwarm;
 
@@ -383,7 +423,7 @@ app.get('/treat/:idApi/:idSwarm', function (req, res) {
     });
 });
 
-app.get('/getReservation/:idApi', function (req, res) {
+ProtectedRoutes.get('/getReservation/:idApi',(req,res)=>{
     const idApi = req.params.idApi;
 
     MongoClient.connect(url, function (err, db) {
@@ -402,8 +442,7 @@ app.get('/getReservation/:idApi', function (req, res) {
 
 });
 
-
-app.get('/cancelReservation/:idSwarm', function (req, res) {
+ProtectedRoutes.get('/cancelReservation/:idSwarm',(req,res)=>{
     const idSwarm = req.params.idSwarm;
 
     MongoClient.connect(url, function (err, db) {
@@ -426,7 +465,6 @@ app.get('/cancelReservation/:idSwarm', function (req, res) {
         passed: true
     });
 });
-
 
 function updateReservations() {
     var ids = [];
