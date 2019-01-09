@@ -1,7 +1,7 @@
 #Documentation API :
 
 **Partie Swarms (essaims)**
-* addSwarm : `/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic`
+* addSwarm : `/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic/:idDevice`
 _Permet d'ajouter un essaim dans la base de données_
 
 * getSwarms : `/getSwarms`
