@@ -12,10 +12,6 @@ _Permet de récupérer la liste de tous les essaims déclarés depuis la créati
 _Permet de récupérer laliste des essaims disponibles_
 
 
-* getMySwarms : `/getMySwarms/:numberObs`
-_Permet de récupérer les essaims qu'un observateur a saisi (grâce à son numéro de téléphone qui est unique pour chaque observateur)_
-
-
 * retrieve : `/retrieve/:idSwarm`
 _Permet de déclarer un essaim comme récupéré_
 
