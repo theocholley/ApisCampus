@@ -1,7 +1,7 @@
 #Documentation API :
 
 **Partie Swarms (essaims)**
-* addSwarm : `/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic`
+* addSwarm : `/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic/:idDevice`
 _Permet d'ajouter un essaim dans la base de données_
 
 * getSwarms : `/getSwarms`
@@ -10,10 +10,6 @@ _Permet de récupérer la liste de tous les essaims déclarés depuis la créati
 
 * getAvailableSwarms : `/getAvailableSwarms`
 _Permet de récupérer laliste des essaims disponibles_
-
-
-* getMySwarms : `/getMySwarms/:numberObs`
-_Permet de récupérer les essaims qu'un observateur a saisi (grâce à son numéro de téléphone qui est unique pour chaque observateur)_
 
 
 * retrieve : `/retrieve/:idSwarm`

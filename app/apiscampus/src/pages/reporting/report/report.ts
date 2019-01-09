@@ -13,6 +13,8 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {Situation, Height, Size} from "../../../utils/enums";
 import {Network} from "@ionic-native/network";
 import {HomePage} from "../../home/home";
+import { Uid } from '@ionic-native/uid';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 
 @IonicPage()
@@ -37,8 +39,11 @@ export class ReportPage {
   private height;
   private size;
   private imgPath;
+  private imei;
 
   constructor(private nativeStorage: NativeStorage,
+              private uid: Uid,
+              private androidPermissions: AndroidPermissions,
               public platform: Platform,
               public network: Network,
               public navCtrl: NavController,
@@ -56,6 +61,7 @@ export class ReportPage {
         this.presentNetworkIssueInfoAlert();
       }
     });
+    this.imei=this.getImei();
   }
 
 
@@ -110,7 +116,7 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      let req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath, "");
+      let req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath, this.imei);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -145,4 +151,24 @@ export class ReportPage {
     this.presentNetworkIssueAlert();
   }
 
+  async getImei() {
+    const {hasPermission} = await this.androidPermissions.checkPermission(
+      this.androidPermissions.PERMISSION.READ_PHONE_STATE
+    );
+
+    if (!hasPermission) {
+      const result = await this.androidPermissions.requestPermission(
+        this.androidPermissions.PERMISSION.READ_PHONE_STATE
+      );
+
+      if (!result.hasPermission) {
+        throw new Error('Permissions required');
+      }
+
+      // ok, a user gave us permission, we can get him identifiers after restart app
+      return;
+    }
+
+    return this.uid.IMEI
+  }
 }

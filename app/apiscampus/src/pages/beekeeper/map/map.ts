@@ -21,7 +21,8 @@ export class MapPage {
 
   private readonly results;
   private readonly idBeekeeper;
-  private idMyReservedSwarm;
+  private readonly idMyReservedSwarm;
+  private myReservedSwarm;
 
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
@@ -54,6 +55,9 @@ export class MapPage {
     });
 
     for (let i in this.results) {
+      if (this.results[i].id==this.idMyReservedSwarm){
+        this.myReservedSwarm=this.results[i];
+      }
       let tmpResults = this.results;
       let tmpIdBeekeeper = this.idBeekeeper;
       let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
@@ -74,8 +78,8 @@ export class MapPage {
   }
 
   goToBookedSwarm(){
-    let data = {idBeekeeper: this.idBeekeeper, idMyReservedSwarm: this.idMyReservedSwarm};
-    this.navCtrl.push(BookedSwarmPage, data);
+    let data = {item: this.myReservedSwarm, idBeekeeper: this.idBeekeeper, idMyReservedSwarm: this.idMyReservedSwarm};
+    this.navCtrl.push(InformationsPage, data);
   }
 
 }

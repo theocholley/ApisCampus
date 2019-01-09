@@ -10,8 +10,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class BookedSwarmPage {
 
   private idSwarm;
-  private item;
-  private isTreated;
+  private idMyReservedSwarm;
+  private myReservedSwarm;
   private hour: string;
   private date: string;
   private county: string;
@@ -26,6 +26,9 @@ export class BookedSwarmPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.idBeekeeper = navParams.get('idBeekeeper');
+    this.idMyReservedSwarm = navParams.get('idMyReservedSwarm');
+    this.myReservedSwarm = navParams.get('myReservedSwarm');
+
   }
 
   ionViewDidLoad() {
