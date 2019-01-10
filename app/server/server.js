@@ -19,7 +19,7 @@ const methodOverride = require('method-override');
 const cors = require('cors');
 
 const app = express();
-const  ProtectedRoutes = express.Router();
+const ProtectedRoutes = express.Router();
 app.use('/api', ProtectedRoutes);
 const jwt = require('jsonwebtoken');
 const config = require('./configuration/config');
@@ -29,6 +29,10 @@ app.use(methodOverride());
 app.use(cors());
 app.use(express.static('media'));
 app.set('Secret', config.secret);
+
+const qs = require('querystring');
+const nodemailer = require('nodemailer');
+
 var ref = new Date();
 
 MongoClient.connect(url, function (err, db) {
@@ -107,13 +111,13 @@ function init() {
 
 init();
 
-ProtectedRoutes.use((req, res, next) =>{
+ProtectedRoutes.use((req, res, next) => {
     var token = req.headers['access-control-request-headers'];
     console.log(token);
     if (token) {
-        jwt.verify(token, app.get('Secret'), (err, decoded) =>{
+        jwt.verify(token, app.get('Secret'), (err, decoded) => {
             if (err) {
-                return res.json({ message: 'invalid token' });
+                return res.json({message: 'invalid token'});
             } else {
                 req.decoded = decoded;
                 next();
@@ -126,15 +130,15 @@ ProtectedRoutes.use((req, res, next) =>{
     }
 });
 
-ProtectedRoutes.get('/test',(req,res)=>{
+ProtectedRoutes.get('/test', (req, res) => {
     let devs = [
         {
             id: 1,
-            name:"Canovas Romain"
+            name: "Canovas Romain"
         },
         {
             id: 2,
-            name:"Cholley Theo"
+            name: "Cholley Theo"
         }
     ];
 
@@ -200,9 +204,10 @@ app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:descriptio
         swarm: swarm
     });
     generateCsv();
+    notifyNearestBeekeepers(latitude, longitude);
 });
 
-ProtectedRoutes.get('/getSwarms',(req,res)=>{
+ProtectedRoutes.get('/getSwarms', (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
@@ -218,7 +223,7 @@ ProtectedRoutes.get('/getSwarms',(req,res)=>{
     });
 });
 
-ProtectedRoutes.get('/getAvailableSwarms',(req,res)=>{
+ProtectedRoutes.get('/getAvailableSwarms', (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
@@ -235,7 +240,7 @@ ProtectedRoutes.get('/getAvailableSwarms',(req,res)=>{
     });
 });
 
-ProtectedRoutes.get('/retrieve/:idSwarm',(req,res)=>{
+ProtectedRoutes.get('/retrieve/:idSwarm', (req, res) => {
     const idSwarm = req.params.idSwarm;
 
     MongoClient.connect(url, function (err, db) {
@@ -321,10 +326,10 @@ app.get('/login/:mail/:passcode', function (req, res) {
         dbo.collection("beekeepers").find(query).toArray(function (err, result) {
             if (err) throw err;
             db.close();
-            if (result.length >0){
-                if (passwordHash.verify(passcode,result[0].passcode)){
+            if (result.length > 0) {
+                if (passwordHash.verify(passcode, result[0].passcode)) {
                     const payload = {
-                        check:  true
+                        check: true
                     };
                     var token = jwt.sign(payload, app.get('Secret'), {
                         expiresIn: 1440
@@ -334,12 +339,12 @@ app.get('/login/:mail/:passcode', function (req, res) {
                         result: result,
                         token: token
                     });
-                }else{
+                } else {
                     res.send({
                         passed: false
                     });
                 }
-            }else {
+            } else {
                 res.send({
                     passed: false
                 });
@@ -364,7 +369,7 @@ function generateCsv() {
 }
 
 
-ProtectedRoutes.get('/getBeekeepers',(req,res)=>{
+ProtectedRoutes.get('/getBeekeepers', (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
@@ -382,7 +387,7 @@ ProtectedRoutes.get('/getBeekeepers',(req,res)=>{
 //Partie reservation
 
 
-ProtectedRoutes.get('/treat/:idApi/:idSwarm',(req,res)=>{
+ProtectedRoutes.get('/treat/:idApi/:idSwarm', (req, res) => {
     const idApi = req.params.idApi;
     const idSwarm = req.params.idSwarm;
 
@@ -423,7 +428,7 @@ ProtectedRoutes.get('/treat/:idApi/:idSwarm',(req,res)=>{
     });
 });
 
-ProtectedRoutes.get('/getReservation/:idApi',(req,res)=>{
+ProtectedRoutes.get('/getReservation/:idApi', (req, res) => {
     const idApi = req.params.idApi;
 
     MongoClient.connect(url, function (err, db) {
@@ -442,7 +447,7 @@ ProtectedRoutes.get('/getReservation/:idApi',(req,res)=>{
 
 });
 
-ProtectedRoutes.get('/cancelReservation/:idSwarm',(req,res)=>{
+ProtectedRoutes.get('/cancelReservation/:idSwarm', (req, res) => {
     const idSwarm = req.params.idSwarm;
 
     MongoClient.connect(url, function (err, db) {
@@ -529,3 +534,26 @@ function deg2rad(deg) {
 }
 
 
+function notifyNearestBeekeepers(latSwarm, longSwarm) {
+    let closest = getClosest(latSwarm, longSwarm);
+    var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'notificationessaim@gmail.com',
+            pass: 'apiscampusapiscampus'
+        }
+    });
+    for (let c of closest) {
+        var mailOptions = {
+            from: 'Notification Essaim',
+            to: "" + c.getMail(),
+            subject: 'Un nouvel essaim a été déclaré proche de vous ! ',
+            text: 'Bonjour, un nouvel essaim vient d\'être déclaré proche de chez vous ! Connectez-vous afin de pouvoir en prendre connaissance',
+            html: 'Bonjour, un nouvel essaim vient d\'être déclaré proche de chez vous ! Connectez-vous afin de pouvoir en prendre connaissance'
+        };
+
+        transporter.sendMail(mailOptions, function (err, response) {
+            !!err ? console.error(err) : res.end();
+        });
+    }
+}

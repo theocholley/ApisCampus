@@ -1,4 +1,2 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;6.9792447;43.554856699999995;13-11-2018;1h38;Wall;Ground;20;06150, Alpes-Maritimes;undefined;true;Handball;Frelon
-1;6.9746688;43.5194912;5-11-2018;23h24;Wall;HumanSize;L'essaim est sur un mur de ma grange;06150, Alpes-Maritimes;undefined;false;Tennis;Abeille
-2;6.9746688;43.2194912;5-11-2018;23h24;Wall;HumanSize;L'essaim est sur un mur de ma grange;06150, Alpes-Maritimes;undefined;false;Tennis;Abeille
+0;5.824574;43.085998;date;hour;feature;height;description;county;0615255461;false;size;insectType
