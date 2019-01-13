@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {SignUpPage} from "../sign-up/sign-up";
 import {MapPage} from "../map/map";
 import {Server} from "../../../server/server";
@@ -16,7 +16,11 @@ export class LogOrSignPage {
   private nameForm;
   private results;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public server: Server) {
+  constructor(public navCtrl: NavController,
+              private alertCtrl: AlertController,
+              public navParams: NavParams,
+              public server: Server,
+              private loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -25,8 +29,9 @@ export class LogOrSignPage {
 
   connect() {
     let req = this.server.login(this.nameForm, this.passwordForm);
-    this.results = JSON.parse(req.responseText).result;
-    if (this.results.length == 1) {
+    this.results = JSON.parse(req.responseText);
+    console.log(this.results)
+    if (this.results.passed == true) {
       this.goToMap()
     }
     else {
@@ -40,8 +45,14 @@ export class LogOrSignPage {
   }
 
   goToMap() {
+    //Show loading
+    let loader = this.loadingCtrl.create({
+      content: "Uploading..."
+    });
+    loader.present();
+
     let idMyReservedSwarm=-2;
-    let req = this.server.getReservation(this.results[0].id);
+    let req = this.server.getReservation(this.results.result[0].id);
     try {
       idMyReservedSwarm=JSON.parse(req.responseText).result[0].idSwarm;
     }

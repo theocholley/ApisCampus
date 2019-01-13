@@ -4,6 +4,7 @@ import {CameraOrNotPage} from "../reporting/camera-or-not/camera-or-not";
 import {LogOrSignPage} from "../beekeeper/log-or-sign/log-or-sign";
 import {NativeStorage} from "@ionic-native/native-storage";
 import {Server} from "../../server/server";
+import {Geolocation} from "@ionic-native/geolocation";
 
 
 @Component({
@@ -12,7 +13,10 @@ import {Server} from "../../server/server";
 })
 export class HomePage {
 
-  constructor(private nativeStorage: NativeStorage, public navCtrl: NavController, public server: Server) {
+  constructor(private nativeStorage: NativeStorage, 
+              public navCtrl: NavController,
+              private geolocation: Geolocation,
+              public server: Server) {
     this.nativeStorage.getItem('request')
       .then(
         data => {
@@ -23,6 +27,10 @@ export class HomePage {
           console.log("No local requests to send")
         }
       );
+    this.geolocation.getCurrentPosition().then((resp) => {
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
   goToReport() {

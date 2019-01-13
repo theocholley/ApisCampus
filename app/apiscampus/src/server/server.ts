@@ -1,3 +1,5 @@
+import * as Constants from '../utils/constants';
+
 declare var require: any;
 
 export class Server {
@@ -7,9 +9,8 @@ export class Server {
     token: string;
 
     constructor() {
-      this.path = "http://localhost:";
-      //this.path = "http://192.168.1.21:";
-      this.port = "8080";
+      this.path = Constants.PATH;
+      this.port = ':'+Constants.PORT;
       this.token = "";
     }
 

@@ -116,7 +116,7 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      let req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath, this.imei);
+      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath, this.imei);
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -139,7 +139,7 @@ export class ReportPage {
           telNumber: this.telNumber,
           size: this.size,
           insect: this.insect,
-          img: this.imgPath
+          img: "noimg"
         })
         .then(
           () => console.log('Stored request!'),
@@ -164,8 +164,6 @@ export class ReportPage {
       if (!result.hasPermission) {
         throw new Error('Permissions required');
       }
-
-      // ok, a user gave us permission, we can get him identifiers after restart app
       return;
     }
 

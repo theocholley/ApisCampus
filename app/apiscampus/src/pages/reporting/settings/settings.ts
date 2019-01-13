@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {NativeStorage} from "@ionic-native/native-storage";
 
 
@@ -17,16 +17,15 @@ export class SettingsPage {
               public viewCtrl: ViewController,
               public navParams: NavParams,
               public alertCtrl: AlertController) {
-   this.nativeStorage.getItem('telNumber')
+    this.nativeStorage.getItem('telNumber')
       .then(
         data => {
-          this.telNumber=data.number
+          this.telNumber = data.number
         },
         error => {
         }
       );
   }
-
 
   public closeModal() {
     this.viewCtrl.dismiss();

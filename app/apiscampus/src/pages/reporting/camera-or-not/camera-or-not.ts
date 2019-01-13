@@ -26,7 +26,7 @@ export class CameraOrNotPage {
     this.nativeStorage.getItem('telNumber')
       .then(
         data => {
-          this.telNumber=data.number
+          this.telNumber = data.number
         },
         error => {
           let modalPage = this.modalCtrl.create('UserInformationsPage');

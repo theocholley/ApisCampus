@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Server} from "../../../server/server";
 import leaflet from 'leaflet';
 import L from "leaflet";
-import {Geolocation} from "@ionic-native/geolocation";
 import {LogOrSignPage} from "../log-or-sign/log-or-sign";
 
 var latitude;
@@ -21,7 +20,7 @@ export class SignUpMapPage {
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
 
-  private zoom: number=10;
+  private zoom: number = 10;
   private rayForm: number = 10;
   private readonly mail: string;
   private readonly name: string;
@@ -30,22 +29,17 @@ export class SignUpMapPage {
   private readonly phone: number;
 
   constructor(public navCtrl: NavController,
-              private geolocation: Geolocation,
               public navParams: NavParams,
               public server: Server) {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      latitude=resp.coords.latitude;
-      longitude=resp.coords.longitude;
-      latitudeOfCenter=latitude;
-      longitudeOfCenter=longitude;
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
     this.mail = navParams.get('mail');
     this.name = navParams.get('name');
     this.surname = navParams.get('surname');
     this.passcode = navParams.get('passcode');
     this.phone = navParams.get('phone');
+    latitude = navParams.get('latitude');
+    longitude = navParams.get('longitude');
+    latitudeOfCenter = navParams.get('latitude');
+    longitudeOfCenter = navParams.get('longitude');
   }
 
   ionViewDidEnter() {
@@ -64,24 +58,24 @@ export class SignUpMapPage {
     }).addTo(this.map);
   }
 
-  printStuff(ray, map){
-    let markers: L.marker[]=[];
-    let circles: L.circle[]=[];
+  printStuff(ray, map) {
+    let markers: L.marker[] = [];
+    let circles: L.circle[] = [];
     markers.push(L.marker([latitude, longitude]).addTo(map));
-    circles.push(L.circle([latitude, longitude], ray*1000).addTo(map));
-    this.map.on('click', function(e) {
-      for(let i = 0; i < markers.length; i++){
+    circles.push(L.circle([latitude, longitude], ray * 1000).addTo(map));
+    this.map.on('click', function (e) {
+      for (let i = 0; i < markers.length; i++) {
         map.removeLayer(markers[i]);
         map.removeLayer(circles[i]);
       }
       latitude = e.latlng.lat;
       longitude = e.latlng.lng;
       markers.push(L.marker([latitude, longitude]).addTo(map));
-      circles.push(L.circle([latitude, longitude], ray*1000).addTo(map));
+      circles.push(L.circle([latitude, longitude], ray * 1000).addTo(map));
     });
   }
 
-  refreshRay(){
+  refreshRay() {
     this.zoom = this.map.getZoom();
     latitudeOfCenter = this.map.getCenter().lat;
     longitudeOfCenter = this.map.getCenter().lng;

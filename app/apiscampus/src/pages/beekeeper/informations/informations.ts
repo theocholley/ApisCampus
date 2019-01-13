@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Height, Insect, Situation, Size} from "../../../utils/enums";
 import {Server} from "../../../server/server";
+import * as Constants from '../../../utils/constants';
+
 
 
 @IonicPage()
@@ -16,8 +18,8 @@ export class InformationsPage {
   public myInsect = Insect;
   public mySize = Size;
 
-  private idBeekeeper;
-  private idSwarm;
+  private readonly idBeekeeper;
+  private readonly idSwarm;
   private item;
   private isTreated;
   private hour: string;
@@ -44,7 +46,7 @@ export class InformationsPage {
     this.date = this.item.date;
     this.description = this.item.description;
     if (this.item.pic != 'noimg')
-      this.pic = 'http://192.168.1.21/api/upload/images/' + this.item.pic;
+      this.pic = Constants.PATH+'/api/upload/images/' + this.item.pic;
     else this.pic = this.item.pic;
     this.getFeature(this.item.feature);
     this.getHeight(this.item.height);
@@ -61,12 +63,12 @@ export class InformationsPage {
     this.presentAlertBook()
   }
 
-  endBooking(){
-    let req = this.server.cancelReservation(this.idSwarm);
+  endBooking() {
+    let req = this.server.retrieve(this.idSwarm);
     this.presentAlertEnd();
   }
 
-  cancelBooking(){
+  cancelBooking() {
     let req = this.server.cancelReservation(this.idSwarm);
     this.presentAlertCancel();
   }
