@@ -6,7 +6,9 @@
 <ion-content padding>
   <ion-row>
     <ion-col style="text-align: center">
-      <img [src]=base64Image>
+      <div *ngIf="base64Image != ''">
+        <img [src]=base64Image>
+      </div>
       <button ion-button (click)="openCamera()">Modifier la photo</button>
       <button ion-button (click)="upload()">Valider</button>
     </ion-col>

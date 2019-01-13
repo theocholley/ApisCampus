@@ -29,7 +29,7 @@ export class CameraOrNotPage {
           this.telNumber = data.number
         },
         error => {
-          let modalPage = this.modalCtrl.create('UserInformationsPage');
+          let modalPage = this.modalCtrl.create(UserInformationsPage);
           modalPage.present();
         }
       );
@@ -50,7 +50,7 @@ export class CameraOrNotPage {
   }
 
   goToSettings() {
-    let modalPage = this.modalCtrl.create('SettingsPage');
+    let modalPage = this.modalCtrl.create(SettingsPage);
     modalPage.present();
   }
 }

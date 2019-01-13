@@ -59,17 +59,17 @@ export class InformationsPage {
   }
 
   public bookSwarm() {
-    let req = this.server.treat(this.idBeekeeper, this.idSwarm);
+    this.server.treat(this.idBeekeeper, this.idSwarm);
     this.presentAlertBook()
   }
 
   endBooking() {
-    let req = this.server.retrieve(this.idSwarm);
+    this.server.retrieve(this.idSwarm);
     this.presentAlertEnd();
   }
 
   cancelBooking() {
-    let req = this.server.cancelReservation(this.idSwarm);
+    this.server.cancelReservation(this.idSwarm);
     this.presentAlertCancel();
   }
 
