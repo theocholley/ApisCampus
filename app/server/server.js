@@ -112,8 +112,7 @@ function init() {
 init();
 
 ProtectedRoutes.use((req, res, next) => {
-    var token = req.headers['access-control-request-headers'];
-    console.log(token);
+    var token = req.headers['mytoken'];
     if (token) {
         jwt.verify(token, app.get('Secret'), (err, decoded) => {
             if (err) {

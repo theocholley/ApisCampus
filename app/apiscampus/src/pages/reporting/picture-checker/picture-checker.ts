@@ -59,7 +59,7 @@ export class PictureCheckerPage {
   upload() {
     //Show loading
     let loader = this.loadingCtrl.create({
-      content: "Uploading..."
+      content: "Chargement..."
     });
     loader.present();
 

@@ -10,7 +10,8 @@ export class Server {
 
     constructor() {
       this.path = Constants.PATH;
-      this.port = ':'+Constants.PORT;
+      //this.port = ':'+Constants.PORT;
+      this.port = '';
       this.token = "";
     }
 
@@ -43,7 +44,7 @@ export class Server {
     getSwarms() {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getSwarms"), false);
-        req.setRequestHeader(this.token,"");
+        req.setRequestHeader("mytoken", this.token);
         req.send(null);
         return req;
     }
@@ -52,7 +53,7 @@ export class Server {
     getAvailableSwarms() {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getAvailableSwarms"), false);
-        req.setRequestHeader(this.token,"");
+        req.setRequestHeader('mytoken', this.token);
         req.send(null);
         return req;
     }
@@ -61,7 +62,7 @@ export class Server {
     treat(idApi, idSwarm) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/treat").concat("/").concat(idApi).concat("/").concat(idSwarm), false);
-        req.setRequestHeader(this.token,"");
+        req.setRequestHeader('mytoken', this.token);
         req.send(null);
         return req;
     }
@@ -70,7 +71,7 @@ export class Server {
     retrieve(idSwarm) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/retrieve").concat("/").concat(idSwarm), false);
-        req.setRequestHeader(this.token,"");
+        req.setRequestHeader('mytoken', this.token);
         req.send(null);
         return req;
     }
@@ -98,7 +99,7 @@ export class Server {
     getBeekeepers(){
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getBeekeepers"), false);
-        req.setRequestHeader(this.token,"");
+        req.setRequestHeader('mytoken', this.token);
         req.send(null);
         return req;
     }
@@ -107,7 +108,7 @@ export class Server {
     getReservation(idApi){
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getReservation".concat("/").concat(idApi)), false);
-        req.setRequestHeader(this.token,"");
+        req.setRequestHeader('mytoken', this.token);
         req.send(null);
         return req;
     }
@@ -116,7 +117,7 @@ export class Server {
     cancelReservation(idSwarm){
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/cancelReservation".concat("/").concat(idSwarm)), false);
-        req.setRequestHeader(this.token,"");
+        req.setRequestHeader('mytoken', this.token);
         req.send(null);
         return req;
     }

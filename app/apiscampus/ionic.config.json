@@ -3,5 +3,11 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/endpoints",
+      "proxyUrl": "http://localhost:8080"
+    }
+  ]
 }
