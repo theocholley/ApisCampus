@@ -4,14 +4,10 @@
     "cordova": {}
   },
   "type": "ionic-angular",
-<<<<<<< Updated upstream
   "proxies": [
     {
       "path": "/endpoints",
       "proxyUrl": "http://localhost:8080"
     }
   ]
-=======
-  "app_id": ""
->>>>>>> Stashed changes
 }
