@@ -112,7 +112,11 @@ function init() {
 init();
 
 ProtectedRoutes.use((req, res, next) => {
-    var token = req.headers['mytoken'];
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, token, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
+    var token = req.headers['token'];
     if (token) {
         jwt.verify(token, app.get('Secret'), (err, decoded) => {
             if (err) {
@@ -129,21 +133,6 @@ ProtectedRoutes.use((req, res, next) => {
     }
 });
 
-ProtectedRoutes.get('/test', (req, res) => {
-    let devs = [
-        {
-            id: 1,
-            name: "Canovas Romain"
-        },
-        {
-            id: 2,
-            name: "Cholley Theo"
-        }
-    ];
-
-    res.json(devs);
-
-});
 /**
  * Partie API
  */
@@ -212,7 +201,6 @@ ProtectedRoutes.get('/getSwarms', (req, res) => {
         var dbo = db.db("ApisCampus");
         dbo.collection("swarms").find({}).toArray(function (err, result) {
             if (err) throw err;
-            console.log(result);
             res.send({
                 passed: true,
                 result: result
@@ -229,7 +217,6 @@ ProtectedRoutes.get('/getAvailableSwarms', (req, res) => {
         var query = {isAvailable: true};
         dbo.collection("swarms").find(query).toArray(function (err, result) {
             if (err) throw err;
-            console.log(result);
             res.send({
                 passed: true,
                 result: result

@@ -44,7 +44,11 @@ export class Server {
     getSwarms() {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getSwarms"), false);
+<<<<<<< Updated upstream
         req.setRequestHeader("mytoken", this.token);
+=======
+        req.setRequestHeader("token",this.token);
+>>>>>>> Stashed changes
         req.send(null);
         return req;
     }
@@ -53,7 +57,11 @@ export class Server {
     getAvailableSwarms() {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getAvailableSwarms"), false);
+<<<<<<< Updated upstream
         req.setRequestHeader('mytoken', this.token);
+=======
+        req.setRequestHeader("token",this.token);
+>>>>>>> Stashed changes
         req.send(null);
         return req;
     }
@@ -62,7 +70,11 @@ export class Server {
     treat(idApi, idSwarm) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/treat").concat("/").concat(idApi).concat("/").concat(idSwarm), false);
+<<<<<<< Updated upstream
         req.setRequestHeader('mytoken', this.token);
+=======
+        req.setRequestHeader("token",this.token);
+>>>>>>> Stashed changes
         req.send(null);
         return req;
     }
@@ -71,7 +83,11 @@ export class Server {
     retrieve(idSwarm) {
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/retrieve").concat("/").concat(idSwarm), false);
+<<<<<<< Updated upstream
         req.setRequestHeader('mytoken', this.token);
+=======
+        req.setRequestHeader("token",this.token);
+>>>>>>> Stashed changes
         req.send(null);
         return req;
     }
@@ -99,7 +115,11 @@ export class Server {
     getBeekeepers(){
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getBeekeepers"), false);
+<<<<<<< Updated upstream
         req.setRequestHeader('mytoken', this.token);
+=======
+        req.setRequestHeader("token",this.token);
+>>>>>>> Stashed changes
         req.send(null);
         return req;
     }
@@ -108,7 +128,11 @@ export class Server {
     getReservation(idApi){
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/getReservation".concat("/").concat(idApi)), false);
+<<<<<<< Updated upstream
         req.setRequestHeader('mytoken', this.token);
+=======
+        req.setRequestHeader("token",this.token);
+>>>>>>> Stashed changes
         req.send(null);
         return req;
     }
@@ -117,7 +141,11 @@ export class Server {
     cancelReservation(idSwarm){
         var req = new XMLHttpRequest();
         req.open("GET", this.getAllPath().concat("/api/cancelReservation".concat("/").concat(idSwarm)), false);
+<<<<<<< Updated upstream
         req.setRequestHeader('mytoken', this.token);
+=======
+        req.setRequestHeader("token",this.token);
+>>>>>>> Stashed changes
         req.send(null);
         return req;
     }
