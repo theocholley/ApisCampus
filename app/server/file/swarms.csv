@@ -1,9 +1,0 @@
-ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;6.9792346;43.5548558;16-01-2019;16h18;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
-1;6.9792711;43.5548319;16-01-2019;16h26;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Frelon
-2;6.9792216;43.5548653;16-01-2019;16h26;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;25;false;undefined;Frelon
-3;6.9792211;43.5548644;16-01-2019;16h28;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;253636;false;undefined;Non renseigné
-4;6.9792244;43.5548667;16-01-2019;16h48;Roof;TwoToFive;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;Tennis;Frelon
-5;6.9792238;43.5548658;16-01-2019;17h24;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Frelon
-6;6.9792289;43.5548694;16-01-2019;17h29;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;25;false;undefined;Frelon
-7;6.9792291;43.5548694;16-01-2019;17h29;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;25;false;undefined;Guêpe
