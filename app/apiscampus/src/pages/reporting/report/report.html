@@ -38,7 +38,16 @@
         <ion-label color="primary">Commentaire</ion-label>
         <ion-input [(ngModel)]="description"></ion-input>
       </ion-item>
-      <button ion-button (click)="addSwarm()">Signaler</button>
     </ion-col>
   </ion-row>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col style="text-align: center">
+        <button ion-button (click)="addSwarm()">Signaler</button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

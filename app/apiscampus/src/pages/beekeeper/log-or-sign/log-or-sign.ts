@@ -38,6 +38,7 @@ export class LogOrSignPage {
   connect() {
     this.load();
     let req = this.server.login(this.nameForm, this.passwordForm);
+    console.log(req)
     this.results = JSON.parse(req.responseText);
     if (this.results.passed == true) {
       this.goToMap()

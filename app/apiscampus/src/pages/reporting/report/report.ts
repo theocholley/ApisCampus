@@ -113,6 +113,9 @@ export class ReportPage {
   }
 
   addSwarmConnected() {
+    if(this.description===undefined){
+      this.description="L'utilisateur n'a pas laissé de commentaire"
+    }
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
@@ -124,6 +127,9 @@ export class ReportPage {
   }
 
   addSwarmNotConnected() {
+    if(this.description===undefined){
+      this.description="L'utilisateur n'a pas laissé de commentaire"
+    }
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
@@ -139,6 +145,7 @@ export class ReportPage {
           telNumber: this.telNumber,
           size: this.size,
           insect: this.insect,
+          idDevice: this.imei,
           img: "noimg"
         })
         .then(

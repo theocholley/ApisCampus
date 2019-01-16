@@ -10,11 +10,32 @@
 
 
 <ion-content padding>
-  <ion-row>
-    <ion-col width-50 style="text-align: center">
-      <button ion-button (click)="openPictureChecker()">Prendre l'essaim en photo</button>
-      <div></div>
-      <button ion-button (click)="openInsectPicker()">Je ne peux pas prendre de photo</button>
-    </ion-col>
-  </ion-row>
+  <ion-grid>
+    <br>
+    <button (click)="openInsectPicker()"
+            style="background-color: white;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <img src="assets/imgs/camera.png" width="178" height="162"/>
+          <p>Prendre une photo</p>
+        </ion-col>
+      </ion-row>
+    </button>
+    <br><br>
+    <button (click)="openInsectPicker()"
+            style="background-color: white;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <img src="assets/imgs/strikedcamera.png" width="178" height="162"/>
+          <p>Photo impossible</p>
+        </ion-col>
+      </ion-row>
+    </button>
+  </ion-grid>
 </ion-content>

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {NativeStorage} from "@ionic-native/native-storage";
 import {HomePage} from "../../home/home";
 
@@ -13,7 +13,11 @@ export class UserInformationsPage {
 
   private telNumber: number;
 
-  constructor(private nativeStorage: NativeStorage, public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(private nativeStorage: NativeStorage,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public alertCtrl: AlertController,
+              public viewCtrl: ViewController) {
   }
 
   public closeModal() {

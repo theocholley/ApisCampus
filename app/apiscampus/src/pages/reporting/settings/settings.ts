@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController, ViewController} from 'ionic-angular';
 import {NativeStorage} from "@ionic-native/native-storage";
 
 
@@ -16,7 +16,7 @@ export class SettingsPage {
               private nativeStorage: NativeStorage,
               public viewCtrl: ViewController,
               public navParams: NavParams,
-              public alertCtrl: AlertController) {
+              public toastCtrl: ToastController) {
     this.nativeStorage.getItem('telNumber')
       .then(
         data => {
@@ -42,17 +42,17 @@ export class SettingsPage {
         () => console.log('Stored number!'),
         error => console.error('Error storing item', error)
       );
-    this.presentAlert();
+    this.presentToast();
     this.closeModal();
   }
 
-  presentAlert() {
-    let alert = this.alertCtrl.create({
-      subTitle: 'Votre numéro a bien été mis à jour.',
-      buttons: ['OK']
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Votre numéro a bien été mis à jour.',
+      duration: 3000,
+      position: 'bottom'
     });
-    alert.present();
+    toast.present();
   }
-
 
 }
