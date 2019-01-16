@@ -1,4 +1,7 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-0;6.9792265;43.5548705;16-01-2019;3h07;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Guêpe
-1;6.9792286;43.5548703;16-01-2019;3h40;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
-2;6.9792226;43.5548665;16-01-2019;3h42;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
+0;5.824574;43.085998;date;hour;feature;height;description;county;0615255461;false;size;insectType
+1;longitude;latitude;date;hour;feature;height;description;county;numberObs;false;size;insectType
+2;longitude;latitude;date;hour;feature;height;description;county;numberObs;false;size;insectType
+3;longitude;latitude;date;hour;feature;height;description;county;numberObs;false;size;insectType
+4;longitude;latitude;date;hour;feature;height;description;county;numberObs;false;size;insectType
+5;longitude;latitude;date;hour;feature;height;description;county;numberObs;false;size;insectType
