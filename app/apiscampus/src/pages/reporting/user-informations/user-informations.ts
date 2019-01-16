@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {NativeStorage} from "@ionic-native/native-storage";
 import {HomePage} from "../../home/home";
 
@@ -16,7 +16,6 @@ export class UserInformationsPage {
   constructor(private nativeStorage: NativeStorage,
               public navCtrl: NavController,
               public navParams: NavParams,
-              public alertCtrl: AlertController,
               public viewCtrl: ViewController) {
   }
 

@@ -28,7 +28,17 @@
         <ion-label color="primary">Numéro de téléphone</ion-label>
         <ion-input type="tel" [(ngModel)]="phoneForm"></ion-input>
       </ion-item>
-      <button ion-button (click)="signUp()">Suivant</button>
     </ion-col>
   </ion-row>
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col style="text-align: center">
+        <button ion-button (click)="signUp()">Suivant</button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

@@ -14,7 +14,7 @@ export class LogOrSignPage {
 
   private loader;
   private passwordForm;
-  private nameForm;
+  private mailForm: string;
   private results;
 
   constructor(public navCtrl: NavController,
@@ -37,7 +37,7 @@ export class LogOrSignPage {
 
   connect() {
     this.load();
-    let req = this.server.login(this.nameForm, this.passwordForm);
+    let req = this.server.login(this.mailForm, this.passwordForm);
     console.log(req)
     this.results = JSON.parse(req.responseText);
     if (this.results.passed == true) {

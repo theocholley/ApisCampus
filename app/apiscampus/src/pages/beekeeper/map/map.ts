@@ -4,12 +4,16 @@ import leaflet from 'leaflet';
 import L from "leaflet";
 import {InformationsPage} from "../informations/informations";
 import {Server} from "../../../server/server";
-import {BookedSwarmPage} from "../booked-swarm/booked-swarm";
 
 
 var bee = L.icon({
-  iconUrl: 'https://cdn2.iconfinder.com/data/icons/outline-signs/350/bee-512.png',
-  iconSize: [40, 40], // size of the icon
+  iconUrl: 'assets/imgs/bee.png',
+  iconSize: [40, 40],
+});
+
+var beeR = L.icon({
+  iconUrl: 'assets/imgs/beeR.png',
+  iconSize: [40, 40],
 });
 
 @IonicPage()
@@ -64,16 +68,20 @@ export class MapPage {
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
       let tmpNavCtrl = this.navCtrl;
       let marker;
-      if (this.results[i].isTreated==true) {
-        marker = L.marker(tmpPos).addTo(this.map);
+      if (this.results[i].isAvailable==true && this.results[i].isTreated==true) {
+        marker = L.marker(tmpPos, {icon: beeR}).addTo(this.map);
+        marker.on('click', function () {
+          let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
+          tmpNavCtrl.push(InformationsPage, data);
+        });
       }
-      else {
+      else if (this.results[i].isAvailable==true && this.results[i].isTreated==false) {
         marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
+        marker.on('click', function () {
+          let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
+          tmpNavCtrl.push(InformationsPage, data);
+        });
       }
-      marker.on('click', function () {
-        let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
-        tmpNavCtrl.push(InformationsPage, data);
-      });
     }
   }
 
