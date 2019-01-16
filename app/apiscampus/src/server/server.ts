@@ -11,6 +11,8 @@ export class Server {
     constructor() {
       this.path = Constants.PATH;
       this.port = ':'+Constants.PORT;
+      // this.path = /endpoints;
+      // this.port = '';
       this.token = "";
     }
 

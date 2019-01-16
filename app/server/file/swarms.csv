@@ -1,11 +1,4 @@
 ID;LONGITUDE;LATITUDE;DATE;HOUR;FEATURE;HEIGHT;DESCRIPTION;COUNTY;NUMBER_OBS;ISTREATED;SIZE;INSECT_TYPE
-1;7.082126799999999;43.6194559;14-0-2019;12h38;undefined;undefined;undefined;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-1;7.082126799999999;43.6194559;14-001-2019;12h46;undefined;undefined;undefined;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-2;7.082126799999999;43.6194559;14-001-2019;12h50;undefined;undefined;undefined;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-3;7.082126799999999;43.6194559;14-01-2019;12h54;undefined;undefined;azazz;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-4;7.082126799999999;43.6194559;14-11-2019;12h56;undefined;undefined;undefined;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-5;7.082126799999999;43.6194559;14-01-2019;12h57;undefined;undefined;undefined;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-6;7.082126799999999;43.6194559;14-01-2019;12h58;undefined;undefined;undefined;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-7;7.082126799999999;43.6194559;14-01-2019;13h00;undefined;undefined;undefined;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
-8;7.082126799999999;43.6194559;14-01-2019;13h04;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06410, Alpes-Maritimes;undefined;false;undefined;Frelon
-9;7.082126799999999;43.6194559;14-01-2019;13h05;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06410, Alpes-Maritimes;undefined;false;undefined;Abeille
+0;6.9792265;43.5548705;16-01-2019;3h07;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Guêpe
+1;6.9792286;43.5548703;16-01-2019;3h40;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Abeille
+2;6.9792226;43.5548665;16-01-2019;3h42;undefined;undefined;L'utilisateur n'a pas laissé de commentaire;06150, Alpes-Maritimes;undefined;false;undefined;Abeille

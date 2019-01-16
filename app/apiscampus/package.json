@@ -21,7 +21,7 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/android-permissions": "^4.18.0",
-    "@ionic-native/camera": "^4.17.0",
+    "@ionic-native/camera": "^4.19.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/file": "^4.17.0",
     "@ionic-native/file-transfer": "^4.18.0",
@@ -64,7 +64,6 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-camera": {},
       "cordova-plugin-geolocation": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
@@ -79,7 +78,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-dreamover-uid": {}
+      "cordova-plugin-dreamover-uid": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "android"

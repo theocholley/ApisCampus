@@ -14,7 +14,7 @@ import * as Constants from '../../../utils/constants';
 })
 export class PictureCheckerPage {
 
-  private base64Image: string;
+  private base64Image: string = '';
   private readonly telNumber: number;
   private imgPath: string;
   public now: Date = new Date();
@@ -39,9 +39,8 @@ export class PictureCheckerPage {
   }
 
   openCamera() {
-    this.imgPath = "" + this.now.getDate() + this.now.getMonth() + this.now.getFullYear() + this.now.getHours() + this.now.getMinutes() + this.telNumber + ".jpg";
     const options: CameraOptions = {
-      quality: 80,
+      quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -55,7 +54,6 @@ export class PictureCheckerPage {
     });
   }
 
-
   upload() {
     //Show loading
     let loader = this.loadingCtrl.create({
@@ -64,7 +62,7 @@ export class PictureCheckerPage {
     loader.present();
 
     const fileTransfer: FileTransferObject = this.transfer.create();
-
+    this.imgPath = "" + this.now.getDate() + this.now.getMonth() + this.now.getFullYear() + this.now.getHours() + this.now.getMinutes() + this.telNumber + ".jpg";
     let options: FileUploadOptions = {
       fileKey: 'photo',
       fileName: this.imgPath,
