@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Retour</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='home.html'">Retour</button>
 
         <div id="logo" style="text-align: center;">
             <img src="http://apiscampus.unice.fr/sites/default/files/logoapiscampus.png" /></a>
@@ -42,9 +42,11 @@
         map.locate({ setView: true, maxZoom: 8 });
         osm.addTo(map);
     }
+    var token = sessionStorage.getItem("token");
     var dataBeekeepers;
     var reqBeekeepers = new XMLHttpRequest();
-    reqBeekeepers.open("GET", "http://localhost:8080".concat("/getBeekeepers"), false);
+    reqBeekeepers.open("GET", "http://localhost:8080".concat("/api/getBeekeepers"), false);
+    reqBeekeepers.setRequestHeader("token",token);
     reqBeekeepers.send(null);
     dataBeekeepers = JSON.parse(reqBeekeepers.response).result;
 
@@ -61,7 +63,7 @@
             console.log(current.name + " " + current.surname + "  ☎  " + current.phone);
             var marker = L.marker([current.latCentre, current.longCentre], { icon: monIcone }).addTo(map);
             var popup = L.popup();
-            content.set(current.latCentre + " " + current.longCentre, current.name + " " + current.surname + "  ☎  " + current.phone);
+            content.set(current.latCentre + " " + current.longCentre, current.name + " " + current.surname + " -tel:- " + current.phone);
             marker.on('click', function (e) {
                 popup.setLatLng(e.latlng)
                     .setContent(content.get(e.latlng.lat + " " + e.latlng.lng)).openOn(map);

@@ -21,7 +21,7 @@
 
 <body>
     <header>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">Retour</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='home.html'">Retour</button>
 
         <div id="logo" style="text-align: center;">
             <img src="http://apiscampus.unice.fr/sites/default/files/logoapiscampus.png" /></a>
@@ -52,10 +52,12 @@
         map.locate({ setView: true, maxZoom: 8 });
         osm.addTo(map);
     }
-
+    var token = sessionStorage.getItem("token");
     var dataSwarms;
     var reqSwarms = new XMLHttpRequest();
-    reqSwarms.open("GET", "http://localhost:8080".concat("/getSwarms"), false);
+    reqSwarms.open("GET", "http://localhost:8080".concat("/api/getSwarms"), false);
+    reqSwarms.setRequestHeader("token",token);
+
     reqSwarms.send(null);
     dataSwarms = JSON.parse(reqSwarms.response).result;
 
