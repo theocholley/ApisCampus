@@ -233,8 +233,13 @@ ProtectedRoutes.get('/retrieve/:idSwarm', (req, res) => {
         if (err) throw err;
         var dbo = db.db("ApisCampus");
         var query = {id: +idSwarm};
+        var myquery = {idSwarm: idSwarm};
         var newvalues = {$set: {isAvailable: false}};
         dbo.collection("swarms").updateOne(query, newvalues, function (err, res) {
+            if (err) throw err;
+            db.close();
+        });
+        dbo.collection("reservations").deleteMany(myquery, function (err, obj) {
             if (err) throw err;
             db.close();
         });
