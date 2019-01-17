@@ -35,6 +35,7 @@ $app-direction: ltr;
 
 $colors: (
   primary:    #FFC300,
+  primary-light:#FFD54C,
   secondary:  #7F6100,
   danger:     #f53d3d,
   light:      #f4f4f4,
@@ -80,7 +81,6 @@ $colors: (
 *{
   font-family: Montserrat;
 }
-
 
 // Ionicons
 // --------------------------------------------------

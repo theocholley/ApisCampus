@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import leaflet from 'leaflet';
 import L from "leaflet";
 import {InformationsPage} from "../informations/informations";
@@ -16,6 +16,11 @@ var beeR = L.icon({
   iconSize: [40, 40],
 });
 
+var beeM = L.icon({
+  iconUrl: 'assets/imgs/beeM.png',
+  iconSize: [40, 40],
+});
+
 @IonicPage()
 @Component({
   selector: 'page-map',
@@ -23,26 +28,40 @@ var beeR = L.icon({
 })
 export class MapPage {
 
-  private readonly results;
-  private readonly idBeekeeper;
-  private readonly idMyReservedSwarm;
+  private loader;
+  private results;
+  private idBeekeeper;
+  private idMyReservedSwarm;
   private myReservedSwarm;
 
   @ViewChild('map') mapContainer: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public server: Server, public modalCtrl: ModalController) {
-    let req = this.server.getSwarms();
-    this.results = JSON.parse(req.responseText).result;
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public server: Server,
+              private loadingCtrl: LoadingController,
+              public toastCtrl: ToastController) {
     this.idBeekeeper = navParams.get('idBeekeeper');
     this.idMyReservedSwarm = navParams.get('idMyReservedSwarm');
+    this.loader = this.loadingCtrl.create({
+      content: "Chargement..."
+    });
+    this.loader.present();
+    let req = this.server.getSwarms();
+    this.results = JSON.parse(req.responseText).result;
   }
 
   ionViewDidEnter() {
+
+  }
+
+  ionViewWillEnter() {
     if (this.map) {
       this.map.remove();
     }
     this.loadmap();
+    this.loader.dismiss();
   }
 
   loadmap() {
@@ -53,29 +72,34 @@ export class MapPage {
     }).addTo(this.map);
     this.map.locate({
       setView: true,
-      maxZoom: 10
+      maxZoom: 12
     }).on('locationerror', (err) => {
       alert(err.message);
     });
 
     for (let i in this.results) {
-      if (this.results[i].id==this.idMyReservedSwarm){
-        this.myReservedSwarm=this.results[i];
-      }
+      let marker;
       let tmpResults = this.results;
       let tmpIdBeekeeper = this.idBeekeeper;
       let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
       let tmpNavCtrl = this.navCtrl;
-      let marker;
-      if (this.results[i].isAvailable==true && this.results[i].isTreated==true) {
-        marker = L.marker(tmpPos, {icon: beeR}).addTo(this.map);
+      if (this.results[i].id == this.idMyReservedSwarm) {
+        this.myReservedSwarm = this.results[i];
+        let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
+        marker = L.marker(tmpPos, {icon: beeM}).addTo(this.map);
         marker.on('click', function () {
           let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
           tmpNavCtrl.push(InformationsPage, data);
         });
       }
-      else if (this.results[i].isAvailable==true && this.results[i].isTreated==false) {
+      if (this.results[i].isAvailable == true && this.results[i].isTreated == true && this.results[i].id != this.idMyReservedSwarm) {
+        marker = L.marker(tmpPos, {icon: beeR}).addTo(this.map);
+        marker.on('click', function () {
+          let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
+          tmpNavCtrl.push(InformationsPage, data);
+        });
+      } else if (this.results[i].isAvailable == true && this.results[i].isTreated == false) {
         marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
         marker.on('click', function () {
           let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
@@ -85,9 +109,17 @@ export class MapPage {
     }
   }
 
-  goToBookedSwarm(){
-    let data = {item: this.myReservedSwarm, idBeekeeper: this.idBeekeeper, idMyReservedSwarm: this.idMyReservedSwarm};
-    this.navCtrl.push(InformationsPage, data);
+  goToBookedSwarm() {
+    if (this.idMyReservedSwarm == -1) {
+      let toast = this.toastCtrl.create({
+        message: 'Vous n\'avez pas réservé d\'essaim pour le moment',
+        duration: 4000,
+        position: 'bottom'
+      });
+      toast.present();
+    } else {
+      let data = {item: this.myReservedSwarm, idBeekeeper: this.idBeekeeper, idMyReservedSwarm: this.idMyReservedSwarm};
+      this.navCtrl.push(InformationsPage, data);
+    }
   }
-
 }

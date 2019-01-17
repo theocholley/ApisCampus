@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>Informations</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -33,8 +34,8 @@
     <ion-label>{{size}}</ion-label>
   </ion-item>
   <ion-item>
-    <ion-label stacked>Commentaires</ion-label>
-    <ion-label>{{description}}</ion-label>
+    <ion-label stacked style="color: #000000;">Commentaires</ion-label>
+    <ion-textarea rows="4" style="color: #000000;" disabled [value]="description"></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label stacked>Numéro de téléphone</ion-label>
@@ -48,7 +49,7 @@
     <ion-row>
       <ion-col style="text-align: center">
         <div *ngIf="idMyReservedSwarm != -1 && idMyReservedSwarm != idSwarm">
-          <ion-label>Vous ne pouvez pas réserver cet essaim car vous avez déjà une réservation en cours</ion-label>
+          <ion-label>Vous avez déjà une réservation en cours</ion-label>
         </div>
         <div *ngIf="isTreated == false && idMyReservedSwarm == -1">
           <button ion-button (click)="bookSwarm()">Réserver cet essaim</button>

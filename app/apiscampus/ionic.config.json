@@ -9,6 +9,5 @@
       "path": "/endpoints",
       "proxyUrl": "http://localhost:8080"
     }
-  ],
-  "app_id": ""
+  ]
 }

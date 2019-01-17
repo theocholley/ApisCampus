@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Inscription</ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,23 +9,23 @@
   <ion-row>
     <ion-col width-50 style="text-align: center">
       <ion-item>
-        <ion-label color="primary">Adresse mail</ion-label>
+        <ion-label stacked>Adresse e-mail</ion-label>
         <ion-input type="email" [(ngModel)]="mailForm"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary">Nom</ion-label>
+        <ion-label stacked>Nom</ion-label>
         <ion-input [(ngModel)]="nameForm"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary">Prénom</ion-label>
+        <ion-label stacked>Prénom</ion-label>
         <ion-input [(ngModel)]="surnameForm"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary">Mot de passe</ion-label>
+        <ion-label stacked>Mot de passe</ion-label>
         <ion-input type="password" [(ngModel)]="passcodeForm"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label color="primary">Numéro de téléphone</ion-label>
+        <ion-label stacked>Numéro de téléphone</ion-label>
         <ion-input type="tel" [(ngModel)]="phoneForm"></ion-input>
       </ion-item>
     </ion-col>

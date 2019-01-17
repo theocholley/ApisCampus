@@ -28,15 +28,15 @@ export class UserInformationsPage {
     console.log('ionViewDidLoad UserInformationsPage');
   }
 
-  storeNumber(): void {
-    this.nativeStorage.setItem('telNumber',
-      {number: this.telNumber})
-      .then(
-        () => console.log('Stored number!'),
-        error => console.error('Error storing item', error)
-      );
-    this.viewCtrl.dismiss();
-  }
+    storeNumber(): void {
+      this.nativeStorage.setItem('telNumber',
+        {number: this.telNumber})
+        .then(
+          () => console.log('Stored number!'),
+          error => console.error('Error storing item', error)
+        );
+      this.viewCtrl.dismiss();
+    }
 
 
 }

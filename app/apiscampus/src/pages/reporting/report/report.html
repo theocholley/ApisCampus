@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>Signaler</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -35,8 +36,8 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label color="primary">Commentaire</ion-label>
-        <ion-input [(ngModel)]="description"></ion-input>
+        <ion-label stacked>Commentaires</ion-label>
+        <ion-textarea rows="6" [(ngModel)]="description"></ion-textarea>
       </ion-item>
     </ion-col>
   </ion-row>

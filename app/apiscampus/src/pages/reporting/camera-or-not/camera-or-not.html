@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>Signaler</ion-title>
     <ion-buttons end>
       <button ion-button (click)="goToSettings()" icon-only clear>
         <ion-icon name="settings"></ion-icon>
@@ -14,12 +15,11 @@
     <br>
     <button (click)="openPictureChecker()"
             style="background-color: white;
-            border: 1px solid #000000;
             border-radius: 4px;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
       <ion-row>
         <ion-col style="text-align: center">
-          <img src="assets/imgs/camera.png" width="178" height="162"/>
+          <img src="assets/imgs/camera.png" width="160" height="160"/>
           <p>Prendre une photo</p>
         </ion-col>
       </ion-row>
@@ -27,12 +27,11 @@
     <br><br>
     <button (click)="openInsectPicker()"
             style="background-color: white;
-            border: 1px solid #000000;
             border-radius: 4px;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
       <ion-row>
         <ion-col style="text-align: center">
-          <img src="assets/imgs/strikedcamera.png" width="178" height="162"/>
+          <img src="assets/imgs/nocamera.png" width="160" height="160"/>
           <p>Photo impossible</p>
         </ion-col>
       </ion-row>

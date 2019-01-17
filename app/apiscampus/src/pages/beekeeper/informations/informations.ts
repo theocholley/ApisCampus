@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Height, Insect, Situation, Size} from "../../../utils/enums";
 import {Server} from "../../../server/server";
 import * as Constants from '../../../utils/constants';
-
 
 
 @IonicPage()
@@ -34,7 +33,11 @@ export class InformationsPage {
   private pic: string;
   private idMyReservedSwarm: number;
 
-  constructor(public navCtrl: NavController, public server: Server, public navParams: NavParams, private alertCtrl: AlertController, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController,
+              public server: Server,
+              public navParams: NavParams,
+              private alertCtrl: AlertController,
+              public toastCtrl: ToastController) {
     this.item = navParams.get('item');
     this.idBeekeeper = navParams.get('idBeekeeper');
     this.idMyReservedSwarm = navParams.get('idMyReservedSwarm');
@@ -46,7 +49,7 @@ export class InformationsPage {
     this.date = this.item.date;
     this.description = this.item.description;
     if (this.item.pic != 'noimg')
-      this.pic = Constants.PATH+'/api/upload/images/' + this.item.pic;
+      this.pic = Constants.PATH + '/api/upload/images/' + this.item.pic;
     else this.pic = this.item.pic;
     this.getFeature(this.item.feature);
     this.getHeight(this.item.height);
@@ -60,44 +63,47 @@ export class InformationsPage {
 
   public bookSwarm() {
     this.server.treat(this.idBeekeeper, this.idSwarm);
-    this.presentAlertBook()
+    this.presentAlertBook();
+    this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
   }
 
   endBooking() {
     this.server.retrieve(this.idSwarm);
-    this.presentAlertEnd();
+    this.presentToastEnd();
+    this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
   }
 
   cancelBooking() {
     this.server.cancelReservation(this.idSwarm);
-    this.presentAlertCancel();
+    this.presentToastCancel();
+    this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
   }
 
   presentAlertBook() {
     let alert = this.alertCtrl.create({
       title: 'Essaim réservé!',
-      subTitle: 'L\'essaim va disparaître de la carte pendant 15h',
+      subTitle: 'Vous avez 15h pour récupérer votre essaim, passé ce délai il redeviendra disponible',
       buttons: ['OK']
     });
     alert.present();
   }
 
-  presentAlertCancel() {
-    let alert = this.alertCtrl.create({
-      title: 'Réservation annulée',
-      subTitle: 'Votre réservation a bien été annulée',
-      buttons: ['OK']
+  presentToastCancel() {
+    let toast = this.toastCtrl.create({
+      message: 'Votre réservation a bien été annulée, à bientôt!',
+      duration: 4000,
+      position: 'bottom'
     });
-    alert.present();
+    toast.present();
   }
 
-  presentAlertEnd() {
-    let alert = this.alertCtrl.create({
-      title: 'Essaim récupéré',
-      subTitle: 'Merci!',
-      buttons: ['OK']
+  presentToastEnd() {
+    let toast = this.toastCtrl.create({
+      message: 'Merci d\'avoir utilisé notre application, à bientôt!',
+      duration: 4000,
+      position: 'bottom'
     });
-    alert.present();
+    toast.present();
   }
 
   getFeature(feature) {
