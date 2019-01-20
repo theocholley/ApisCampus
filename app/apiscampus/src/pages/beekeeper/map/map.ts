@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import leaflet from 'leaflet';
 import L from "leaflet";
 import {InformationsPage} from "../informations/informations";
@@ -28,7 +28,6 @@ var beeM = L.icon({
 })
 export class MapPage {
 
-  private loader;
   private results;
   private idBeekeeper;
   private idMyReservedSwarm;
@@ -40,14 +39,9 @@ export class MapPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public server: Server,
-              private loadingCtrl: LoadingController,
               public toastCtrl: ToastController) {
     this.idBeekeeper = navParams.get('idBeekeeper');
     this.idMyReservedSwarm = navParams.get('idMyReservedSwarm');
-    this.loader = this.loadingCtrl.create({
-      content: "Chargement..."
-    });
-    this.loader.present();
     let req = this.server.getSwarms();
     this.results = JSON.parse(req.responseText).result;
   }
@@ -61,7 +55,6 @@ export class MapPage {
       this.map.remove();
     }
     this.loadmap();
-    this.loader.dismiss();
   }
 
   loadmap() {

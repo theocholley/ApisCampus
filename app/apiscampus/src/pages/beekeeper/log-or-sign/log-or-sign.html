@@ -15,7 +15,7 @@
         <ion-label stacked>Mot de passe</ion-label>
         <ion-input type="password" [(ngModel)]="passwordForm"></ion-input>
       </ion-item>
-      <button ion-button (click)="connect()">Connexion</button>
+      <button ion-button (touchstart)="presentLoading()" (touchend)="connect()">Connexion</button>
     </ion-col>
   </ion-row>
 </ion-content>

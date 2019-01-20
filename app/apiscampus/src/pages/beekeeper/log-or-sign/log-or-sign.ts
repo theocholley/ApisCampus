@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {SignUpPage} from "../sign-up/sign-up";
 import {MapPage} from "../map/map";
 import {Server} from "../../../server/server";
@@ -22,24 +22,27 @@ export class LogOrSignPage {
               private alertCtrl: AlertController,
               public navParams: NavParams,
               public server: Server,
-              public toastCtrl: ToastController) {
+              public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LogOrSignPage');
   }
 
-  presentToast() {
-    let toast = this.toastCtrl.create({
-      message: 'Veuillez patienter...',
-      duration: 3000,
-      position: 'bottom'
+
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      content: 'Chargement des données...'
     });
-    toast.present();
+
+    loading.present();
+
+    setTimeout(() => {
+      loading.dismiss();
+    }, 4000);
   }
 
   connect() {
-    this.presentToast();
     let req = this.server.login(this.mailForm, this.passwordForm);
     this.results = JSON.parse(req.responseText);
     if (this.results.passed == true) {
