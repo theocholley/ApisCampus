@@ -16,14 +16,12 @@ export class InsectPickerPage {
   private date: string;
   private hour: string;
   private readonly imgPath: string;
-  private readonly telNumber: number;
   private insect: string;
   private currentInsect: number = -1;
   public now: Date = new Date();
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.imgPath = navParams.get('imgPath');
-    this.telNumber = navParams.get('telNumber');
   }
 
   ionViewDidLoad() {
@@ -40,7 +38,6 @@ export class InsectPickerPage {
       date: this.date,
       hour: this.hour,
       insect: this.insect,
-      telNumber: this.telNumber,
       imgPath: this.imgPath
     };
     this.navCtrl.push(ReportPage, data)

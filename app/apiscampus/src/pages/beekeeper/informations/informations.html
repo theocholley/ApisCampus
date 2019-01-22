@@ -54,9 +54,6 @@
         <div *ngIf="isTreated == false && idMyReservedSwarm == -1">
           <button ion-button (click)="bookSwarm()">Réserver cet essaim</button>
         </div>
-        <div *ngIf="isTreated == true && idMyReservedSwarm == -1">
-          <ion-label>Cet essaim est déjà réservé</ion-label>
-        </div>
         <div *ngIf="idMyReservedSwarm == idSwarm">
           <ion-row>
             <ion-col style="text-align: center">

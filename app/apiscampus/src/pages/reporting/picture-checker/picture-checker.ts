@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {FileTransfer, FileTransferObject, FileUploadOptions} from "@ionic-native/file-transfer";
 import {Server} from "../../../server/server";
@@ -15,17 +15,14 @@ import * as Constants from '../../../utils/constants';
 export class PictureCheckerPage {
 
   private base64Image: string = '';
-  private readonly telNumber: number;
   private imgPath: string;
   public now: Date = new Date();
 
   constructor(public navCtrl: NavController,
               private camera: Camera,
               public server: Server,
-              public navParams: NavParams,
               private transfer: FileTransfer) {
-    this.telNumber = navParams.get('telNumber');
-    this.imgPath = "" + this.now.getDate() + this.now.getMonth() + this.now.getFullYear() + this.now.getHours() + this.now.getMinutes() + this.telNumber + ".jpg";
+    this.imgPath = "" + this.now.getDate() + this.now.getMonth() + this.now.getFullYear() + this.now.getHours() + this.now.getMinutes() + this.now.getSeconds() + ".jpg";
     this.openCamera()
   }
 
@@ -34,8 +31,7 @@ export class PictureCheckerPage {
   }
 
   openInsectPicker() {
-    let data = {telNumber: this.telNumber, imgPath: this.imgPath};
-    this.navCtrl.push(InsectPickerPage, data);
+    this.navCtrl.push(InsectPickerPage, {imgPath: this.imgPath});
   }
 
   openCamera() {

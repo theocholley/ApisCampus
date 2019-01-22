@@ -73,6 +73,7 @@ export class MapPage {
     for (let i in this.results) {
       let marker;
       let tmpResults = this.results;
+      let tmpToast = this.toastCtrl;
       let tmpIdBeekeeper = this.idBeekeeper;
       let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
@@ -89,8 +90,12 @@ export class MapPage {
       if (this.results[i].isAvailable == true && this.results[i].isTreated == true && this.results[i].id != this.idMyReservedSwarm) {
         marker = L.marker(tmpPos, {icon: beeR}).addTo(this.map);
         marker.on('click', function () {
-          let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
-          tmpNavCtrl.push(InformationsPage, data);
+          let toast = tmpToast.create({
+            message: 'Cet essaim est déjà réservé',
+            duration: 3000,
+            position: 'bottom'
+          });
+          toast.present();
         });
       } else if (this.results[i].isAvailable == true && this.results[i].isTreated == false) {
         marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);

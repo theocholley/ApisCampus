@@ -13,8 +13,8 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {Situation, Height, Size} from "../../../utils/enums";
 import {Network} from "@ionic-native/network";
 import {HomePage} from "../../home/home";
-import { Uid } from '@ionic-native/uid';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
+import {Uid} from '@ionic-native/uid';
+import {AndroidPermissions} from '@ionic-native/android-permissions';
 
 
 @IonicPage()
@@ -55,13 +55,21 @@ export class ReportPage {
     this.hour = navParams.get('hour');
     this.insect = navParams.get('insect');
     this.imgPath = navParams.get('imgPath');
-    this.telNumber = navParams.get('telNumber');
+    this.nativeStorage.getItem('telNumber')
+      .then(
+        data => {
+          this.telNumber = data.number
+        },
+        error => {
+
+        }
+      );
     this.platform.ready().then(() => {
       if (this.network.type == "none") {
         this.presentNetworkIssueInfoAlert();
       }
     });
-    this.imei=this.getImei();
+    this.imei = this.getImei();
   }
 
 
@@ -71,10 +79,10 @@ export class ReportPage {
 
   addSwarm() {
     this.platform.ready().then(() => {
+      this.storeNumber();
       if (this.network.type == "none") {
         this.addSwarmNotConnected()
-      }
-      else {
+      } else {
         this.addSwarmConnected()
       }
     });
@@ -113,8 +121,8 @@ export class ReportPage {
   }
 
   addSwarmConnected() {
-    if(this.description===undefined){
-      this.description="L'utilisateur n'a pas laissé de commentaire"
+    if (this.description === undefined) {
+      this.description = "L'utilisateur n'a pas laissé de commentaire"
     }
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
@@ -127,8 +135,8 @@ export class ReportPage {
   }
 
   addSwarmNotConnected() {
-    if(this.description===undefined){
-      this.description="L'utilisateur n'a pas laissé de commentaire"
+    if (this.description === undefined) {
+      this.description = "L'utilisateur n'a pas laissé de commentaire"
     }
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
@@ -158,22 +166,28 @@ export class ReportPage {
     this.presentNetworkIssueAlert();
   }
 
+  storeNumber(): void {
+    this.nativeStorage.setItem('telNumber',
+      {number: this.telNumber})
+      .then(
+        () => console.log('Stored number!'),
+        error => console.error('Error storing item', error)
+      );
+  }
+
   async getImei() {
     const {hasPermission} = await this.androidPermissions.checkPermission(
       this.androidPermissions.PERMISSION.READ_PHONE_STATE
     );
-
     if (!hasPermission) {
       const result = await this.androidPermissions.requestPermission(
         this.androidPermissions.PERMISSION.READ_PHONE_STATE
       );
-
       if (!result.hasPermission) {
-        throw new Error('Permissions required');
+        this.getImei();
       }
       return;
     }
-
     return this.uid.IMEI
   }
 }

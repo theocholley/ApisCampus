@@ -15,12 +15,8 @@ import {Server} from "../server/server"
 import {Camera} from "@ionic-native/camera";
 import {SignUpPage} from "../pages/beekeeper/sign-up/sign-up";
 import {LogOrSignPage} from "../pages/beekeeper/log-or-sign/log-or-sign";
-import {UserInformationsPage} from "../pages/reporting/user-informations/user-informations";
-import {UserInformationsPageModule} from "../pages/reporting/user-informations/user-informations.module";
 import {Network} from "@ionic-native/network";
 import {NativeStorage} from "@ionic-native/native-storage";
-import {SettingsPage} from "../pages/reporting/settings/settings";
-import {SettingsPageModule} from "../pages/reporting/settings/settings.module";
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import {HttpClientModule} from "@angular/common/http";
@@ -48,10 +44,8 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    SettingsPageModule,
     PictureCheckerPageModule,
-    HttpClientModule,
-    UserInformationsPageModule
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,11 +57,9 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
     InformationsPage,
     InsectPickerPage,
     CameraOrNotPage,
-    SettingsPage,
     SignUpPage,
     SignUpMapPage,
-    LogOrSignPage,
-    UserInformationsPage
+    LogOrSignPage
   ],
   providers: [
     StatusBar,
