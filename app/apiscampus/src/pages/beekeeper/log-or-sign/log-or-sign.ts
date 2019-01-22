@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController} from 'ionic-angular';
 import {SignUpPage} from "../sign-up/sign-up";
 import {MapPage} from "../map/map";
 import {Server} from "../../../server/server";
@@ -20,7 +20,6 @@ export class LogOrSignPage {
   constructor(private nativeStorage: NativeStorage,
               public navCtrl: NavController,
               private alertCtrl: AlertController,
-              public navParams: NavParams,
               public server: Server,
               public loadingCtrl: LoadingController) {
   }
@@ -60,7 +59,7 @@ export class LogOrSignPage {
   goToMap() {
     let idMyReservedSwarm = -1;
     let req = this.server.getReservation(this.results.result[0].id);
-    if (JSON.parse(req.responseText).result.length>0){
+    if (JSON.parse(req.responseText).result.length > 0) {
       idMyReservedSwarm = JSON.parse(req.responseText).result[0].idSwarm;
     }
     let data = {idBeekeeper: this.results.result[0].id, idMyReservedSwarm: idMyReservedSwarm};

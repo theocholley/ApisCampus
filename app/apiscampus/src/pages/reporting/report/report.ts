@@ -61,7 +61,7 @@ export class ReportPage {
           this.telNumber = data.number
         },
         error => {
-
+          this.telNumber = ''
         }
       );
     this.platform.ready().then(() => {
@@ -80,6 +80,8 @@ export class ReportPage {
   addSwarm() {
     this.platform.ready().then(() => {
       this.storeNumber();
+      if (this.telNumber == '')
+        this.telNumber = 'Non renseigné';
       if (this.network.type == "none") {
         this.addSwarmNotConnected()
       } else {
@@ -188,6 +190,6 @@ export class ReportPage {
       }
       return;
     }
-    return this.uid.IMEI
+    return this.uid.IMEI.toString();
   }
 }

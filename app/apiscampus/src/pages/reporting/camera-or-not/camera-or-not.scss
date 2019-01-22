@@ -1,3 +1,2 @@
-page-camera-or-not {
-
-}
+.pop{animation:pop .4s cubic-bezier(.39,.575,.565,1.000) both}
+@keyframes pop{0%{transform:scale(.5)}100%{transform:scale(1)}}
