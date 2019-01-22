@@ -25,6 +25,14 @@ import {PictureCheckerPage} from "../pages/reporting/picture-checker/picture-che
 import {SignUpMapPage} from "../pages/beekeeper/sign-up-map/sign-up-map";
 import { Uid } from '@ionic-native/uid';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import {InformationsPageModule} from "../pages/beekeeper/informations/informations.module";
+import {LogOrSignPageModule} from "../pages/beekeeper/log-or-sign/log-or-sign.module";
+import {MapPageModule} from "../pages/beekeeper/map/map.module";
+import {SignUpPageModule} from "../pages/beekeeper/sign-up/sign-up.module";
+import {SignUpMapPageModule} from "../pages/beekeeper/sign-up-map/sign-up-map.module";
+import {CameraOrNotPageModule} from "../pages/reporting/camera-or-not/camera-or-not.module";
+import {InsectPickerPageModule} from "../pages/reporting/insect-picker/insect-picker.module";
+import {ReportPageModule} from "../pages/reporting/report/report.module";
 
 
 
@@ -32,20 +40,20 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
   declarations: [
     MyApp,
     HomePage,
-    MapPage,
-    CameraOrNotPage,
-    InsectPickerPage,
-    ReportPage,
-    InformationsPage,
-    SignUpPage,
-    SignUpMapPage,
-    LogOrSignPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     PictureCheckerPageModule,
-    HttpClientModule
+    InformationsPageModule,
+    LogOrSignPageModule,
+    MapPageModule,
+    HttpClientModule,
+    SignUpPageModule,
+    SignUpMapPageModule,
+    CameraOrNotPageModule,
+    InsectPickerPageModule,
+    ReportPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
