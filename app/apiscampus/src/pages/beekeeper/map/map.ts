@@ -61,7 +61,7 @@ export class MapPage {
     this.map = leaflet.map("map").fitWorld();
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attributions: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18
+      maxZoom: 30
     }).addTo(this.map);
     this.map.locate({
       setView: true,
@@ -78,6 +78,13 @@ export class MapPage {
       let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
       let tmpNavCtrl = this.navCtrl;
+      // var trigger1 = this.results[i].latitude,
+      //   regexp = new RegExp('[-+]?[0-9]*\\.?[0-9]*'),
+      //   test1 = regexp.test(trigger1);
+      // var trigger2 = this.results[i].longitude,
+      //   regexp = new RegExp('[-+]?[0-9]*\\.?[0-9]*'),
+      //   test2 = regexp.test(trigger2);
+      // if (test1&&test2) {
       if (this.results[i].id == this.idMyReservedSwarm) {
         this.myReservedSwarm = this.results[i];
         let tmpIdMyReservedSwarm = this.idMyReservedSwarm;

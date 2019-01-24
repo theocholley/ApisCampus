@@ -49,7 +49,7 @@ export class InformationsPage {
     this.date = this.item.date;
     this.description = this.item.description;
     if (this.item.pic != 'noimg')
-      this.pic = Constants.PATH + '/api/upload/images/' + this.item.pic;
+      this.pic = Constants.PATHPHP + '/api/upload/images/' + this.item.pic;
     else this.pic = this.item.pic;
     this.getFeature(this.item.feature);
     this.getHeight(this.item.height);

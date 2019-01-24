@@ -62,7 +62,7 @@ export class PictureCheckerPage {
     };
 
     //file transfer action
-    fileTransfer.upload(this.base64Image, Constants.PATH + '/api/upload/upload.php', options)
+    fileTransfer.upload(this.base64Image, Constants.PATHPHP + '/api/upload/upload.php', options)
       .then((data) => {
         console.log("Upload successful");
       }, (err) => {
