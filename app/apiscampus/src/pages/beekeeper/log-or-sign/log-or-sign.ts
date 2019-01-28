@@ -22,12 +22,20 @@ export class LogOrSignPage {
               private alertCtrl: AlertController,
               public server: Server,
               public loadingCtrl: LoadingController) {
+    this.nativeStorage.getItem('mailForm')
+      .then(
+        data => {
+          this.mailForm = data.mailForm
+        },
+        error => {
+          this.mailForm = ''
+        }
+      );
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LogOrSignPage');
   }
-
 
   presentLoading() {
     let loading = this.loadingCtrl.create({
@@ -42,6 +50,7 @@ export class LogOrSignPage {
   }
 
   connect() {
+    this.storeMail();
     let req = this.server.login(this.mailForm, this.passwordForm);
     this.results = JSON.parse(req.responseText);
     if (this.results.passed == true) {
@@ -54,6 +63,15 @@ export class LogOrSignPage {
       });
       alert.present();
     }
+  }
+
+  storeMail(): void {
+    this.nativeStorage.setItem('mailForm',
+      {mailForm: this.mailForm})
+      .then(
+        () => console.log('Stored mail!'),
+        error => console.error('Error storing item', error)
+      );
   }
 
   goToMap() {

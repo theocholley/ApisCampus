@@ -80,21 +80,33 @@ export class ReportPage {
   addSwarm() {
     this.platform.ready().then(() => {
       this.storeNumber();
-      if (this.telNumber == '')
-        this.telNumber = 'Non renseigné';
-      if (this.network.type == "none") {
-        this.addSwarmNotConnected()
-      } else {
-        this.addSwarmConnected()
+      if (this.telNumber == '') {
+        this.presentAlertNumber();
+      }
+      else {
+        if (this.network.type == "none") {
+          this.addSwarmNotConnected()
+        } else {
+          this.addSwarmConnected()
+        }
+        this.navCtrl.setRoot(HomePage);
       }
     });
-    this.navCtrl.setRoot(HomePage);
   }
 
   presentAlert() {
     let alert = this.alertCtrl.create({
       title: 'Merci!',
       subTitle: 'Votre signalement est mainentant visible!',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  presentAlertNumber() {
+    let alert = this.alertCtrl.create({
+      title: 'Attention!',
+      subTitle: 'Vous devez renseigner un numéro de téléphone afin que les apiculteurs puissent obtenir plus de détails sur l\'essaim!',
       buttons: ['OK']
     });
     alert.present();

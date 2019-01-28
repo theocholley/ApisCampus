@@ -10,7 +10,7 @@
     <ion-col style="text-align: center">
       <ion-item>
         <ion-label>Situation de l'essaim</ion-label>
-        <ion-select [(ngModel)]="feature">
+        <ion-select cancelText="ANNULER" [(ngModel)]="feature">
           <ion-option value="Roof">{{mySituation.Roof}}</ion-option>
           <ion-option value="Wall">{{mySituation.Wall}}</ion-option>
           <ion-option value="Lamp">{{mySituation.Lamp}}</ion-option>
@@ -20,7 +20,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Hauteur approximative</ion-label>
-        <ion-select [(ngModel)]="height">
+        <ion-select cancelText="ANNULER" [(ngModel)]="height">
           <ion-option value="Ground">{{myHeight.Ground}}</ion-option>
           <ion-option value="HumanSize">{{myHeight.HumanSize}}</ion-option>
           <ion-option value="TwoToFive">{{myHeight.TwoToFive}}</ion-option>
@@ -29,7 +29,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Taille/Diamètre de l'essaim</ion-label>
-        <ion-select [(ngModel)]="size">
+        <ion-select cancelText="ANNULER" [(ngModel)]="size">
           <ion-option value="Tennis">{{mySize.Tennis}}</ion-option>
           <ion-option value="Handball">{{mySize.Handball}}</ion-option>
           <ion-option value="Basket">{{mySize.Basket}}</ion-option>

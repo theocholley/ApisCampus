@@ -67,7 +67,7 @@ export class MapPage {
       setView: true,
       maxZoom: 12
     }).on('locationerror', (err) => {
-      alert(err.message);
+      console.log(err.message);
     });
 
     for (let i in this.results) {
@@ -78,38 +78,39 @@ export class MapPage {
       let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
       let tmpNavCtrl = this.navCtrl;
-      // var trigger1 = this.results[i].latitude,
-      //   regexp = new RegExp('[-+]?[0-9]*\\.?[0-9]*'),
-      //   test1 = regexp.test(trigger1);
-      // var trigger2 = this.results[i].longitude,
-      //   regexp = new RegExp('[-+]?[0-9]*\\.?[0-9]*'),
-      //   test2 = regexp.test(trigger2);
-      // if (test1&&test2) {
-      if (this.results[i].id == this.idMyReservedSwarm) {
-        this.myReservedSwarm = this.results[i];
-        let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
-        marker = L.marker(tmpPos, {icon: beeM}).addTo(this.map);
-        marker.on('click', function () {
-          let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
-          tmpNavCtrl.push(InformationsPage, data);
-        });
-      }
-      if (this.results[i].isAvailable == true && this.results[i].isTreated == true && this.results[i].id != this.idMyReservedSwarm) {
-        marker = L.marker(tmpPos, {icon: beeR}).addTo(this.map);
-        marker.on('click', function () {
-          let toast = tmpToast.create({
-            message: 'Cet essaim est déjà réservé',
-            duration: 3000,
-            position: 'bottom'
+      var triggerLat = this.results[i].latitude,
+        regexp = new RegExp('^(\\+|-)?(?:90(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,6})?))$'),
+        testLat = regexp.test(triggerLat);
+      var triggerLong = this.results[i].longitude,
+        regexp = new RegExp('^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$'),
+        testLong = regexp.test(triggerLong);
+      if (testLat && testLong) {
+        if (this.results[i].id == this.idMyReservedSwarm) {
+          this.myReservedSwarm = this.results[i];
+          let tmpIdMyReservedSwarm = this.idMyReservedSwarm;
+          marker = L.marker(tmpPos, {icon: beeM}).addTo(this.map);
+          marker.on('click', function () {
+            let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
+            tmpNavCtrl.push(InformationsPage, data);
           });
-          toast.present();
-        });
-      } else if (this.results[i].isAvailable == true && this.results[i].isTreated == false) {
-        marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
-        marker.on('click', function () {
-          let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
-          tmpNavCtrl.push(InformationsPage, data);
-        });
+        }
+        if (this.results[i].isAvailable == true && this.results[i].isTreated == true && this.results[i].id != this.idMyReservedSwarm) {
+          marker = L.marker(tmpPos, {icon: beeR}).addTo(this.map);
+          marker.on('click', function () {
+            let toast = tmpToast.create({
+              message: 'Cet essaim est déjà réservé',
+              duration: 3000,
+              position: 'bottom'
+            });
+            toast.present();
+          });
+        } else if (this.results[i].isAvailable == true && this.results[i].isTreated == false) {
+          marker = L.marker(tmpPos, {icon: bee}).addTo(this.map);
+          marker.on('click', function () {
+            let data = {item: tmpResults[i], idBeekeeper: tmpIdBeekeeper, idMyReservedSwarm: tmpIdMyReservedSwarm};
+            tmpNavCtrl.push(InformationsPage, data);
+          });
+        }
       }
     }
   }

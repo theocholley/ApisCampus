@@ -28,7 +28,7 @@ export class InsectPickerPage {
     console.log('ionViewDidLoad InsectPickerPage');
   }
 
-  openModal() {
+  openReport() {
     this.date = this.now.getDate() + "-" + (Number(this.now.getMonth() + 1) > 9 ? Number(this.now.getMonth() + 1) : "0" + Number(this.now.getMonth() + 1)) + "-" + this.now.getFullYear();
     this.hour = this.now.getHours() + "h" + (this.now.getMinutes() > 9 ? this.now.getMinutes() : "0" + this.now.getMinutes());
     this.insect = (this.currentInsect == 1 ? this.myInsect.Bee :
@@ -44,12 +44,8 @@ export class InsectPickerPage {
   }
 
   changeColor(nb, id, idBis, idTer) {
-    if (this.currentInsect == nb)
-      id.style = ""
-    else {
-      this.currentInsect = nb;
-      id.style = "border:2px solid #FFC300; border-radius: 2px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);";
-    }
+    this.currentInsect = nb;
+    id.style = "border:2px solid #FFC300; border-radius: 2px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);";
     idBis.style = "";
     idTer.style = "";
   }
