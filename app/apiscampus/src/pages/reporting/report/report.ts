@@ -33,11 +33,11 @@ export class ReportPage {
   private readonly date;
   private readonly hour;
   private telNumber;
-  private insect;
-  private feature;
+  private insect = "Non renseigné";
+  private feature = "Non renseigné";
   private description;
-  private height;
-  private size;
+  private height = "Non renseigné";
+  private size = "Non renseigné";
   private imgPath;
   private imei;
 
@@ -141,7 +141,8 @@ export class ReportPage {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.lat = resp.coords.latitude.toString();
       this.long = resp.coords.longitude.toString();
-      this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath, this.imei);
+      let req = this.server.addSwarm(this.long, this.lat, this.date, this.hour, this.feature, this.height, this.description, this.telNumber, this.size, this.insect, this.imgPath, this.imei);
+      console.log(req)
     }).catch((error) => {
       console.log('Error getting location', error);
     });

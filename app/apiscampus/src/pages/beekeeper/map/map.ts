@@ -47,14 +47,14 @@ export class MapPage {
   }
 
   ionViewDidEnter() {
-
-  }
-
-  ionViewWillEnter() {
     if (this.map) {
       this.map.remove();
     }
     this.loadmap();
+  }
+
+  ionViewWillEnter() {
+
   }
 
   loadmap() {
@@ -79,10 +79,10 @@ export class MapPage {
       let tmpPos = [this.results[i].latitude, this.results[i].longitude];
       let tmpNavCtrl = this.navCtrl;
       var triggerLat = this.results[i].latitude,
-        regexp = new RegExp('^(\\+|-)?(?:90(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\\.[0-9]{1,6})?))$'),
+        regexp = new RegExp('^([-+]?)([\\d]{1,2})(((\\.)(\\d+))?)$'),
         testLat = regexp.test(triggerLat);
       var triggerLong = this.results[i].longitude,
-        regexp = new RegExp('^(\\+|-)?(?:180(?:(?:\\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\\.[0-9]{1,6})?))$'),
+        regexp = new RegExp('^([-+]?)([\\d]{1,2})(((\\.)(\\d+))?)$'),
         testLong = regexp.test(triggerLong);
       if (testLat && testLong) {
         if (this.results[i].id == this.idMyReservedSwarm) {

@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Server} from "../../../server/server";
 import leaflet from 'leaflet';
 import L from "leaflet";
@@ -30,6 +30,8 @@ export class SignUpMapPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private alertCtrl: AlertController,
+              public toastCtrl: ToastController,
               public server: Server) {
     this.mail = navParams.get('mail');
     this.name = navParams.get('name');
@@ -85,8 +87,24 @@ export class SignUpMapPage {
   }
 
   signUp() {
-    this.server.addBeekeeper(this.name, this.surname, latitude, longitude, this.rayForm, this.passcode, this.phone, this.mail);
-    this.navCtrl.setRoot(LogOrSignPage)
+    let req = this.server.addBeekeeper(this.name, this.surname, latitude, longitude, this.rayForm, this.passcode, this.phone, this.mail);
+    let results = JSON.parse(req.responseText);
+    if (results.passed == true) {
+      let toast = this.toastCtrl.create({
+        message: 'Votre compte a bien été enregistré, vous pouvez maintenant vous connecter',
+        duration: 4000,
+        position: 'bottom'
+      });
+      toast.present();
+      this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length() - 3));
+    } else {
+      let alert = this.alertCtrl.create({
+        title: 'Erreur',
+        subTitle: 'Un compte a déjà été créé avec cette adresse mail',
+        buttons: ['OK']
+      });
+      alert.present();
+      this.navCtrl.pop();
+    }
   }
-
 }

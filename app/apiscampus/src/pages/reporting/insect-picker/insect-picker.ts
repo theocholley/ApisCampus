@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Insect} from "../../../utils/enums";
 import {ReportPage} from "../report/report";
 
 
@@ -10,8 +9,6 @@ import {ReportPage} from "../report/report";
   templateUrl: 'insect-picker.html',
 })
 export class InsectPickerPage {
-
-  public myInsect = Insect;
 
   private date: string;
   private hour: string;
@@ -31,9 +28,9 @@ export class InsectPickerPage {
   openReport() {
     this.date = this.now.getDate() + "-" + (Number(this.now.getMonth() + 1) > 9 ? Number(this.now.getMonth() + 1) : "0" + Number(this.now.getMonth() + 1)) + "-" + this.now.getFullYear();
     this.hour = this.now.getHours() + "h" + (this.now.getMinutes() > 9 ? this.now.getMinutes() : "0" + this.now.getMinutes());
-    this.insect = (this.currentInsect == 1 ? this.myInsect.Bee :
-      this.currentInsect == 2 ? this.myInsect.Wasp :
-        this.currentInsect == 3 ? this.myInsect.Hornet : this.myInsect.Unknown)
+    this.insect = (this.currentInsect == 1 ? "Abeille" :
+      this.currentInsect == 2 ? "Guêpe" :
+        this.currentInsect == 3 ? "Frelon" : "Non renseigné")
     let data = {
       date: this.date,
       hour: this.hour,

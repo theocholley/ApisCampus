@@ -67,4 +67,13 @@ export class SignUpPage {
     alert.present();
   }
 
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Erreur',
+      subTitle: 'Vous devez d\'abord renseigner tous les champs',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 }
