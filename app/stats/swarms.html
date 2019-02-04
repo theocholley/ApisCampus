@@ -55,7 +55,7 @@
     var token = sessionStorage.getItem("token");
     var dataSwarms;
     var reqSwarms = new XMLHttpRequest();
-    reqSwarms.open("GET", "http://localhost:8080".concat("/api/getSwarms"), false);
+    reqSwarms.open("GET", "http://apiscampus.unice.fr:8080".concat("/api/getSwarms"), false);
     reqSwarms.setRequestHeader("token",token);
 
     reqSwarms.send(null);

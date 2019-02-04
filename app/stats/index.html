@@ -33,7 +33,7 @@
         var mail = document.getElementById("inputEmail").value;
         var passcode = document.getElementById("inputPassword").value;
         var req = new XMLHttpRequest();
-        req.open("GET", "http://localhost:8080".concat("/login/".concat(mail).concat("/").concat(passcode)), false);
+        req.open("GET", "http://apiscampus.unice.fr:8080".concat("/login/".concat(mail).concat("/").concat(passcode)), false);
         req.send(null);
         var token = JSON.parse(req.response).token;
         if (token !== undefined){

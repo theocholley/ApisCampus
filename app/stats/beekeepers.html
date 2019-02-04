@@ -45,7 +45,7 @@
     var token = sessionStorage.getItem("token");
     var dataBeekeepers;
     var reqBeekeepers = new XMLHttpRequest();
-    reqBeekeepers.open("GET", "http://localhost:8080".concat("/api/getBeekeepers"), false);
+    reqBeekeepers.open("GET", "http://apiscampus.unice.fr:8080".concat("/api/getBeekeepers"), false);
     reqBeekeepers.setRequestHeader("token",token);
     reqBeekeepers.send(null);
     dataBeekeepers = JSON.parse(reqBeekeepers.response).result;
