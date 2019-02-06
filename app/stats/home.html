@@ -86,8 +86,7 @@
                 <th>Nom</th>
                 <th>Nom de famille</th>
                 <th>Numéro de tel</th>
-                <th>Point de Ref</th>
-                <th>Rayon (km)</th>
+                <th>Adresse Mail</th>
             </tr>
         </thead>
         <tbody>
@@ -341,9 +340,8 @@
                 var colonne3 = ligne.insertCell(2);
                 colonne3.innerHTML += dataBeekeepers[i].phone;
                 var colonne4 = ligne.insertCell(3);
-                colonne4.innerHTML += "[" + dataBeekeepers[i].latCentre + "," + dataBeekeepers[i].longCentre + "]";
-                var colonne5 = ligne.insertCell(4);
-                colonne5.innerHTML += dataBeekeepers[i].ray;
+                colonne4.innerHTML += dataBeekeepers[i].mail;
+
             }
         });
     </script>
