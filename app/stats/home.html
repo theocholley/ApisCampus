@@ -122,7 +122,7 @@
         var countyMap = new Map();
         var heightMap = new Map();
         var req = new XMLHttpRequest();
-        req.open("GET", "http://apiscampus.unice.fr:8080".concat("/api/getSwarms"), false);
+        req.open("GET", "http://localhost:8080".concat("/api/getSwarms"), false);
         req.setRequestHeader("token",token);
         req.send(null);
         data2 = JSON.parse(req.response).result;
@@ -156,7 +156,7 @@
         delete countyMap, heightMap, sizeMap, insectMap;
 
         var reqBeekeepers = new XMLHttpRequest();
-        reqBeekeepers.open("GET", "http://apiscampus.unice.fr:8080".concat("/api/getBeekeepers"), false);
+        reqBeekeepers.open("GET", "http://localhost:8080".concat("/api/getBeekeepers"), false);
         reqBeekeepers.setRequestHeader("token",token);
         reqBeekeepers.send(null);
         dataBeekeepers = JSON.parse(reqBeekeepers.response).result;

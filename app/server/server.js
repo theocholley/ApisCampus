@@ -54,6 +54,16 @@ MongoClient.connect(url, function (err, db) {
 MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("ApisCampus");
+    dbo.createCollection("admin", function (err, res) {
+        if (err) throw err;
+        console.log("Collection created!");
+        db.close();
+    });
+});
+
+MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("ApisCampus");
     dbo.createCollection("beekeepers", function (err, res) {
         if (err) throw err;
         console.log("Collection created!");
@@ -78,6 +88,7 @@ const http = require('http').Server(app);
 const server = app.listen(process.env.PORT || 8080);
 var swarmList = new SwarmList();
 var beekeeperList = new BeekeeperList();
+var adminList = new BeekeeperList();
 
 
 function init() {
@@ -140,21 +151,20 @@ ProtectedRoutes.use((req, res, next) => {
 
 //Partie Swarms :
 
-app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:description/:county/:numberObs/:size/:insectType/:pic/:idDevice', function (req, res) {
+app.post("/addSwarm",async function(req, res){
     const id = swarmList.getSize();
-    const longitude = req.params.longitude;
-    const latitude = req.params.latitude;
-    const date = req.params.date;
-    const hour = req.params.hour;
-    const feature = req.params.feature;
-    const height = req.params.height;
-    const description = req.params.description;
-    const county = req.params.county;
-    const numberObs = req.params.numberObs;
-    const size = req.params.size;
-    const insectType = req.params.insectType;
-    const pic = req.params.pic;
-    const idDevice = req.params.idDevice;
+    const longitude = req.body.longitude;
+    const latitude = req.body.latitude;
+    const date = req.body.date;
+    const hour = req.body.hour;
+    const feature = req.body.feature;
+    const height = req.body.height;
+    const county = req.body.county;
+    const numberObs = req.body.numberObs;
+    const size = req.body.size;
+    const insectType = req.body.insectType;
+    const pic = req.body.pic;
+    const idDevice = req.body.idDevice;
 
     var swarm = new Swarm(id, latitude, longitude, date, hour, feature, height, description, county, numberObs, size, insectType, pic, false, idDevice);
     swarmList.push(swarm);
@@ -195,6 +205,7 @@ app.get('/addSwarm/:latitude/:longitude/:date/:hour/:feature/:height/:descriptio
     notifyNearestBeekeepers(latitude, longitude);
 });
 
+
 ProtectedRoutes.get('/getSwarms', (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
@@ -226,8 +237,8 @@ ProtectedRoutes.get('/getAvailableSwarms', (req, res) => {
     });
 });
 
-ProtectedRoutes.get('/retrieve/:idSwarm', (req, res) => {
-    const idSwarm = req.params.idSwarm;
+ProtectedRoutes.post('/retrieve', (req, res) => {
+    const idSwarm = req.body.idSwarm;
 
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
@@ -249,19 +260,18 @@ ProtectedRoutes.get('/retrieve/:idSwarm', (req, res) => {
     });
 });
 
-app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:phone/:mail', function (req, res) {
+app.post('/createBeekeeper', function (req, res) {
     const id = beekeeperList.getSize();
-    const name = req.params.name;
-    const surname = req.params.surname;
-    const latCentre = req.params.latCentre;
-    const longCentre = req.params.longCentre;
-    const ray = req.params.ray;
-    const passcode = req.params.passcode;
+    const name = req.body.name;
+    const surname = req.body.surname;
+    const latCentre = req.body.latCentre;
+    const longCentre = req.body.longCentre;
+    const ray = req.body.ray;
+    const passcode = req.body.passcode;
     const hashedPassword = passwordHash.generate(passcode);
 
-    const phone = req.params.phone;
-    const mail = req.params.mail;
-
+    const phone = req.body.phone;
+    const mail = req.body.mail;
 
     var alreadyExists = false;
     var beekeeper = new Beekeeper(id, name, surname, latCentre, longCentre, ray, hashedPassword, phone, mail);
@@ -295,6 +305,7 @@ app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:
             dbo.collection("beekeepers").insertOne(newBeekeeper, function (err, res) {
                 if (err) throw err;
                 console.log("Apiculteur ajouté");
+                welcomeNewAccount(mail);
                 db.close();
             });
         });
@@ -304,7 +315,51 @@ app.get('/createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:
         });
     }
 });
+///updateBeekeeper/:id/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:phone/:mail
+app.post('/updateBeekeeper', function (req, res) {
+    const id = req.body.id;
+    const name = req.body.name;
+    const surname = req.body.surname;
+    const latCentre = req.body.latCentre;
+    const longCentre = req.body.longCentre;
+    const ray = req.body.ray;
+    const passcode = req.body.passcode;
+    const hashedPassword = passwordHash.generate(passcode);
+    const phone = req.body.phone;
+    const mail = req.body.mail;
 
+    var query = { id: id };
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var newBeekeeper = {
+            id: id,
+            name: name,
+            surname: surname,
+            latCentre: latCentre,
+            longCentre: longCentre,
+            ray: ray,
+            passcode: hashedPassword,
+            phone: phone,
+            mail: mail
+        };
+        dbo.collection("beekeepers").deleteOne(query, function (err, res) {
+            if (err) throw err;
+            console.log("Apiculteur supprimé");
+            db.close();
+        });
+        dbo.collection("beekeepers").insertOne(newBeekeeper, function (err, res) {
+            if (err) throw err;
+            console.log("Apiculteur ajouté");
+            welcomeNewAccount(mail);
+            db.close();
+        });
+    });
+    res.send({
+        passed: true,
+        idBeekeeper: id
+    });
+});
 
 app.get('/login/:mail/:passcode', function (req, res) {
     const mail = req.params.mail;
@@ -378,9 +433,9 @@ ProtectedRoutes.get('/getBeekeepers', (req, res) => {
 //Partie reservation
 
 
-ProtectedRoutes.get('/treat/:idApi/:idSwarm', (req, res) => {
-    const idApi = req.params.idApi;
-    const idSwarm = req.params.idSwarm;
+ProtectedRoutes.post('/treat', (req, res) => {
+    const idApi = req.body.idApi;
+    const idSwarm = req.body.idSwarm;
 
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
@@ -438,8 +493,8 @@ ProtectedRoutes.get('/getReservation/:idApi', (req, res) => {
 
 });
 
-ProtectedRoutes.get('/cancelReservation/:idSwarm', (req, res) => {
-    const idSwarm = req.params.idSwarm;
+ProtectedRoutes.post('/cancelReservation', (req, res) => {
+    const idSwarm = req.body.idSwarm;
 
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
@@ -547,4 +602,123 @@ function notifyNearestBeekeepers(latSwarm, longSwarm) {
             !!err ? console.error(err) : res.end();
         });
     }
+}
+
+app.post('/createAdmin', function (req, res) {
+    const id = adminList.getSize();
+    const name = req.body.name;
+    const surname = req.body.surname;
+    const latCentre = req.body.latCentre;
+    const longCentre = req.body.longCentre;
+    const ray = req.body.ray;
+    const passcode = req.body.passcode;
+    const hashedPassword = passwordHash.generate(passcode);
+
+    const phone = req.body.phone;
+    const mail = req.body.mail;
+
+
+    var alreadyExists = false;
+    var beekeeper = new Beekeeper(id, name, surname, latCentre, longCentre, ray, hashedPassword, phone, mail);
+    for (var i = 0; i < adminList.getSize(); i++) {
+        if (adminList.getList()[i].getMail() === beekeeper.getMail()) {
+            alreadyExists = true;
+        }
+    }
+
+    if (alreadyExists) {
+        res.send({
+            passed: false
+        });
+        console.log("admin already exists");
+    } else {
+        adminList.push(beekeeper);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("ApisCampus");
+            var newBeekeeper = {
+                id: id,
+                name: name,
+                surname: surname,
+                latCentre: latCentre,
+                longCentre: longCentre,
+                ray: ray,
+                passcode: hashedPassword,
+                phone: phone,
+                mail: mail
+            };
+            dbo.collection("admin").insertOne(newBeekeeper, function (err, res) {
+                if (err) throw err;
+                console.log("Admin ajouté");
+                welcomeNewAccount(mail);
+                db.close();
+            });
+        });
+        res.send({
+            passed: true,
+            idBeekeeper: id
+        });
+    }
+});
+
+app.get('/getAdmin/:mail/:passcode', function (req, res) {
+    const mail = req.params.mail;
+    const passcode = req.params.passcode;
+
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("ApisCampus");
+        var query = {mail: mail};
+        dbo.collection("admin").find(query).toArray(function (err, result) {
+            if (err) throw err;
+            db.close();
+            if (result.length > 0) {
+                if (passwordHash.verify(passcode, result[0].passcode)) {
+                    const payload = {
+                        check: true
+                    };
+                    var token = jwt.sign(payload, app.get('Secret'), {
+                        expiresIn: 1440
+                    });
+                    res.send({
+                        passed: true,
+                        result: result,
+                        token: token
+                    });
+                } else {
+                    res.send({
+                        passed: false
+                    });
+                }
+            } else {
+                res.send({
+                    passed: false
+                });
+            }
+        });
+    });
+
+});
+
+
+function welcomeNewAccount(mail) {
+    var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'notificationessaim@gmail.com',
+            pass: 'apiscampusapiscampus'
+        }
+    });
+        var mailOptions = {
+            from: 'Bienvenue',
+            to: mail,
+            subject: 'Bienvenue !',
+            text: 'Bonjour et bienvenue sur l\'application! s\'il s\'agit d\'une erreur et que vous ne vous êtes pas inscris, répondez-nous via ce mail directement et nous corrigerons le problème !\nBon tracking !',
+            html: 'Bonjour et bienvenue sur l\'application! s\'il s\'agit d\'une erreur et que vous ne vous êtes pas inscris, répondez-nous via ce mail directement et nous corrigerons le problème !\nBon tracking !'
+        };
+
+        transporter.sendMail(mailOptions, function (err, response) {
+            !!err ? console.error(err) : res.end();
+        });
+
 }
