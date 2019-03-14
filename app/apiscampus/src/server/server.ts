@@ -1,4 +1,6 @@
 import * as Constants from '../utils/constants';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs/Observable";
 
 declare var require: any;
 
@@ -7,118 +9,156 @@ export class Server {
     path: string;
     port: string;
     token: string;
+    config = {
+        headers: {
+            'token': this.token
+        }
+    };
 
-    constructor() {
-      this.path = Constants.PATHSERV;
-      this.port = ':'+Constants.PORT;
-      //this.port = '';
-      this.token = "";
+    constructor(private http: HttpClient) {
+        this.path = Constants.PATHSERV;
+        this.port = ':' + Constants.PORT;
+        this.token = "";
     }
 
     getAllPath() {
         return this.path.concat(this.port);
     }
 
-    addSwarm(longitude, latitude, date, hour, feature, height, description, numberObs, size, insectType, pic, idDevice) {
-      let county = this.getCounty(latitude, longitude);
-      let req = new XMLHttpRequest();
-      req.open("GET", this.getAllPath().concat("/addSwarm/".concat(latitude).concat("/").concat(longitude).concat("/").concat(date).concat("/").concat(hour).concat("/").concat(feature).concat("/").concat(height).concat("/").concat(description).concat("/").concat(county).concat("/").concat(numberObs).concat("/").concat(size).concat("/").concat(insectType).concat("/").concat(pic).concat("/").concat(idDevice)), false);
-      req.send(null);
-      return req;
-    }
+    //METHODES GET
 
     getCounty(lat, long): string {
-      let county = "undefined";
-      let req = new XMLHttpRequest();
-      req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat=" + lat + "&lon=" + long + "&zoom=18&addressdetails=1", false);
-      req.send(null);
-      require('xml2js').parseString(req.responseText, function (err, result) {
-        let jsonResult = JSON.parse(JSON.stringify(result));
-        county = jsonResult.reversegeocode.addressparts[0].postcode;
-        county += ", " + jsonResult.reversegeocode.addressparts[0].county;
-      });
-      return county
-    }
-
-
-    getSwarms() {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/api/getSwarms"), false);
-        req.setRequestHeader("token",this.token);
+        let county = "undefined";
+        let req = new XMLHttpRequest();
+        req.open("GET", "https://nominatim.openstreetmap.org/reverse?format=xml&lat=" + lat + "&lon=" + long + "&zoom=18&addressdetails=1", false);
         req.send(null);
-        return req;
+        require('xml2js').parseString(req.responseText, function (err, result) {
+            let jsonResult = JSON.parse(JSON.stringify(result));
+            county = jsonResult.reversegeocode.addressparts[0].postcode;
+            county += ", " + jsonResult.reversegeocode.addressparts[0].county;
+        });
+        return county
     }
 
-    //getAvailableSwarms
-    getAvailableSwarms() {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/api/getAvailableSwarms"), false);
-        req.setRequestHeader("token",this.token);
-        req.send(null);
-        return req;
+    getSwarms(): Observable<any> {
+        return this.http.get(this.path + '/api/getSwarms', this.config);
     }
 
-    //treat/:idApi/:idSwarm
-    treat(idApi, idSwarm) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/api/treat").concat("/").concat(idApi).concat("/").concat(idSwarm), false);
-        req.setRequestHeader("token",this.token);
-        req.send(null);
-        return req;
+    getAvailableSwarms(): Observable<any> {
+        return this.http.get(this.path + '/api/getAvailableSwarms', this.config);
     }
 
-    ///retrieve/:idSwarm
+    login(mail, passcode): Observable<any> {
+        return this.http.get(this.path + '/login/' + mail + "/" + passcode, this.config);
+    }
+
+    getBeekeepers(): Observable<any> {
+        return this.http.get(this.path + '/api/getBeekeepers', this.config);
+    }
+
+    getReservation(idApi): Observable<any> {
+        return this.http.get(this.path + '/api/getReservation/' + idApi, this.config);
+    }
+
+    //METHODES POST
+    addSwarm(longitude, latitude, date, hour, feature, height, description, numberObs, size, insectType, pic, idDevice) {
+        let county = this.getCounty(latitude, longitude);
+        let obj = {
+            longitude: longitude,
+            latitude: latitude,
+            date: date,
+            hour: hour,
+            feature: feature,
+            height: height,
+            description: description,
+            county: county,
+            numberObs: numberObs,
+            size: size,
+            insectType: insectType,
+            pic: pic,
+            idDevice: idDevice
+        };
+
+        (async () => {
+            const response = await fetch(this.getAllPath().concat('/addSwarm/'), {
+                headers: {
+                    'token': this.token
+                },
+                method: 'POST',
+                body: JSON.stringify(obj)
+            });
+        })();
+    }
+
     retrieve(idSwarm) {
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/api/retrieve").concat("/").concat(idSwarm), false);
-        req.setRequestHeader("token",this.token);
-        req.send(null);
-        return req;
+        let obj = {
+            idSwarm: idSwarm
+        };
+
+        (async () => {
+            const response = await fetch(this.getAllPath().concat('/api/retrieve'), {
+                headers: {
+                    'token': this.token
+                },
+                method: 'POST',
+                body: JSON.stringify(obj)
+            });
+        })();
     }
 
+    treat(idApi, idSwarm) {
+        let obj = {
+            idApi: idApi,
+            idSwarm: idSwarm
+        };
 
-    //Partie Apiculteur :
-
-    ///createBeekeeper/:name/:surname/:latCentre/:longCentre/:ray/:passcode/:phone
-    addBeekeeper(name, surname, latCentre, longCentre, ray, passcode, phone, mail){
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/createBeekeeper/".concat(name).concat("/").concat(surname).concat("/").concat(latCentre).concat("/").concat(longCentre).concat("/").concat(ray).concat("/").concat(passcode).concat("/").concat(phone).concat("/").concat(mail)), false);
-        req.send(null);
-        return req;
+        (async () => {
+            const response = await fetch(this.getAllPath().concat('/api/treat'), {
+                headers: {
+                    'token': this.token
+                },
+                method: 'POST',
+                body: JSON.stringify(obj)
+            });
+        })();
     }
 
-    ///login/:mail/:passcode
-    login(mail, passcode){
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/login/".concat(mail).concat("/").concat(passcode)), false);
-        req.send(null);
-        this.token = JSON.parse(req.response).token;
-        return req;
+    addBeekeeper(name, surname, latCentre, longCentre, ray, passcode, phone, mail) {
+        let obj = {
+            name: name,
+            surname: surname,
+            latCentre: latCentre,
+            longCentre: longCentre,
+            ray: ray,
+            passcode: passcode,
+            phone: phone,
+            mail: mail
+        };
+
+        (async () => {
+            const response = await fetch(this.getAllPath().concat('/createBeekeeper'), {
+                headers: {
+                    'token': this.token
+                },
+                method: 'POST',
+                body: JSON.stringify(obj)
+            });
+        })();
     }
 
-    getBeekeepers(){
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/api/getBeekeepers"), false);
-        req.setRequestHeader("token",this.token);
-        req.send(null);
-        return req;
-    }
+    cancelReservation(idSwarm) {
+        let obj = {
+            idSwarm: idSwarm,
+        };
 
-    ///getReservation/:idApi
-    getReservation(idApi){
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/api/getReservation".concat("/").concat(idApi)), false);
-        req.setRequestHeader("token",this.token);
-        req.send(null);
-        return req;
-    }
-
-    ///cancelReservation/:idSwarm
-    cancelReservation(idSwarm){
-        var req = new XMLHttpRequest();
-        req.open("GET", this.getAllPath().concat("/api/cancelReservation".concat("/").concat(idSwarm)), false);
-        req.setRequestHeader("token",this.token);
-        req.send(null);
-        return req;
+        (async () => {
+            const response = await fetch(this.getAllPath().concat('/api/cancelReservation'), {
+                headers: {
+                    'token': this.token
+                },
+                method: 'POST',
+                body: JSON.stringify(obj)
+            });
+        })();
     }
 }

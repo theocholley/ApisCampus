@@ -1,18 +1,18 @@
-import {NgModule, ErrorHandler} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
+import {NgModule, ErrorHandler} from '@angular/core/core';
+import {BrowserModule} from '@angular/platform-browser/public_api';
+import {IonicApp, IonicModule, IonicErrorHandler} from '../../node_modules/ionic-angular';
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar/index';
+import {SplashScreen} from '@ionic-native/splash-screen/index';
 import {InsectPickerPage} from "../pages/reporting/insect-picker/insect-picker";
 import {MapPage} from "../pages/beekeeper/map/map";
 import {InformationsPage} from "../pages/beekeeper/informations/informations";
 import {ReportPage} from "../pages/reporting/report/report";
 import {CameraOrNotPage} from "../pages/reporting/camera-or-not/camera-or-not";
-import {Geolocation} from '@ionic-native/geolocation';
+import {Geolocation} from '@ionic-native/geolocation/index';
 import {Server} from "../server/server"
-import {Camera} from "@ionic-native/camera";
+import {Camera} from "@ionic-native/camera/index";
 import {SignUpPage} from "../pages/beekeeper/sign-up/sign-up";
 import {LogOrSignPage} from "../pages/beekeeper/log-or-sign/log-or-sign";
 import {Network} from "@ionic-native/network";
@@ -33,7 +33,6 @@ import {SignUpMapPageModule} from "../pages/beekeeper/sign-up-map/sign-up-map.mo
 import {CameraOrNotPageModule} from "../pages/reporting/camera-or-not/camera-or-not.module";
 import {InsectPickerPageModule} from "../pages/reporting/insect-picker/insect-picker.module";
 import {ReportPageModule} from "../pages/reporting/report/report.module";
-
 
 
 @NgModule({
